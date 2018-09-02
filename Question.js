@@ -14,7 +14,7 @@ export default class Question extends Component {
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
-        this.state.rand = Math.round(Math.random()*25);
+        this.state.rand = Math.round(Math.random()*24);
     }
 
     handlePressIn() {
@@ -45,7 +45,7 @@ export default class Question extends Component {
 
                 <Animated.View style={animatedStyle}>
                     <View style={styles.container}>
-                        <Text style={styles.mainText} numberOfLines={2}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>
+                        <Text style={styles.mainText} numberOfLines={4}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>
 
                         <View style={styles.inputcontainer}>
                             <TextInput
@@ -71,8 +71,8 @@ export default class Question extends Component {
 const styles = StyleSheet.create({
     container: {
         borderRadius: 13,
-        width: Dimensions.get('window').width * 0.75,
-        height: Dimensions.get('window').width * 0.75 * 0.52,
+        width: Dimensions.get('window').width * 0.8,
+        height: Dimensions.get('window').width * 0.8 * 0.52,
         backgroundColor: 'white',
         alignItems: 'center',
         alignContent: 'center',
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     mainText: {
         color: 'black',
         fontWeight: '500',
-        fontSize: Dimensions.get('window').width*0.05,
+        fontSize: Dimensions.get('window').width*0.04,
         textAlign: 'center',
         marginVertical: 10
     },
