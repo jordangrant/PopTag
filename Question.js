@@ -3,15 +3,18 @@ import {
     StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Text, TextInput, Keyboard
 } from 'react-native';
-
+import { QUESTIONS } from './entries';
 export default class Question extends Component {
     constructor(props) {
         super(props);
-        this.state = { text: '' };
+        this.state = { 
+            text: '',
+            rand: 0};
     }
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
+        this.state.rand = Math.round(Math.random()*25);
     }
 
     handlePressIn() {
@@ -35,14 +38,14 @@ export default class Question extends Component {
         };
 
         return (
-            <TouchableOpacity activeOpacity={1} style={{ position: 'absolute', top: this.props.top, left: this.props.left }}
+            <TouchableOpacity activeOpacity={1} 
                 onPressIn={this.handlePressIn.bind(this)}
                 onPress={Keyboard.dismiss}
                 onPressOut={this.handlePressOut.bind(this)}>
 
                 <Animated.View style={animatedStyle}>
                     <View style={styles.container}>
-                        <Text style={styles.mainText} numberOfLines={2}>Yo, who is your favourite disney princess Yo, who is your favourite disney princess</Text>
+                        <Text style={styles.mainText} numberOfLines={2}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>
 
                         <View style={styles.inputcontainer}>
                             <TextInput
@@ -74,8 +77,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
-        padding: 30,
-        marginBottom: Dimensions.get('window').height * 0.1
+        padding: 20,
+        marginBottom: Dimensions.get('window').height * 0.3
     },
     inputcontainer: {
         borderRadius: 7,
@@ -89,7 +92,7 @@ const styles = StyleSheet.create({
     mainText: {
         color: 'black',
         fontWeight: '500',
-        fontSize: 17,
+        fontSize: Dimensions.get('window').width*0.05,
         textAlign: 'center',
         marginVertical: 10
     },

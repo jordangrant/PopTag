@@ -9,6 +9,8 @@
 	"dependencies": {
 		"react": "16.0.0-alpha.6",
 		"react-native": "0.44.3",
+		"react-native-shake-event": "^4.0.1",
+		"react-native-view-shot": "^2.4.0",
 		"react-navigation": "^2.12.1"
 	},
 	"devDependencies": {
