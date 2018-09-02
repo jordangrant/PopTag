@@ -303,8 +303,8 @@ const styles = StyleSheet.create({
         height: width * 0.8 * 0.13
     },
     instagrambutton: {
-        width: width * 0.89634,
-        height: width * 0.89634 * 0.14966
+        width: width * 0.89,
+        height: width * 0.89 * 0.14966
     },
     woman: {
         backgroundColor: 'red',
