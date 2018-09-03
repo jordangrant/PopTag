@@ -15,7 +15,7 @@ export default class Question extends Component {
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
-        this.state.rand = Math.round(Math.random() * 24);
+        this.state.rand = Math.round(Math.random() * 591);
     }
 
     handlePressIn() {
@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').width * 0.88 * 0.88888 * 0.19758,
         alignContent: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        padding: 4
     },
     mainText: {
         color: 'black',
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     },
     subtext: {
         color: '#4A4A4A',
-        fontSize: Dimensions.get('window').width * 0.04,
+        fontSize: Dimensions.get('window').width * 0.043,
         textAlign: 'center'
     }
 });
