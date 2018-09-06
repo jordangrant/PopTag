@@ -15,8 +15,12 @@ export default class Balloon extends Component {
 
     handlePressIn() {
         Animated.spring(this.animatedValue, {
-            toValue: 1.5
+            toValue: 2
         }).start()
+
+        setTimeout(() => {
+            this.pop()
+          }, 300)
     }
 
     handlePressOut() {
@@ -29,7 +33,11 @@ export default class Balloon extends Component {
 
     pop() {
         if (this.props.popped === false) {
+            this.props.playPop();
             this.props.pop(this.props.id);
+        }
+        else {
+            this.props.playWoosh();
         }
     }
 
@@ -42,7 +50,7 @@ export default class Balloon extends Component {
         return (
             <TouchableOpacity activeOpacity={1} style={{ position: 'absolute', top: this.props.top, left: this.props.left }}
                 onPressIn={this.handlePressIn.bind(this)}
-                onPress={() => this.pop()}
+                //onPress={() => this.pop()}
                 onPressOut={this.handlePressOut.bind(this)}>
 
                 <Animated.View style={animatedStyle}>

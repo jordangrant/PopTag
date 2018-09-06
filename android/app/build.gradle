@@ -126,6 +126,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-sound')
+    compile project(':react-native-contacts')
     compile project(':react-native-view-shot')
     compile project(':react-native-shake-event')
     compile fileTree(dir: "libs", include: ["*.jar"])

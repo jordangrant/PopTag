@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSContactsUsageDescription</key>
+	<string>PopTag allows you to add contacts without leaving the app.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -38,9 +40,9 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Pop Tag will save your answers to Camera Roll.</string>
+	<string>PopTag will save your answers to Camera Roll.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Pop Tag will save your answers to Camera Roll.</string>
+	<string>PopTag will save your answers to Camera Roll.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

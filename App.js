@@ -13,9 +13,11 @@ import RNShakeEvent from 'react-native-shake-event';
 import Balloon from './Balloon';
 import Question from './Question';
 import Dialogue from './Dialogue';
+import Contacts from 'react-native-contacts';
+import Sound from 'react-native-sound';
 
-const width = Dimensions.get('window').width * 0.43733;
-const height = width * 0.34146;
+const width = Dimensions.get('window').width * 0.264;
+const height = width * 0.5656;
 
 const topR1 = Dimensions.get('window').height * 0.2166;
 const topR2 = topR1 + 62;
@@ -26,9 +28,26 @@ const leftC1 = 0;
 const leftC2 = Dimensions.get('window').width / 2 - 62.5;
 const leftC3 = Dimensions.get('window').width - 125;
 
+var woosh = new Sound('woosh.m4a', Sound.MAIN_BUNDLE, (error) => {
+    if (error) {
+        console.log('failed to load the sound', error);
+        return;
+    }
+});
+
+var pop = new Sound('pop.m4a', Sound.MAIN_BUNDLE, (error) => {
+    if (error) {
+        console.log('failed to load the sound', error);
+        return;
+    }
+});
+
 export default class PopTag extends Component {
     constructor(props) {
         super(props);
+
+        //Sound.setCategory('Playback');
+
         this.state = {
             balloons: [
                 { id: 0, top: topR2, left: leftC1, popped: false },
@@ -40,7 +59,7 @@ export default class PopTag extends Component {
                 { id: 6, top: topR4, left: leftC3, popped: false },
             ],
             displayQuestion: false,
-            background: ['#F4FA58', '#4A90E2', '#B8E986', '#50E3C2','black'],
+            background: ['#F4FA58', '#4A90E2', '#B8E986', '#50E3C2', 'black'],
             bgColor: 0,
             dialogue: false,
             bottomHeight: 25
@@ -78,14 +97,14 @@ export default class PopTag extends Component {
         this.forceUpdate();
     }
 
-    componentDidMount () {
+    componentDidMount() {
         // this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
         //     this._keyboardDidShow();
         // });
         // this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
         //     this._keyboardDidHide();
         // });
-      }
+    }
 
     componentWillUnmount() {
         RNShakeEvent.removeEventListener('shake');
@@ -111,6 +130,26 @@ export default class PopTag extends Component {
             friction: 5,
             tension: 5
         }).start()
+    }
+
+    playWoosh() {
+        woosh.play((success) => {
+            if (success) {
+                console.log('successfully finished playing');
+            } else {
+                console.log('playback failed due to audio decoding errors');
+            }
+        });
+    }
+
+    playPop() {
+        pop.play((success) => {
+            if (success) {
+                console.log('successfully finished playing');
+            } else {
+                console.log('playback failed due to audio decoding errors');
+            }
+        });
     }
 
     navigateToInstagram() {
@@ -155,6 +194,18 @@ export default class PopTag extends Component {
         this.setState({ displayQuestion: false });
     }
 
+    addContact() {
+        var newPerson = {
+            //familyName: "Attrac",
+            //givenName: "Friedrich",
+        }
+
+        Contacts.openContactForm(newPerson, (err) => {
+            if (err) throw err;
+            // form is open
+        })
+    }
+
     toggleDialogue() {
         this.setState({ dialogue: !this.state.dialogue });
     }
@@ -169,7 +220,8 @@ export default class PopTag extends Component {
 
     renderBalloons() {
         return this.state.balloons.map(b =>
-            <Balloon key={b.id} top={b.top} left={b.left} id={b.id} popped={b.popped} pop={this.popBalloon.bind(this)} />
+            <Balloon key={b.id} top={b.top} left={b.left} id={b.id} popped={b.popped} pop={this.popBalloon.bind(this)}
+             playPop={() => this.playPop()} playWoosh={() => this.playWoosh()}/>
         );
     }
 
@@ -204,11 +256,15 @@ export default class PopTag extends Component {
                         {this.state.dialogue ? this.renderDialogue() :
                             this.state.displayQuestion ? this.renderQuestion() : this.renderBalloons()}
 
-                        <TouchableOpacity activeOpacity={0.9} style={[styles.button1, {bottom: this.state.bottomHeight}]} onPress={() => this.toggleDialogue()}>
-                            <Image style={styles.whatisthis} source={{ uri: 'whatisthis' }} />
+                        <TouchableOpacity activeOpacity={0.9} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
+                            <Image style={styles.whatisthis} source={{ uri: 'contacts' }} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity activeOpacity={0.9} style={[styles.button2, {bottom: this.state.bottomHeight}]} onPress={() => this.navigateToInstagram()}>
+                        <TouchableOpacity activeOpacity={0.9} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
+                            <Image style={styles.instagrambutton} source={{ uri: 'whatisthis' }} />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity activeOpacity={0.9} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
                             <Image style={styles.instagrambutton} source={{ uri: 'poptagtv' }} />
                         </TouchableOpacity>
                     </View>
@@ -228,11 +284,15 @@ export default class PopTag extends Component {
                             this.state.displayQuestion ? this.renderQuestion() : this.renderBalloons()}
 
 
-                        <TouchableOpacity activeOpacity={0.9} style={[styles.button1, {bottom: this.state.bottomHeight}]} onPress={() => this.toggleDialogue()}>
-                            <Image style={styles.whatisthis} source={{ uri: 'whatisthis' }} />
+                        <TouchableOpacity activeOpacity={0.9} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
+                            <Image style={styles.whatisthis} source={{ uri: 'contacts' }} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity activeOpacity={0.9} style={[styles.button2, {bottom: this.state.bottomHeight}]} onPress={() => this.navigateToInstagram()}>
+                        <TouchableOpacity activeOpacity={0.9} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
+                            <Image style={styles.instagrambutton} source={{ uri: 'whatisthis' }} />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity activeOpacity={0.9} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
                             <Image style={styles.instagrambutton} source={{ uri: 'poptagtv' }} />
                         </TouchableOpacity>
                     </Image>
@@ -255,7 +315,7 @@ const styles = StyleSheet.create({
     },
     button1: {
         position: 'absolute',
-        left: 16,
+        left: 26,
         borderRadius: 8,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
@@ -270,7 +330,22 @@ const styles = StyleSheet.create({
     },
     button2: {
         position: 'absolute',
-        right: 16,
+        borderRadius: 8,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        backgroundColor: '#4CAF50',
+        alignSelf: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
+        width: width,
+        height: height,
+    },
+    button3: {
+        position: 'absolute',
+        right: 26,
         borderRadius: 8,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
