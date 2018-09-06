@@ -15,7 +15,7 @@ export default class Question extends Component {
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
-        this.state.rand = Math.round(Math.random() * 591);
+        this.state.rand = Math.round(Math.random() * 689);
     }
 
     handlePressIn() {

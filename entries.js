@@ -257,7 +257,7 @@ export const QUESTIONS = [
   },
   {
     "id": 64,
-    "question": "Would you rather be put in a maximum security federal prison with the hardest of the hardened criminals for one year or be put in a relatively relaxed prison where wall street types are held for ten years?"
+    "question": "Would you rather be put in a maximum security prison with the hardest of criminals for one year or be put in a relaxed prison where wall street types are held for ten years?"
   },
   {
     "id": 65,
@@ -469,7 +469,7 @@ export const QUESTIONS = [
   },
   {
     "id": 117,
-    "question": "Would you rather wake up every morning with a new hundred-dollar bill in your pocket but not know where it came from or wake up every morning with a new fifty-dollar bill in your pocket and know where it comes from?"
+    "question": "Would you rather wake up every morning with a new $100 bill but not know where it came from or wake up every morning with a new $50 bill and know where it comes from?"
   },
   {
     "id": 118,
@@ -481,7 +481,7 @@ export const QUESTIONS = [
   },
   {
     "id": 120,
-    "question": "Would you rather have a boomerang that would find and kill any one person of your choosing, anywhere in the world, but can only be used once or a boomerang that always returns to you with one dollar?"
+    "question": "Would you rather have a boomerang that can kill any 1 person of your choosing in the world, but can only be used once or a boomerang that always returns to you with one dollar?"
   },
   {
     "id": 121,
@@ -601,7 +601,7 @@ export const QUESTIONS = [
   },
   {
     "id": 150,
-    "question": "Would you rather always have a great body for your entire life but have slightly below average intelligence or have a mediocre body for your entire life but be slightly above average in intelligence?"
+    "question": "Would you rather always have a great body for your entire life but have below average intelligence or have a mediocre body for your entire life but have above average intelligence?"
   },
   {
     "id": 151,
@@ -645,7 +645,7 @@ export const QUESTIONS = [
   },
   {
     "id": 161,
-    "question": "Would you rather have all animals feel compelled to obey you if you come within 10 feet of them or be given the opportunity to genetically design a pet that will be loyal only to you with the combined DNA of three animals?"
+    "question": "Would you rather have all animals feel compelled to obey you or be given the opportunity to genetically design a pet that will be loyal only to you?"
   },
   {
     "id": 162,
@@ -721,15 +721,15 @@ export const QUESTIONS = [
   },
   {
     "id": 180,
-    "question": "Would you rather vomit uncontrollably for one-minute every time you hear the happy birthday song or get a headache that lasts for the rest of the day every time you see a bird (including in pictures or a video)?"
+    "question": "Would you rather vomit uncontrollably for 1 minute every time you hear the happy birthday song or get a headache that lasts all day every time you see a bird (including in pics & video)?"
   },
   {
     "id": 181,
-    "question": "Would you rather be hired for a well-paying job that you lied to get and have no idea how to do or be about to give the most important presentation of your life but you can't remember any of the material you prepared?"
+    "question": "Would you rather be hired for a well-paying job that you lied to get and have no idea how to do or blank before the most important presentation of your life?"
   },
   {
     "id": 182,
-    "question": "Would you rather walk around work or school for the whole day without realizing there is a giant brown stain on the back of your pants or realize the deadline for an important project was yesterday?"
+    "question": "Would you rather walk around work or school for the whole day with a giant brown stain on the back of your pants unknowingly or realize the deadline for an important project was yesterday?"
   },
   {
     "id": 183,
@@ -737,7 +737,7 @@ export const QUESTIONS = [
   },
   {
     "id": 184,
-    "question": "Would you rather have someone impersonating you and doing amazing things that you get the credit for or find money hidden in weird places all around your house every day but with no explanation how it gets there?"
+    "question": "Would you rather have someone impersonating you and doing amazing things that you get the credit for or find money hidden in weird places all around your house everyday?"
   },
   {
     "id": 185,
@@ -2370,5 +2370,397 @@ export const QUESTIONS = [
   {
     "id": 592,
     "question": "What are you afraid people see when they look at you?"
+  },
+  {
+    "id": 593,
+    "question": "What is the silliest recent fashion trend?"
+  },
+  {
+    "id": 594,
+    "question": "What technology from science fiction do you wish existed?"
+  },
+  {
+    "id": 595,
+    "question": "What is the dumbest chorus from a recent song?"
+  },
+  {
+    "id": 596,
+    "question": "After you survive the apocalypse, what will your job be?"
+  },
+  {
+    "id": 597,
+    "question": "What job would you be absolutely terrible at?"
+  },
+  {
+    "id": 598,
+    "question": "What would your perfect Saturday be like?"
+  },
+  {
+    "id": 599,
+    "question": "What mildly annoying curse do you wish you could curse people with?"
+  },
+  {
+    "id": 600,
+    "question": "How much would you pay a hacker threatening to release your browsing history to your friends and family?"
+  },
+  {
+    "id": 601,
+    "question": "If your life had a mascot, what would the mascot be?"
+  },
+  {
+    "id": 602,
+    "question": "What easy thing do you most often screw up?"
+  },
+  {
+    "id": 603,
+    "question": "What would be the worst ingredients to fill a burrito with?"
+  },
+  {
+    "id": 604,
+    "question": "If you could choose one celebrity to instantly become disappear from the spot light, which celebrity would you choose and why?"
+  },
+  {
+    "id": 605,
+    "question": "If you had to replace your hands with something other than hands or claws, what would put at the ends of your arms?"
+  },
+  {
+    "id": 606,
+    "question": "What's something that people think makes them look cool but actually has the opposite effect?"
+  },
+  {
+    "id": 607,
+    "question": "What futuristic thing do you wish your clothing or accessories could do?"
+  },
+  {
+    "id": 608,
+    "question": "If you could level up humans as a species, what stat or ability would you increase?"
+  },
+  {
+    "id": 609,
+    "question": "Which�movie sequel�do you wish you could erase from history?"
+  },
+  {
+    "id": 610,
+    "question": "If you suddenly found out that your internal monologue for the last week was actually audible, how screwed would you be?"
+  },
+  {
+    "id": 611,
+    "question": "What is the funniest doomsday device a super villain could threaten the world with?"
+  },
+  {
+    "id": 612,
+    "question": "What's the silliest invention you have heard of?"
+  },
+  {
+    "id": 613,
+    "question": "What would your perfect vacation entail?"
+  },
+  {
+    "id": 614,
+    "question": "What was the funniest way that you have been injured?"
+  },
+  {
+    "id": 615,
+    "question": "If your life was a movie, what songs would be on the soundtrack?"
+  },
+  {
+    "id": 616,
+    "question": "What scene from a TV show will you never forget?"
+  },
+  {
+    "id": 617,
+    "question": "What�movie trope�annoys you the most?"
+  },
+  {
+    "id": 618,
+    "question": "If coffee was illegal, what would its street name be?"
+  },
+  {
+    "id": 619,
+    "question": "What TV catch phrase do you most enjoy using?"
+  },
+  {
+    "id": 620,
+    "question": "What terrible movie do you love?"
+  },
+  {
+    "id": 621,
+    "question": "What song do you have to sing along with when you hear it?"
+  },
+  {
+    "id": 622,
+    "question": "What golden age are we currently living through?"
+  },
+  {
+    "id": 623,
+    "question": "If you had to become an inanimate object for a year, what object would you choose to be?"
+  },
+  {
+    "id": 624,
+    "question": "If someone painted a portrait of you, how would it look (clothes, background, pose, etc.) and what else would be in the painting with you?"
+  },
+  {
+    "id": 625,
+    "question": "What game are / were you really good at?"
+  },
+  {
+    "id": 626,
+    "question": "If you were a DJ, what would your DJ name be?"
+  },
+  {
+    "id": 627,
+    "question": "Which movie do they need to a sequel to?"
+  },
+  {
+    "id": 628,
+    "question": "What would be the most ironic way that someone could die?"
+  },
+  {
+    "id": 629,
+    "question": "What reality TV show would you most like to see made?"
+  },
+  {
+    "id": 630,
+    "question": "What is the most unprofessional thing you've seen someone do?"
+  },
+  {
+    "id": 631,
+    "question": "You can have one secret video / audio feed from anywhere in the world. Where do you put it?"
+  },
+  {
+    "id": 632,
+    "question": "The last thing you ate is now the only thing you can eat. How soon do you die?"
+  },
+  {
+    "id": 633,
+    "question": "If you have a logo instead of a name, what would it look like?"
+  },
+  {
+    "id": 634,
+    "question": "You are about to get into a fight, what song comes on as your soundtrack?"
+  },
+  {
+    "id": 635,
+    "question": "What word do you always misspell?"
+  },
+  {
+    "id": 636,
+    "question": "Would you enjoy a vacation away from all of your technology?"
+  },
+  {
+    "id": 637,
+    "question": "What is the ugliest vegetable?"
+  },
+  {
+    "id": 638,
+    "question": "What product would you seriously stockpile if you found out they weren't going to sell it anymore?"
+  },
+  {
+    "id": 639,
+    "question": "What is the absolute�worst movie�you have ever seen?"
+  },
+  {
+    "id": 640,
+    "question": "What food do you crave most often?"
+  },
+  {
+    "id": 641,
+    "question": "What is the grossest sounding English word?"
+  },
+  {
+    "id": 642,
+    "question": "What silliest thing you get nostalgic for?"
+  },
+  {
+    "id": 643,
+    "question": "When is lying the right thing to do?"
+  },
+  {
+    "id": 644,
+    "question": "What is your version of \"There's two types of people in this world�\"?"
+  },
+  {
+    "id": 645,
+    "question": "If you could only eat one food for the rest of your life, what would it be?"
+  },
+  {
+    "id": 646,
+    "question": "What is your dream car?"
+  },
+  {
+    "id": 647,
+    "question": "If you opened a restaurant, what kind of restaurant would it be?"
+  },
+  {
+    "id": 648,
+    "question": "What quote do you (try to) live by?"
+  },
+  {
+    "id": 649,
+    "question": "What is your hometown famous for?"
+  },
+  {
+    "id": 650,
+    "question": "Do you think the world would be a better or worse place if everyone suddenly could read each other's thoughts?"
+  },
+  {
+    "id": 651,
+    "question": "If you lived in a tribal society, what role would you play? (Hunter, gatherer, shaman, chieftain, etc.)"
+  },
+  {
+    "id": 652,
+    "question": "Which appliance can you not live without?"
+  },
+  {
+    "id": 653,
+    "question": "Whose advice do you always listen to?"
+  },
+  {
+    "id": 654,
+    "question": "Would you go to another planet even if it meant that you would never return to earth and eventually die on that planet?"
+  },
+  {
+    "id": 655,
+    "question": "Would you rather take a two week all expenses paid vacation right now or a one month all expenses paid vacation in one year?"
+  },
+  {
+    "id": 656,
+    "question": "What was the last thing you created?"
+  },
+  {
+    "id": 657,
+    "question": "Who is a better cook your mother or grandmother?"
+  },
+  {
+    "id": 658,
+    "question": "What book do you wish would be turned into a movie?"
+  },
+  {
+    "id": 659,
+    "question": "Is there an app that you hate but use anyways?"
+  },
+  {
+    "id": 660,
+    "question": "What was the last thing that you fixed?"
+  },
+  {
+    "id": 661,
+    "question": "Could you survive in the wilderness for a month?"
+  },
+  {
+    "id": 662,
+    "question": "What are some songs you know by heart?"
+  },
+  {
+    "id": 663,
+    "question": "What piece of technology brings you the most joy?"
+  },
+  {
+    "id": 664,
+    "question": "If you could rename the street you lived on, what would you rename it?"
+  },
+  {
+    "id": 665,
+    "question": "What do your clothes say about you?"
+  },
+  {
+    "id": 666,
+    "question": "What's your \"going to bed\" routine?"
+  },
+  {
+    "id": 667,
+    "question": "What animal best represents your personality?"
+  },
+  {
+    "id": 668,
+    "question": "What piece of clothing or accessory can someone wear that immediately makes you have a bad opinion of them as a person?"
+  },
+  {
+    "id": 669,
+    "question": "What's the fullest you've ever been?"
+  },
+  {
+    "id": 670,
+    "question": "What behaviors make you think a person is creepy?"
+  },
+  {
+    "id": 671,
+    "question": "Who in the movie business seems the most down to earth?"
+  },
+  {
+    "id": 672,
+    "question": "What's the funniest or most amazing cell phone cover you have seen?"
+  },
+  {
+    "id": 673,
+    "question": "Which musical artist is greatly overrated?"
+  },
+  {
+    "id": 674,
+    "question": "What company of franchise do you wish would go out of business?"
+  },
+  {
+    "id": 675,
+    "question": "What's the perfect temperature to set the thermostat at?"
+  },
+  {
+    "id": 676,
+    "question": "Who around you has the worst luck?"
+  },
+  {
+    "id": 677,
+    "question": "What's your favorite sounding word?"
+  },
+  {
+    "id": 678,
+    "question": "What's the weirdest thing that has happened to you in a car?"
+  },
+  {
+    "id": 679,
+    "question": "If you could fit your whole life into one picture what would it look like?"
+  },
+  {
+    "id": 680,
+    "question": "What's something that can't be found or bought on the internet?"
+  },
+  {
+    "id": 681,
+    "question": "What should the first colony on another planet be called?"
+  },
+  {
+    "id": 682,
+    "question": "If you put out a magazine, what would you name it and what would be in it?"
+  },
+  {
+    "id": 683,
+    "question": "If you were challenged to a duel, what weapons would you choose?"
+  },
+  {
+    "id": 684,
+    "question": "What villain do you really feel for?"
+  },
+  {
+    "id": 685,
+    "question": "What is the most interesting thing you could do with 400 pounds of cheddar cheese?"
+  },
+  {
+    "id": 686,
+    "question": "What did you think you were good at but are actually quite bad at?"
+  },
+  {
+    "id": 687,
+    "question": "What in a trailer automatically makes you assume a movie will be horrible?"
+  },
+  {
+    "id": 688,
+    "question": "What game do you wish you could act out in real life?"
+  },
+  {
+    "id": 689,
+    "question": "What are you really happy about being terrible at?"
+  },
+  {
+    "id": 690,
+    "question": "What would be the funniest thing to fill a pinata with?"
   }
 ]

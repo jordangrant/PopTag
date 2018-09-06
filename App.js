@@ -19,7 +19,7 @@ import Sound from 'react-native-sound';
 const width = Dimensions.get('window').width * 0.264;
 const height = width * 0.5656;
 
-const topR1 = Dimensions.get('window').height * 0.2166;
+const topR1 = Dimensions.get('window').height * 0.2;
 const topR2 = topR1 + 62;
 const topR3 = topR1 + 138;
 const topR4 = topR1 + 206;
@@ -42,6 +42,16 @@ var pop = new Sound('pop.m4a', Sound.MAIN_BUNDLE, (error) => {
     }
 });
 
+const GIFS = {
+    image0: require('./assets/office.gif'),
+    image1: require('./assets/coke.gif'),
+    image2: require('./assets/cosmo.gif'),
+    image3: require('./assets/baseball.gif'),
+    image4: require('./assets/hilary.gif'),
+    image5: require('./assets/peanuts.gif'),
+    image6: require('./assets/chris.gif'),
+  }
+
 export default class PopTag extends Component {
     constructor(props) {
         super(props);
@@ -59,8 +69,10 @@ export default class PopTag extends Component {
                 { id: 6, top: topR4, left: leftC3, popped: false },
             ],
             displayQuestion: false,
+            displayGif: false,
             background: ['#F4FA58', '#4A90E2', '#B8E986', '#50E3C2'],
             bgColor: 0,
+            gif: 0,
             dialogue: false,
             bottomHeight: 25
         };
@@ -76,6 +88,12 @@ export default class PopTag extends Component {
         AsyncStorage.getItem('bgColor').then(b => {
             if (b !== null) {
                 this.setState({ bgColor: parseInt(b) });
+            }
+        })
+
+        AsyncStorage.getItem('gif').then(b => {
+            if (b !== null) {
+                this.setState({ gif: parseInt(b) });
             }
         })
 
@@ -115,6 +133,7 @@ export default class PopTag extends Component {
     async save() {
         await AsyncStorage.setItem('balloons', JSON.stringify(this.state.balloons));
         await AsyncStorage.setItem('bgColor', JSON.stringify(this.state.bgColor));
+        await AsyncStorage.setItem('gif', JSON.stringify(this.state.gif));
         console.log('balloons:' + JSON.stringify(this.state.balloons));
     }
 
@@ -152,6 +171,19 @@ export default class PopTag extends Component {
         });
     }
 
+    dismissGif() {
+        if (this.state.gif < 6) {
+            this.setState({ gif: (this.state.gif + 1) });
+            this.save();
+        }
+        else {
+            this.setState({ gif: 0 });
+            this.save();
+        }
+
+        this.setState({ displayGif: false })
+    }
+
     navigateToInstagram() {
         if (Platform.OS === 'ios') {
             Linking.openURL('instagram://user?username=poptagtv')
@@ -171,15 +203,20 @@ export default class PopTag extends Component {
         this.setState({ balloons: tempBalloons });
 
         if (tempBalloons.filter(b => b.popped).length === tempBalloons.length) {
-            var balloons = this.state.balloons.map(b => {
-                b.popped = false;
-                return b;
-            });
-            this.setState({ balloons: balloons });
+            this.resetBalloons();
         }
 
         this.setState({ displayQuestion: true });
         this.save();
+    }
+
+    resetBalloons() {
+        var balloons = this.state.balloons.map(b => {
+            b.popped = false;
+            return b;
+        });
+        this.setState({ displayGif: true });
+        this.setState({ balloons: balloons });
     }
 
     submitAnswer() {
@@ -235,6 +272,14 @@ export default class PopTag extends Component {
         return <Dialogue toggleDialogue={this.toggleDialogue.bind(this)} />
     }
 
+    renderGif() {
+        return (
+            <TouchableOpacity activeOpacity={1} onPress={() => this.dismissGif()}>
+                <Image source={GIFS['image' + this.state.gif]}/>
+            </TouchableOpacity>
+        )
+    }
+
     render() {
 
         const animatedStyle = {
@@ -253,15 +298,15 @@ export default class PopTag extends Component {
                         </Animated.View>
                     </TouchableOpacity>
 
-                    {this.state.dialogue ? this.renderDialogue() :
-                        this.state.displayQuestion ? this.renderQuestion() : this.renderBalloons()}
+                    {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() :
+                         this.state.displayGif ? this.renderGif() : this.renderBalloons()}
 
-                    <TouchableOpacity activeOpacity={0.9} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
-                        <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
+                    <TouchableOpacity activeOpacity={0.9} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
+                        <Image style={styles.ibutton} source={{ uri: 'ibutton' }} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={0.9} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
-                        <Image style={styles.ibutton} source={{ uri: 'ibutton' }} />
+                    <TouchableOpacity activeOpacity={0.9} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
+                        <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={0.9} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
@@ -292,7 +337,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.5,
         shadowRadius: 4,
-        backgroundColor: '#FD3B00',
+        backgroundColor: '#4CAF50',
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
@@ -306,7 +351,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.5,
         shadowRadius: 4,
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#FD3B00',
         alignSelf: 'center',
         alignItems: 'center',
         alignContent: 'center',
