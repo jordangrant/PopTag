@@ -59,7 +59,7 @@ export default class PopTag extends Component {
                 { id: 6, top: topR4, left: leftC3, popped: false },
             ],
             displayQuestion: false,
-            background: ['#F4FA58', '#4A90E2', '#B8E986', '#50E3C2', 'black'],
+            background: ['#F4FA58', '#4A90E2', '#B8E986', '#50E3C2'],
             bgColor: 0,
             dialogue: false,
             bottomHeight: 25
@@ -82,7 +82,7 @@ export default class PopTag extends Component {
         this.animatedValue = new Animated.Value(1);
 
         RNShakeEvent.addEventListener('shake', () => {
-            if (this.state.bgColor < 4) {
+            if (this.state.bgColor < 3) {
                 this.setState({ bgColor: (this.state.bgColor + 1) });
                 this.save();
                 this.forceUpdate();
@@ -207,7 +207,9 @@ export default class PopTag extends Component {
     }
 
     toggleDialogue() {
-        this.setState({ dialogue: !this.state.dialogue });
+        if (this.state.displayQuestion == false) {
+            this.setState({ dialogue: !this.state.dialogue });
+        }
     }
 
     _keyboardDidShow() {
@@ -221,7 +223,7 @@ export default class PopTag extends Component {
     renderBalloons() {
         return this.state.balloons.map(b =>
             <Balloon key={b.id} top={b.top} left={b.left} id={b.id} popped={b.popped} pop={this.popBalloon.bind(this)}
-             playPop={() => this.playPop()} playWoosh={() => this.playWoosh()}/>
+                playPop={() => this.playPop()} playWoosh={() => this.playWoosh()} />
         );
     }
 
@@ -241,62 +243,31 @@ export default class PopTag extends Component {
 
         return (
             <View style={styles.base}>
-                {this.state.bgColor < 4
-                    ?
-                    <View style={[styles.container, { backgroundColor: this.state.background[this.state.bgColor] }]}>
+                <View style={[styles.container, { backgroundColor: this.state.background[this.state.bgColor] }]}>
 
-                        <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
-                            onPressIn={this.handlePressIn.bind(this)}
-                            onPressOut={this.handlePressOut.bind(this)}>
-                            <Animated.View style={animatedStyle}>
-                                <Image style={styles.header} source={{ uri: 'ptlogored' }} />
-                            </Animated.View>
-                        </TouchableOpacity>
+                    <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
+                        onPressIn={this.handlePressIn.bind(this)}
+                        onPressOut={this.handlePressOut.bind(this)}>
+                        <Animated.View style={animatedStyle}>
+                            <Image style={styles.header} source={{ uri: 'ptlogored' }} />
+                        </Animated.View>
+                    </TouchableOpacity>
 
-                        {this.state.dialogue ? this.renderDialogue() :
-                            this.state.displayQuestion ? this.renderQuestion() : this.renderBalloons()}
+                    {this.state.dialogue ? this.renderDialogue() :
+                        this.state.displayQuestion ? this.renderQuestion() : this.renderBalloons()}
 
-                        <TouchableOpacity activeOpacity={0.9} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
-                            <Image style={styles.whatisthis} source={{ uri: 'contacts' }} />
-                        </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.9} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
+                        <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
+                    </TouchableOpacity>
 
-                        <TouchableOpacity activeOpacity={0.9} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
-                            <Image style={styles.instagrambutton} source={{ uri: 'whatisthis' }} />
-                        </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.9} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
+                        <Image style={styles.ibutton} source={{ uri: 'ibutton' }} />
+                    </TouchableOpacity>
 
-                        <TouchableOpacity activeOpacity={0.9} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
-                            <Image style={styles.instagrambutton} source={{ uri: 'poptagtv' }} />
-                        </TouchableOpacity>
-                    </View>
-                    :
-                    <Image source={{ uri: 'monroe' }} style={styles.woman}>
-
-                        <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
-                            onPressIn={this.handlePressIn.bind(this)}
-                            onPressOut={this.handlePressOut.bind(this)}>
-                            <Animated.View style={animatedStyle}>
-                                <Image style={styles.header} source={{ uri: 'ptlogored' }} />
-                            </Animated.View>
-                        </TouchableOpacity>
-
-
-                        {this.state.dialogue ? this.renderDialogue() :
-                            this.state.displayQuestion ? this.renderQuestion() : this.renderBalloons()}
-
-
-                        <TouchableOpacity activeOpacity={0.9} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
-                            <Image style={styles.whatisthis} source={{ uri: 'contacts' }} />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity activeOpacity={0.9} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
-                            <Image style={styles.instagrambutton} source={{ uri: 'whatisthis' }} />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity activeOpacity={0.9} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
-                            <Image style={styles.instagrambutton} source={{ uri: 'poptagtv' }} />
-                        </TouchableOpacity>
-                    </Image>
-                }
+                    <TouchableOpacity activeOpacity={0.9} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
+                        <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
@@ -373,13 +344,19 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         marginTop: 30,
     },
-    whatisthis: {
-        width: width * 0.8,
-        height: width * 0.8 * 0.13
+    contacts: {
+        width: width * 0.303,
+        height: width * 0.303 * 1.0778947368,
+        tintColor: 'white'
     },
     instagrambutton: {
-        width: width * 0.89,
-        height: width * 0.89 * 0.14966
+        width: width * 0.303 * 1.0778947368,
+        height: width * 0.303 * 1.0778947368,
+        tintColor: 'white'
+    },
+    ibutton: {
+        width: width * 0.303 * 1.0778947368,
+        height: width * 0.303 * 1.0778947368
     },
     woman: {
         backgroundColor: 'red',
