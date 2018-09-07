@@ -429,6 +429,8 @@
 			children = (
 				F4C4BCA4993047369FAD87AB /* libRNShakeEvent.a */,
 				CC0D0E423DC3477F85C7A8C6 /* libRNViewShot.a */,
+				7346371FE5F54DD5AF15AB73 /* libRCTContacts.a */,
+				EF94E2FE8BC8470E9492F5BA /* libRNSound.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";

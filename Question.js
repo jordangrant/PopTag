@@ -9,7 +9,7 @@ export default class Question extends Component {
         super(props);
         this.state = {
             text: '',
-            rand: 0
+            rand: 0,
         };
     }
 
@@ -45,18 +45,18 @@ export default class Question extends Component {
                 onPressOut={this.handlePressOut.bind(this)}>
 
                 <Animated.View style={animatedStyle}>
-                    <View style={styles.container}>
+                    <View style={this.state.text !== '' ? styles.container2 : styles.container}>
                         <Text style={styles.mainText} numberOfLines={4}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>
 
                         <View style={styles.inputcontainer}>
                             <TextInput
-                                style={[styles.subtext, { height: 40, textAlign: 'center'}]}
+                                style={[styles.subtext, { height: 40, textAlign: 'center' }]}
                                 autoFocus={true}
                                 placeholder={'Type something…'}
                                 placeholderTextColor={'rgba(74,74,74,0.5)'}
                                 onChangeText={(text) => this.setState({ text })}
                                 value={this.state.text}
-                                onSubmitEditing={() => this.props.submit()}
+                                //onSubmitEditing={() => this.props.submit()}
                                 enablesReturnKeyAutomatically={true}
                                 returnKeyType={'done'}
                                 blurOnSubmit={true}
@@ -66,6 +66,13 @@ export default class Question extends Component {
                             />
                         </View>
                     </View>
+
+                    {this.state.text !== '' ? 
+                    <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.props.submit()}>
+                            <Text style={styles.send}>Send</Text>
+                    </TouchableOpacity>
+                    : null}
+
                 </Animated.View>
             </TouchableOpacity>
 
@@ -84,6 +91,31 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20,
         marginBottom: Dimensions.get('window').height * 0.23
+    },
+    container2: {
+        borderTopLeftRadius: 13,
+        borderTopRightRadius: 13,
+        width: Dimensions.get('window').width * 0.8,
+        height: Dimensions.get('window').width * 0.88 * 0.52,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
+        padding: 20,
+        marginBottom: Dimensions.get('window').height * 0.23
+    },
+    blue: {
+        position: 'absolute',
+        top: Dimensions.get('window').width * 0.88 * 0.52 - (Dimensions.get('window').width * 0.88 * 0.15 * 0.13),
+        borderBottomLeftRadius: 13,
+        borderBottomRightRadius: 13,
+        width: Dimensions.get('window').width * 0.8,
+        height: Dimensions.get('window').width * 0.88 * 0.15,
+        backgroundColor: '#4A90E2',
+        alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
+        padding: 20,
     },
     inputcontainer: {
         borderRadius: 7,
@@ -106,5 +138,11 @@ const styles = StyleSheet.create({
         color: '#4A4A4A',
         fontSize: Dimensions.get('window').width * 0.043,
         textAlign: 'center'
+    },
+    send: {
+        color: 'white',
+        fontWeight: '800',
+        fontSize: Dimensions.get('window').width * 0.04,
+        textAlign: 'center',
     }
 });

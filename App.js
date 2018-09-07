@@ -18,7 +18,7 @@ import Sound from 'react-native-sound';
 const width = Dimensions.get('window').width * 0.264;
 const height = width * 0.5656;
 
-const topR1 = Dimensions.get('window').height * 0.2;
+const topR1 = Dimensions.get('window').height * 0.211;
 const topR2 = topR1 + 62;
 const topR3 = topR1 + 138;
 const topR4 = topR1 + 206;
@@ -49,13 +49,13 @@ const GIFS = {
     image4: require('./assets/hilary.gif'),
     image5: require('./assets/peanuts.gif'),
     image6: require('./assets/chris.gif'),
-  }
+}
 
 export default class PopTag extends Component {
     constructor(props) {
         super(props);
 
-        //Sound.setCategory('Playback');
+        Sound.setCategory('Ambient');
 
         this.state = {
             balloons: [
@@ -236,10 +236,32 @@ export default class PopTag extends Component {
             //givenName: "Friedrich",
         }
 
-        Contacts.openContactForm(newPerson, (err) => {
+        Contacts.checkPermission((err, permission) => {
             if (err) throw err;
-            // form is open
+
+            //Contacts.PERMISSION_AUTHORIZED || Contacts.PERMISSION_UNDEFINED || Contacts.PERMISSION_DENIED
+            
+            if (permission === 'undefined') {
+                Contacts.requestPermission((err, permission) => {
+                    if(permission === 'authorized') {
+                         Contacts.openContactForm(newPerson, (err) => {
+                            if (err) throw err;
+                            // form is open
+                        })
+                    }
+                })
+            }
+            else if (permission === 'denied') {
+                Linking.openURL('app-settings:PopTag');
+            }
+            else {
+                Contacts.openContactForm(newPerson, (err) => {
+                    if (err) throw err;
+                    // form is open
+                })
+            }
         })
+
     }
 
     toggleDialogue() {
@@ -274,7 +296,7 @@ export default class PopTag extends Component {
     renderGif() {
         return (
             <TouchableOpacity activeOpacity={1} onPress={() => this.dismissGif()}>
-                <Image source={GIFS['image' + this.state.gif]}/>
+                <Image source={GIFS['image' + this.state.gif]} />
             </TouchableOpacity>
         )
     }
@@ -298,7 +320,7 @@ export default class PopTag extends Component {
                     </TouchableOpacity>
 
                     {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() :
-                         this.state.displayGif ? this.renderGif() : this.renderBalloons()}
+                        this.state.displayGif ? this.renderGif() : this.renderBalloons()}
 
                     <TouchableOpacity activeOpacity={0.9} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
                         <Image style={styles.ibutton} source={{ uri: 'ibutton' }} />
