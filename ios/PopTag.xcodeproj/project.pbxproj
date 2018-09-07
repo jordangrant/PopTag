@@ -39,8 +39,8 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		96EE6081213B211400323758 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96EE6080213B210400323758 /* libRCTCameraRoll.a */; };
-		96FFACE02140E0D4007B9A22 /* pop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 96FFACDE2140E0D4007B9A22 /* pop.m4a */; };
-		96FFACE12140E0D4007B9A22 /* woosh.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 96FFACDF2140E0D4007B9A22 /* woosh.m4a */; };
+		96FFACE32141F7EE007B9A22 /* woosh.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 96FFACE22141F7EE007B9A22 /* woosh.m4a */; };
+		96FFACE52141F7FC007B9A22 /* pop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 96FFACE42141F7FC007B9A22 /* pop.m4a */; };
 		F5A88E80529E4C11BBD743C2 /* libRNShakeEvent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C4BCA4993047369FAD87AB /* libRNShakeEvent.a */; };
 /* End PBXBuildFile section */
 
@@ -300,8 +300,8 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		96EE607B213B210400323758 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
-		96FFACDE2140E0D4007B9A22 /* pop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = pop.m4a; path = "../../Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/pop.m4a"; sourceTree = "<group>"; };
-		96FFACDF2140E0D4007B9A22 /* woosh.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = woosh.m4a; path = "../../Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/woosh.m4a"; sourceTree = "<group>"; };
+		96FFACE22141F7EE007B9A22 /* woosh.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = woosh.m4a; path = ../assets/woosh.m4a; sourceTree = "<group>"; };
+		96FFACE42141F7FC007B9A22 /* pop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = pop.m4a; path = ../assets/pop.m4a; sourceTree = "<group>"; };
 		B70D467DBA184982AC28E506 /* RNViewShot.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNViewShot.xcodeproj; path = "../node_modules/react-native-view-shot/ios/RNViewShot.xcodeproj"; sourceTree = "<group>"; };
 		CC0D0E423DC3477F85C7A8C6 /* libRNViewShot.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNViewShot.a; sourceTree = "<group>"; };
 		EF94E2FE8BC8470E9492F5BA /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
@@ -532,8 +532,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				96FFACDE2140E0D4007B9A22 /* pop.m4a */,
-				96FFACDF2140E0D4007B9A22 /* woosh.m4a */,
+				96FFACE42141F7FC007B9A22 /* pop.m4a */,
+				96FFACE22141F7EE007B9A22 /* woosh.m4a */,
 				13B07FAE1A68108700A75B9A /* PopTag */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* PopTagTests */,
@@ -1009,9 +1009,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96FFACE02140E0D4007B9A22 /* pop.m4a in Resources */,
-				96FFACE12140E0D4007B9A22 /* woosh.m4a in Resources */,
+				96FFACE52141F7FC007B9A22 /* pop.m4a in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				96FFACE32141F7EE007B9A22 /* woosh.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

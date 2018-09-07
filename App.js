@@ -7,7 +7,6 @@ import {
     AppRegistry, StyleSheet, Text, View, TouchableOpacity, Dimensions, Keyboard,
     Image, Animated, AsyncStorage, CameraRoll, Platform, Linking, ImageBackground
 } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
 import { captureScreen } from "react-native-view-shot";
 import RNShakeEvent from 'react-native-shake-event';
 import Balloon from './Balloon';
