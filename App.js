@@ -5,7 +5,8 @@
 import React, { Component } from 'react';
 import {
     AppRegistry, StyleSheet, Text, View, TouchableOpacity, Dimensions, Keyboard,
-    Image, Animated, AsyncStorage, CameraRoll, Platform, Linking, ImageBackground
+    Image, Animated, AsyncStorage, CameraRoll, Platform, Linking, ImageBackground,
+    PermissionsAndroid
 } from 'react-native';
 import { captureScreen } from "react-native-view-shot";
 import RNShakeEvent from 'react-native-shake-event';
@@ -14,11 +15,12 @@ import Question from './Question';
 import Dialogue from './Dialogue';
 import Contacts from 'react-native-contacts';
 import Sound from 'react-native-sound';
+import Toast, { DURATION } from 'react-native-easy-toast';
 
 const width = Dimensions.get('window').width * 0.264;
 const height = width * 0.5656;
 
-const topR1 = Dimensions.get('window').height * 0.211;
+const topR1 = (Platform.OS === 'ios' && Dimensions.get('window').height > 800) ? Dimensions.get('window').height * 0.24 : Dimensions.get('window').height * 0.211;
 const topR2 = topR1 + 62;
 const topR3 = topR1 + 138;
 const topR4 = topR1 + 206;
@@ -26,6 +28,8 @@ const topR5 = topR1 + 277;
 const leftC1 = 0;
 const leftC2 = Dimensions.get('window').width / 2 - 62.5;
 const leftC3 = Dimensions.get('window').width - 125;
+
+console.disableYellowBox = true;
 
 var woosh = new Sound('woosh.m4a', Sound.MAIN_BUNDLE, (error) => {
     if (error) {
@@ -69,11 +73,12 @@ export default class PopTag extends Component {
             ],
             displayQuestion: false,
             displayGif: false,
-            background: ['#F4FA58', '#4A90E2', '#B8E986', '#50E3C2'],
+            background: ['#F4FA58', '#3A82D6', '#B8E986', '#50E3C2'],
             bgColor: 0,
             gif: 0,
             dialogue: false,
-            bottomHeight: 25
+            bottomHeight: 25,
+            message: 'testestestest'
         };
     }
 
@@ -137,9 +142,16 @@ export default class PopTag extends Component {
     }
 
     handlePressIn() {
-        Animated.spring(this.animatedValue, {
-            toValue: 1.5
-        }).start()
+        if (Platform.OS === 'ios') {
+            Animated.spring(this.animatedValue, {
+                toValue: 1.5
+            }).start()
+        }
+        else {
+            Animated.spring(this.animatedValue, {
+                toValue: 1.1
+            }).start()
+        }
     }
 
     handlePressOut() {
@@ -189,7 +201,7 @@ export default class PopTag extends Component {
             setTimeout(() => Linking.openURL('https://instagram.com/poptagtv'), 10);
         }
         else {
-            Linking.openURL('https://instagram.com/poptagtv' + newName)
+            Linking.openURL('https://instagram.com/poptagtv')
         }
     }
 
@@ -209,6 +221,10 @@ export default class PopTag extends Component {
         this.save();
     }
 
+    backOut() {
+        this.setState({ displayQuestion: false });
+    }
+
     resetBalloons() {
         var balloons = this.state.balloons.map(b => {
             b.popped = false;
@@ -218,16 +234,62 @@ export default class PopTag extends Component {
         this.setState({ balloons: balloons });
     }
 
-    submitAnswer() {
-        captureScreen({
-            format: "jpg",
-            quality: 1
-        })
-            .then(uri => {
+    async requestExternalStoragePermission(uri) {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                {
+                    title: 'Storage Permission',
+                    message: 'PopTag saves your responses to camera roll',
+                },
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
                 CameraRoll.saveToCameraRoll(uri)
-            });
+                    .then((newUri) => {
+                        if (typeof newUri !== 'undefined') {
+                            this.refs.toast.show('Saved to Camera Roll');
+                        }
+                    });
+            } else {
+                console.log("Camera Roll permission denied")
+            }
+        } catch (err) {
+            console.error('Failed to request permission ', err);
+            return null;
+        }
+    };
 
-        this.setState({ displayQuestion: false });
+    submitAnswer() {
+        if (Platform.OS === 'android') {
+            Keyboard.dismiss();
+
+            setTimeout(() =>
+                captureScreen({
+                    format: "jpg",
+                    quality: 1
+                })
+                    .then(uri => {
+                        this.requestExternalStoragePermission(uri);
+                    })
+                    .then(() => {
+                        this.setState({ displayQuestion: false })
+                    }), 500);
+        }
+        else {
+            captureScreen({
+                format: "jpg",
+                quality: 1
+            })
+                .then(uri => {
+                    CameraRoll.saveToCameraRoll(uri)
+                        .then((newUri) => {
+                            if (typeof newUri !== 'undefined') {
+                                this.refs.toast.show('Saved to Camera Roll');
+                            }
+                        });
+                })
+            this.setState({ displayQuestion: false });
+        }
     }
 
     addContact() {
@@ -236,31 +298,39 @@ export default class PopTag extends Component {
             //givenName: "Friedrich",
         }
 
-        Contacts.checkPermission((err, permission) => {
-            if (err) throw err;
+        if (Platform.OS === 'ios') {
+            Contacts.checkPermission((err, permission) => {
+                if (err) throw err;
 
-            //Contacts.PERMISSION_AUTHORIZED || Contacts.PERMISSION_UNDEFINED || Contacts.PERMISSION_DENIED
-            
-            if (permission === 'undefined') {
-                Contacts.requestPermission((err, permission) => {
-                    if(permission === 'authorized') {
-                         Contacts.openContactForm(newPerson, (err) => {
-                            if (err) throw err;
-                            // form is open
-                        })
-                    }
-                })
-            }
-            else if (permission === 'denied') {
-                Linking.openURL('app-settings:PopTag');
-            }
-            else {
-                Contacts.openContactForm(newPerson, (err) => {
-                    if (err) throw err;
-                    // form is open
-                })
-            }
-        })
+                //Contacts.PERMISSION_AUTHORIZED || Contacts.PERMISSION_UNDEFINED || Contacts.PERMISSION_DENIED
+
+                if (permission === 'undefined') {
+                    Contacts.requestPermission((err, permission) => {
+                        if (permission === 'authorized') {
+                            Contacts.openContactForm(newPerson, (err) => {
+                                if (err) throw err;
+                                // form is open
+                            })
+                        }
+                    })
+                }
+                else if (permission === 'denied') {
+                    Linking.openURL('app-settings:PopTag');
+                }
+                else {
+                    Contacts.openContactForm(newPerson, (err) => {
+                        if (err) throw err;
+                        // form is open
+                    })
+                }
+            })
+        }
+        else {
+            Contacts.openContactForm(newPerson, (err) => {
+                if (err) throw err;
+                // form is open
+            })
+        }
 
     }
 
@@ -286,7 +356,7 @@ export default class PopTag extends Component {
     }
 
     renderQuestion() {
-        return <Question submit={this.submitAnswer.bind(this)} />
+        return <Question submit={this.submitAnswer.bind(this)} backOut={() => this.backOut()}/>
     }
 
     renderDialogue() {
@@ -334,6 +404,17 @@ export default class PopTag extends Component {
                         <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
                     </TouchableOpacity>
                 </View>
+
+                <Toast
+                    ref="toast"
+                    style={{ backgroundColor: 'black' }}
+                    position='bottom'
+                    positionValue={Dimensions.get('window').height / 4.5}
+                    fadeInDuration={200}
+                    fadeOutDuration={1600}
+                    opacity={0.4}
+                    textStyle={{ color: 'white' }}
+                />
             </View>
         );
     }

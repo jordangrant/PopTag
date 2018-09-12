@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
-    Animated, AsyncStorage, Text, TextInput, Keyboard
+    Animated, AsyncStorage, Text, TextInput, Keyboard, Platform
 } from 'react-native';
 import { QUESTIONS } from './entries';
 export default class Question extends Component {
@@ -19,9 +19,16 @@ export default class Question extends Component {
     }
 
     handlePressIn() {
-        Animated.spring(this.animatedValue, {
-            toValue: 1.5
-        }).start();
+        if (Platform.OS === 'ios') {
+            Animated.spring(this.animatedValue, {
+                toValue: 1.5
+            }).start()
+        }
+        else {
+            Animated.spring(this.animatedValue, {
+                toValue: 1.1
+            }).start()
+        }
     }
 
     handlePressOut() {
@@ -42,6 +49,7 @@ export default class Question extends Component {
             <TouchableOpacity activeOpacity={1}
                 onPressIn={this.handlePressIn.bind(this)}
                 onPress={Keyboard.dismiss}
+                onLongPress={() => this.props.backOut()}
                 onPressOut={this.handlePressOut.bind(this)}>
 
                 <Animated.View style={animatedStyle}>
@@ -50,7 +58,7 @@ export default class Question extends Component {
 
                         <View style={styles.inputcontainer}>
                             <TextInput
-                                style={[styles.subtext, { height: 40, textAlign: 'center' }]}
+                                style={[styles.subtext, { width: Dimensions.get('window').width * 0.75 * 0.88, textAlign: 'center' }]}
                                 autoFocus={true}
                                 placeholder={'Type something…'}
                                 placeholderTextColor={'rgba(74,74,74,0.5)'}
@@ -63,6 +71,7 @@ export default class Question extends Component {
                                 multiline={true}
                                 numberOfLines={2}
                                 spellCheck={false}
+                                underlineColorAndroid={'transparent'}
                             />
                         </View>
                     </View>
@@ -125,7 +134,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 4
+        padding: 1
     },
     mainText: {
         color: 'black',
@@ -137,7 +146,7 @@ const styles = StyleSheet.create({
     subtext: {
         color: '#4A4A4A',
         fontSize: Dimensions.get('window').width * 0.043,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     send: {
         color: 'white',

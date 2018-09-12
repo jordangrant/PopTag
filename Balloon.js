@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
-    Animated, AsyncStorage
+    Animated, AsyncStorage, Platform
 } from 'react-native';
 
 export default class Balloon extends Component {
@@ -14,9 +14,16 @@ export default class Balloon extends Component {
     }
 
     handlePressIn() {
-        Animated.spring(this.animatedValue, {
-            toValue: 2
-        }).start()
+        if (Platform.OS === 'ios') {
+            Animated.spring(this.animatedValue, {
+                toValue: 2
+            }).start()
+        }
+        else {
+            Animated.spring(this.animatedValue, {
+                toValue: 1.1
+            }).start()
+        }
 
         setTimeout(() => {
             this.pop()

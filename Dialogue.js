@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
-    Animated, AsyncStorage, Text, TextInput, Keyboard
+    Animated, AsyncStorage, Text, TextInput, Keyboard, Platform
 } from 'react-native';
 
 export default class Dialogue extends Component {
@@ -19,9 +19,16 @@ export default class Dialogue extends Component {
     }
 
     handlePressIn() {
-        Animated.spring(this.animatedValue, {
-            toValue: 1.5
-        }).start();
+        if (Platform.OS === 'ios') {
+            Animated.spring(this.animatedValue, {
+                toValue: 1.5
+            }).start()
+        }
+        else {
+            Animated.spring(this.animatedValue, {
+                toValue: 1.1
+            }).start()
+        }
     }
 
     handlePressOut() {
