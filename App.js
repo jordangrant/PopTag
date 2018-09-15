@@ -272,7 +272,7 @@ export default class PopTag extends Component {
                         this.requestExternalStoragePermission(uri);
                     })
                     .then(() => {
-                        this.setState({ displayQuestion: false })
+                        //this.setState({ displayQuestion: false });
                     }), 500);
         }
         else {
@@ -288,8 +288,12 @@ export default class PopTag extends Component {
                             }
                         });
                 })
-            this.setState({ displayQuestion: false });
+            //this.setState({ displayQuestion: false });
         }
+    }
+
+    endQuestion() {
+        this.setState({ displayQuestion: false })
     }
 
     addContact() {
@@ -356,7 +360,7 @@ export default class PopTag extends Component {
     }
 
     renderQuestion() {
-        return <Question submit={this.submitAnswer.bind(this)} backOut={() => this.backOut()}/>
+        return <Question submit={this.submitAnswer.bind(this)} backOut={() => this.backOut()} endQuestion={() => this.endQuestion()}/>
     }
 
     renderDialogue() {

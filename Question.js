@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
-    Animated, AsyncStorage, Text, TextInput, Keyboard, Platform
+    Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList
 } from 'react-native';
 import { QUESTIONS } from './entries';
 export default class Question extends Component {
@@ -10,6 +10,7 @@ export default class Question extends Component {
         this.state = {
             text: '',
             rand: 0,
+            summary: false
         };
     }
 
@@ -39,6 +40,75 @@ export default class Question extends Component {
         }).start();
     }
 
+    submit() {
+        this.props.submit();
+        setTimeout(() => this.setState({ summary: true }), 500);
+    }
+
+    renderQuestion(animatedStyle) {
+        return(
+        <TouchableOpacity activeOpacity={1}
+            onPressIn={this.handlePressIn.bind(this)}
+            onPress={Keyboard.dismiss}
+            onLongPress={() => this.props.backOut()}
+            onPressOut={this.handlePressOut.bind(this)}>
+            <Animated.View style={animatedStyle}>
+                <View style={this.state.text !== '' ? styles.container2 : styles.container}>
+                    <Text style={styles.mainText} numberOfLines={4}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>
+
+                    <View style={styles.inputcontainer}>
+                        <TextInput
+                            style={[styles.subtext, { width: Dimensions.get('window').width * 0.75 * 0.88, textAlign: 'center' }]}
+                            autoFocus={true}
+                            placeholder={'Type something…'}
+                            placeholderTextColor={'rgba(74,74,74,0.5)'}
+                            onChangeText={(text) => this.setState({ text })}
+                            value={this.state.text}
+                            //onSubmitEditing={() => this.props.submit()}
+                            enablesReturnKeyAutomatically={true}
+                            returnKeyType={'done'}
+                            blurOnSubmit={true}
+                            multiline={true}
+                            numberOfLines={2}
+                            spellCheck={false}
+                            underlineColorAndroid={'transparent'}
+                        />
+                    </View>
+                </View>
+
+                {this.state.text !== '' ?
+                    <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.submit()}>
+                        <Text style={styles.send}>Send</Text>
+                    </TouchableOpacity>
+                    : null}
+
+            </Animated.View>
+        </TouchableOpacity>
+        )}
+
+    renderSummary() {
+        return <View style={{width: Dimensions.get('window').width, backgroundColor: 'grey',
+                     height: Dimensions.get('window').width}}>
+
+            <Text style={styles.summaryText}>You answered:</Text>
+            <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summarycontainertop}>
+                <Text style={styles.summaryText} numberOfLines={4}>{this.state.text}</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.summaryText}>Other answers:</Text>
+            <FlatList
+                data={[{ key: 'a' }, { key: 'b' }]}
+                renderItem={({ item }) =>
+                    <View style={styles.summarycontainerbottom}>
+                        <Text style={styles.summaryText} numberOfLines={4}>{item.key}</Text>
+                    </View>}
+                scrollEnabled
+                horizontal
+            />
+
+        </View>
+    }
+
     render() {
 
         const animatedStyle = {
@@ -46,50 +116,66 @@ export default class Question extends Component {
         };
 
         return (
-            <TouchableOpacity activeOpacity={1}
-                onPressIn={this.handlePressIn.bind(this)}
-                onPress={Keyboard.dismiss}
-                onLongPress={() => this.props.backOut()}
-                onPressOut={this.handlePressOut.bind(this)}>
-
-                <Animated.View style={animatedStyle}>
-                    <View style={this.state.text !== '' ? styles.container2 : styles.container}>
-                        <Text style={styles.mainText} numberOfLines={4}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>
-
-                        <View style={styles.inputcontainer}>
-                            <TextInput
-                                style={[styles.subtext, { width: Dimensions.get('window').width * 0.75 * 0.88, textAlign: 'center' }]}
-                                autoFocus={true}
-                                placeholder={'Type something…'}
-                                placeholderTextColor={'rgba(74,74,74,0.5)'}
-                                onChangeText={(text) => this.setState({ text })}
-                                value={this.state.text}
-                                //onSubmitEditing={() => this.props.submit()}
-                                enablesReturnKeyAutomatically={true}
-                                returnKeyType={'done'}
-                                blurOnSubmit={true}
-                                multiline={true}
-                                numberOfLines={2}
-                                spellCheck={false}
-                                underlineColorAndroid={'transparent'}
-                            />
-                        </View>
-                    </View>
-
-                    {this.state.text !== '' ? 
-                    <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.props.submit()}>
-                            <Text style={styles.send}>Send</Text>
-                    </TouchableOpacity>
-                    : null}
-
-                </Animated.View>
-            </TouchableOpacity>
-
+            this.state.summary == false ? this.renderQuestion() : this.renderSummary()
         );
     }
 }
 
+class QuestionSummary extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            text: '',
+            rand: 0,
+        };
+    }
+
+    render() {
+
+        const animatedStyle = {
+            transform: [{ scale: this.animatedValue }],
+        };
+
+        return (
+            <View>
+                <TouchableOpacity activeOpacity={1}
+                    onPressOut={this.handlePressOut.bind(this)}>
+                </TouchableOpacity>
+
+
+
+            </View>
+
+        )
+    }
+}
+
 const styles = StyleSheet.create({
+    summarycontainertop: {
+        borderRadius: 13,
+        width: Dimensions.get('window').width * 0.8,
+        height: Dimensions.get('window').width * 0.88 * 0.39,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        alignContent: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        padding: 20,
+        marginBottom: 40
+    },
+    summarycontainerbottom: {
+        borderRadius: 13,
+        width: Dimensions.get('window').width * 0.8,
+        height: Dimensions.get('window').width * 0.88 * 0.39,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        alignContent: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        padding: 20,
+        marginLeft: Dimensions.get('window').width * 0.1,
+        marginRight: -Dimensions.get('window').width * 0.05,
+    },
     container: {
         borderRadius: 13,
         width: Dimensions.get('window').width * 0.8,
@@ -153,5 +239,12 @@ const styles = StyleSheet.create({
         fontWeight: '800',
         fontSize: Dimensions.get('window').width * 0.04,
         textAlign: 'center',
+    },
+    summaryText: {
+        color: 'black',
+        fontWeight: '500',
+        fontSize: Dimensions.get('window').width * 0.05,
+        textAlign: 'center',
+        marginVertical: 10
     }
 });
