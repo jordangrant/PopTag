@@ -1,7 +1,8 @@
 export const QUESTIONS = [
   {
     "id": 0,
-    "question": "Would you rather be able to see 10 minutes into your own future or 10 minutes into the future of anyone but yourself?"
+    "question": "Would you rather be able to see 10 minutes into your own future or 10 minutes into the future of anyone but yourself?",
+    "responses": ["idk", "maybe", "who knows"]
   },
   {
     "id": 1,

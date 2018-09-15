@@ -22,7 +22,7 @@ export default class Question extends Component {
     handlePressIn() {
         if (Platform.OS === 'ios') {
             Animated.spring(this.animatedValue, {
-                toValue: 1.5
+                toValue: 1.3
             }).start()
         }
         else {
@@ -45,66 +45,74 @@ export default class Question extends Component {
         setTimeout(() => this.setState({ summary: true }), 500);
     }
 
+    _renderHeader = ({item}) => (
+        <View style={styles.spacer}/>
+      );
+
     renderQuestion(animatedStyle) {
-        return(
-        <TouchableOpacity activeOpacity={1}
-            onPressIn={this.handlePressIn.bind(this)}
-            onPress={Keyboard.dismiss}
-            onLongPress={() => this.props.backOut()}
-            onPressOut={this.handlePressOut.bind(this)}>
-            <Animated.View style={animatedStyle}>
-                <View style={this.state.text !== '' ? styles.container2 : styles.container}>
-                    <Text style={styles.mainText} numberOfLines={4}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>
+        return (
+            <TouchableOpacity activeOpacity={1}
+                onPressIn={this.handlePressIn.bind(this)}
+                onPress={Keyboard.dismiss}
+                onLongPress={() => this.props.backOut()}
+                onPressOut={this.handlePressOut.bind(this)}>
+                <Animated.View style={animatedStyle}>
+                    <View style={this.state.text !== '' ? styles.container2 : styles.container}>
+                        <Text style={styles.mainText} numberOfLines={5}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>
 
-                    <View style={styles.inputcontainer}>
-                        <TextInput
-                            style={[styles.subtext, { width: Dimensions.get('window').width * 0.75 * 0.88, textAlign: 'center' }]}
-                            autoFocus={true}
-                            placeholder={'Type something…'}
-                            placeholderTextColor={'rgba(74,74,74,0.5)'}
-                            onChangeText={(text) => this.setState({ text })}
-                            value={this.state.text}
-                            //onSubmitEditing={() => this.props.submit()}
-                            enablesReturnKeyAutomatically={true}
-                            returnKeyType={'done'}
-                            blurOnSubmit={true}
-                            multiline={true}
-                            numberOfLines={2}
-                            spellCheck={false}
-                            underlineColorAndroid={'transparent'}
-                        />
+                        <View style={styles.inputcontainer}>
+                            <TextInput
+                                style={[styles.subtext, { width: Dimensions.get('window').width * 0.75 * 0.88, textAlign: 'center' }]}
+                                autoFocus={true}
+                                placeholder={'Type something…'}
+                                placeholderTextColor={'rgba(74,74,74,0.5)'}
+                                onChangeText={(text) => this.setState({ text })}
+                                value={this.state.text}
+                                //onSubmitEditing={() => this.props.submit()}
+                                enablesReturnKeyAutomatically={true}
+                                returnKeyType={'done'}
+                                blurOnSubmit={true}
+                                multiline={true}
+                                numberOfLines={2}
+                                spellCheck={false}
+                                underlineColorAndroid={'transparent'}
+                            />
+                        </View>
                     </View>
-                </View>
 
-                {this.state.text !== '' ?
-                    <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.submit()}>
-                        <Text style={styles.send}>Send</Text>
-                    </TouchableOpacity>
-                    : null}
+                    {this.state.text !== '' ?
+                        <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.submit()}>
+                            <Text style={styles.send}>Send</Text>
+                        </TouchableOpacity>
+                        : null}
 
-            </Animated.View>
-        </TouchableOpacity>
-        )}
+                </Animated.View>
+            </TouchableOpacity>
+        )
+    }
 
     renderSummary() {
-        return <View style={{width: Dimensions.get('window').width, backgroundColor: 'grey',
-                     height: Dimensions.get('window').width}}>
+        return <View style={{
+            width: Dimensions.get('window').width, height: Dimensions.get('window').height / 2
+        }}>
 
-            <Text style={styles.summaryText}>You answered:</Text>
+            <Text style={styles.summarySectionTitle}>You answered:</Text>
             <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summarycontainertop}>
-                <Text style={styles.summaryText} numberOfLines={4}>{this.state.text}</Text>
+                <Text style={[styles.summaryText, { color: 'white' }]} numberOfLines={4}>{this.state.text}</Text>
             </TouchableOpacity>
 
-            <Text style={styles.summaryText}>Other answers:</Text>
-            <FlatList
-                data={[{ key: 'a' }, { key: 'b' }]}
-                renderItem={({ item }) =>
-                    <View style={styles.summarycontainerbottom}>
-                        <Text style={styles.summaryText} numberOfLines={4}>{item.key}</Text>
-                    </View>}
-                scrollEnabled
-                horizontal
-            />
+            <Text style={styles.summarySectionTitle}>Other answers:</Text> 
+                <FlatList
+                    data={QUESTIONS.find(item => item.id === this.state.rand).responses}
+                    renderItem={({ item }) =>
+                        <View style={styles.summarycontainerbottom}>
+                            <Text style={styles.summaryText} numberOfLines={4}>{item}</Text>
+                        </View>}
+                    scrollEnabled
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    ListHeaderComponent={this._renderHeader}
+                />
 
         </View>
     }
@@ -116,7 +124,7 @@ export default class Question extends Component {
         };
 
         return (
-            this.state.summary == false ? this.renderQuestion() : this.renderSummary()
+            this.state.summary == false ? this.renderQuestion(animatedStyle) : this.renderSummary(animatedStyle)
         );
     }
 }
@@ -154,8 +162,8 @@ const styles = StyleSheet.create({
     summarycontainertop: {
         borderRadius: 13,
         width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').width * 0.88 * 0.39,
-        backgroundColor: 'white',
+        height: Dimensions.get('window').width * 0.25,
+        backgroundColor: '#4A90E2',
         alignItems: 'center',
         alignContent: 'center',
         alignSelf: 'center',
@@ -166,15 +174,14 @@ const styles = StyleSheet.create({
     summarycontainerbottom: {
         borderRadius: 13,
         width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').width * 0.88 * 0.39,
+        height: Dimensions.get('window').width * 0.25,
         backgroundColor: 'white',
         alignItems: 'center',
         alignContent: 'center',
         alignSelf: 'center',
         justifyContent: 'center',
         padding: 20,
-        marginLeft: Dimensions.get('window').width * 0.1,
-        marginRight: -Dimensions.get('window').width * 0.05,
+        marginRight: Dimensions.get('window').width * 0.05,
     },
     container: {
         borderRadius: 13,
@@ -246,5 +253,15 @@ const styles = StyleSheet.create({
         fontSize: Dimensions.get('window').width * 0.05,
         textAlign: 'center',
         marginVertical: 10
+    },
+    summarySectionTitle: {
+        color: 'black',
+        fontWeight: '500',
+        fontSize: Dimensions.get('window').width * 0.05,
+        marginLeft: Dimensions.get('window').width * 0.1,
+        marginBottom: 15
+    },
+    spacer: {
+        width: Dimensions.get('window').width * 0.1,
     }
 });
