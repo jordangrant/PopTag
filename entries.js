@@ -6,387 +6,483 @@ export const QUESTIONS = [
   },
   {
     "id": 1,
-    "question": "Would you rather be famous when you are alive and forgotten when you die or unknown when you are alive but famous after you die?"
+    "question": "Would you rather be famous when you are alive and forgotten when you die or unknown when you are alive but famous after you die?",
+    "responses": ["Obviously famous while alive","Alive","Alive"]
   },
   {
     "id": 2,
-    "question": "Would you rather go to jail for 4 years for something you didn't do or get away with something horrible you did but always live in fear of being caught?"
+    "question": "Would you rather go to jail for 4 years for something you didn't do or get away with something horrible you did but always live in fear of being caught?",
+    "responses": ["I wouldn't last in jail", "Jail cause it's like 5% of your life vs 100%", "Get away with it"]
   },
   {
     "id": 3,
-    "question": "Would you rather accidentally be responsible for the death of a child or accidentally be responsible for the deaths of three adults?"
+    "question": "Would you rather accidentally be responsible for the death of a child or accidentally be responsible for the deaths of three adults?",
+    "responses": ["Three adults", "I feel like a child would be way more scarring", "If all humans are equal, one person is better than 3 families"]
   },
   {
     "id": 4,
-    "question": "Would you rather your shirts be always two sizes too big or one size too small?"
+    "question": "Would you rather your shirts be always two sizes too big or one size too small?",
+    "responses": ["Too big", "Too small, looks fine on good physique", "Too big more comfortable"]
   },
   {
     "id": 5,
-    "question": "Would you rather live in the wilderness far from civilization or live on the streets of a city as a homeless person?"
+    "question": "Would you rather live in the wilderness far from civilization or live on the streets of a city as a homeless person?",
+    "responses": ["Wilderness", "Rather live in the woods", "In the wilderness"]
   },
   {
     "id": 6,
-    "question": "Would you rather the general public think you are a horrible person but your family be very proud of you or your family think you are a horrible person but the general public be very proud of you?"
+    "question": "Would you rather the general public think you are a horrible person but your family be very proud of you or your family think you are a horrible person but the general public be very proud of you?",
+    "responses": ["General public, social media would kill me", "Proud family", "Rather family be proud"]
   },
   {
     "id": 7,
-    "question": "Would you rather live your entire life in a virtual reality where all your wishes are granted or in the real world?"
+    "question": "Would you rather live your entire life in a virtual reality where all your wishes are granted or in the real world?",
+    "responses": ["VR world would be awesome.", "Real world", "The world"]
   },
   {
     "id": 8,
-    "question": "Would you rather be alone for the rest of your life or always be surrounded by annoying people?"
+    "question": "Would you rather be alone for the rest of your life or always be surrounded by annoying people?",
+    "responses": ["Alone.", "I'd rather be by myself, or I might kill myself", "Alone for the rest of my life"]
   },
   {
     "id": 9,
-    "question": "Would you rather never use social media sites / apps again or never watch another movie or TV show?"
+    "question": "Would you rather never use social media sites / apps again or never watch another movie or TV show?",
+    "responses": ["Social media", "Probably social media", "Bye twitter"]
   },
   {
     "id": 10,
-    "question": "Would you rather have an easy job working for someone else or work for yourself but work incredibly hard?"
+    "question": "Would you rather have an easy job working for someone else or work for yourself but work incredibly hard?",
+    "responses": ["Easy job please! Entrepreneurship overrated", "Work for myself on what my passions are", "Myself"]
   },
   {
     "id": 11,
-    "question": "Would you rather be the first person to explore a planet or be the inventor of a drug that cures a deadly disease?"
+    "question": "Would you rather be the first person to explore a planet or be the inventor of a drug that cures a deadly disease?",
+    "responses": ["Elon daddy will send ya boi to mars", "new planet", "I would cure the disease. It's just selfish vs selfless.. 🦁"]
   },
   {
     "id": 12,
-    "question": "Would you rather have a horrible short term memory or a horrible long term memory?"
+    "question": "Would you rather have a horrible short term memory or a horrible long term memory?",
+    "responses": ["Long term. Otherwise everyday will be a struggle", "I already have bad long term memory 😂", "Short term, remember the memories"]
   },
   {
     "id": 13,
-    "question": "Would you rather be completely invisible for one day or be able to fly for one day?"
+    "question": "Would you rather be completely invisible for one day or be able to fly for one day?",
+    "responses": ["Fly, more memorable", "Fly", "Fly"]
   },
   {
     "id": 14,
-    "question": "Would you rather be locked in a room that is constantly dark for a week or a room that is constantly bright for a week?"
+    "question": "Would you rather be locked in a room that is constantly dark for a week or a room that is constantly bright for a week?",
+    "responses": ["Dark", "dark", "Easier to sleep when it's dark, bright would be torture"]
   },
   {
     "id": 15,
-    "question": "Would you rather be poor but help people or become incredibly rich by hurting people?"
+    "question": "Would you rather be poor but help people or become incredibly rich by hurting people?",
+    "responses": ["Poor & help people 💓", "Poor it's not worth hurting people for money.", "Be poor"]
   },
   {
     "id": 16,
-    "question": "Would you rather live without the internet or live without AC and heating?"
+    "question": "Would you rather live without the internet or live without AC and heating?",
+    "responses": ["AC", "Ac and heating", "AC I'll Strip Naked IDGAF"]
   },
   {
     "id": 17,
-    "question": "Would you rather have a horrible job, but be able to retire comfortably in 10 years or have your dream job, but have to work until the day you die?"
+    "question": "Would you rather have a horrible job, but be able to retire comfortably in 10 years or have your dream job, but have to work until the day you die?",
+    "responses": ["Do what you love and you never work a day in your life", "Retire in 10", "Retire"]
   },
   {
     "id": 18,
-    "question": "Would you rather find your true love or a suitcase with five million dollars inside?"
+    "question": "Would you rather find your true love or a suitcase with five million dollars inside?",
+    "responses": ["True love is not real fam", "😢", "5 million dollars are you dumb! That can buy me love! come on!"]
   },
   {
     "id": 19,
-    "question": "Would you rather be able to teleport anywhere or be able to read minds?"
+    "question": "Would you rather be able to teleport anywhere or be able to read minds?",
+    "responses": ["Bruh", "Teleport", "Reading Minds would ruin a lot of stuff"]
   },
   {
     "id": 20,
-    "question": "Would you rather die in 20 years with no regrets or die in 50 years with many regrets?"
+    "question": "Would you rather die in 20 years with no regrets or die in 50 years with many regrets?",
+    "responses": ["20 years", "50 years", "50"]
   },
   {
     "id": 21,
-    "question": "Would you rather be feared by all or loved by all?"
+    "question": "Would you rather be feared by all or loved by all?",
+    "responses": ["There's no point in everyone loving you. Just the ones closest so Feared", "FEAR BY ALL", "❤️"]
   },
   {
     "id": 22,
-    "question": "Would you rather know when you are going to die or how you are going to die? (You can't change the time or method of your death.)"
+    "question": "Would you rather know when you are going to die or how you are going to die? (You can't change the time or method of your death.)",
+    "responses": ["When, you can do more stuff before dying", "When", "When you are going to die"]
   },
   {
     "id": 23,
-    "question": "Would you rather be transported permanently 500 years into the future or 500 years into the past?"
+    "question": "Would you rather be transported permanently 500 years into the future or 500 years into the past?",
+    "responses": ["FUTURE IM NOT TRYNA DO FARMING BRUHHH", "Future", "Past and invent dope sht"]
   },
   {
     "id": 24,
-    "question": "Would you rather never be able to use a touchscreen or never use a keyboard and mouse?"
+    "question": "Would you rather never be able to use a touchscreen or never use a keyboard and mouse?",
+    "responses": ["Keyboard and mouse will be obselete soon", "A touchscreen could be a keyboard", "Keyboard"]
   },
   {
     "id": 25,
-    "question": "Would you rather be able to control fire or water?"
+    "question": "Would you rather be able to control fire or water?",
+    "responses": ["Water and liquids", "Fire 🔥", "WATER"]
   },
   {
     "id": 26,
-    "question": "Would you rather have everything you eat be too salty or not salty enough no matter how much salt you add?"
+    "question": "Would you rather have everything you eat be too salty or not salty enough no matter how much salt you add?",
+    "responses": ["Fam, salt will kill you", "Not salty", "Not salty enough"]
   },
   {
     "id": 27,
-    "question": "Would you rather have hands that kept growing as you got older or feet that kept growing as you got older?"
+    "question": "Would you rather have hands that kept growing as you got older or feet that kept growing as you got older?",
+    "responses": ["Feet..", "wtf", "Feet, hands would be so in the way"]
   },
   {
     "id": 28,
-    "question": "Would you rather have unlimited sushi for life or unlimited tacos for life? (both are amazingly delicious and can be any type of sushi / taco you want)"
+    "question": "Would you rather have unlimited sushi for life or unlimited tacos for life? (both are amazingly delicious and can be any type of sushi / taco you want)",
+    "responses": ["Sushi", "🌮", "Tacos! 🌮 🇲🇽"]
   },
   {
     "id": 29,
-    "question": "Would you rather be unable to use search engines or unable to use social media?"
+    "question": "Would you rather be unable to use search engines or unable to use social media?",
+    "responses": ["Search enginers", "F Google", "I'd rather give up search engines."]
   },
   {
     "id": 30,
-    "question": "Would you rather give up bathing for a month or give up the internet for a month?"
+    "question": "Would you rather give up bathing for a month or give up the internet for a month?",
+    "responses": ["That's freaking gross.", "You could still use deoderant and stuff so bathing", "internet obv"]
   },
   {
     "id": 31,
-    "question": "Would you rather donate your body to science or donate your organs to people who need them?"
+    "question": "Would you rather donate your body to science or donate your organs to people who need them?",
+    "responses": ["Someone in need", "People that need them", "People"]
   },
   {
     "id": 32,
-    "question": "Would you rather go back to age 5 with everything you know now or know now everything your future self will learn?"
+    "question": "Would you rather go back to age 5 with everything you know now or know now everything your future self will learn?",
+    "responses": ["BACK to age 5, you could become extremely rich", "Back to age 5, live longer", "Future"]
   },
   {
     "id": 33,
-    "question": "Would you rather relive the same day for 365 days or lose a year of your life?"
+    "question": "Would you rather relive the same day for 365 days or lose a year of your life?",
+    "responses": ["Lose a year", "Lose", "lose a year of my life"]
   },
   {
     "id": 34,
-    "question": "Would you rather have a golden voice or a silver tongue?"
+    "question": "Would you rather have a golden voice or a silver tongue?",
+    "responses": ["What", "I wish that tongue did some things u know what i mean", "Golden Voice"]
   },
   {
     "id": 35,
-    "question": "Would you rather be able to control animals (but not humans) with your mind or control electronics with your mind?"
+    "question": "Would you rather be able to control animals (but not humans) with your mind or control electronics with your mind?",
+    "responses": ["Animals!", "Electronics would be soooo sick", "Animals"]
   },
   {
     "id": 36,
-    "question": "Would you rather suddenly be elected a senator or suddenly become a CEO of a major company."
+    "question": "Would you rather suddenly be elected a senator or suddenly become a CEO of a major company.",
+    "responses": ["CEO", "Tech ceo", "CEO"]
   },
   {
     "id": 37,
-    "question": "Would you rather sell all of your possessions or sell one of your organs?"
+    "question": "Would you rather sell all of your possessions or sell one of your organs?",
+    "responses": ["Sell possessions", "Sell my possesions and become a minimalist", "All my stuff."]
   },
   {
     "id": 38,
-    "question": "Would you rather lose all of your memories from birth to now or lose your ability to make new long term memories?"
+    "question": "Would you rather lose all of your memories from birth to now or lose your ability to make new long term memories?",
+    "responses": ["All memories from birth", "I mean...", "If you can lose memories from birth and still know yourself"]
   },
   {
     "id": 39,
-    "question": "Would you rather be infamous in history books or be forgotten after your death?"
+    "question": "Would you rather be infamous in history books or be forgotten after your death?",
+    "responses": ["Forgotten what does it matter I am dead .", "INfamous", "Might as well be forgotten, right?"]
   },
   {
     "id": 40,
-    "question": "Would you rather never have to work again or never have to sleep again (you won't feel tired or suffer negative health effects)?"
+    "question": "Would you rather never have to work again or never have to sleep again (you won't feel tired or suffer negative health effects)?",
+    "responses": ["Never Work again", "Work", "Never go to work again!!!!!!!!!!!"]
   },
   {
     "id": 41,
-    "question": "Would you rather be beautiful / handsome but stupid or intelligent but ugly?"
+    "question": "Would you rather be beautiful / handsome but stupid or intelligent but ugly?",
+    "responses": ["Honestly idk", "I'm already ugly", "Beauty is pretty much everything these days"]
   },
   {
     "id": 42,
-    "question": "Would you rather get one free round trip international plane ticket every year or fly domestic anytime for free?"
+    "question": "Would you rather get one free round trip international plane ticket every year or fly domestic anytime for free?",
+    "responses": ["Int'l", "One trip every year, who has time to fly domestic all the time?", "One trip a year"]
   },
   {
     "id": 43,
-    "question": "Would you rather be balding but fit or overweight with a full head of hair?"
+    "question": "Would you rather be balding but fit or overweight with a full head of hair?",
+    "responses": ["I'm black so I can do bald", "Bald", "Balding and jacked"]
   },
   {
     "id": 44,
-    "question": "Would you rather be fluent in all languages and never be able to travel or travel anywhere for a year but never learn a word of a different language?"
+    "question": "Would you rather be fluent in all languages and never be able to travel or travel anywhere for a year but never learn a word of a different language?",
+    "responses": ["Fluent in all languages for the rest of my life", "Travel", "Travel the world for a year"]
   },
   {
     "id": 45,
-    "question": "Would you rather have an unlimited international first class ticket or never have to pay for food at restaurants?"
+    "question": "Would you rather have an unlimited international first class ticket or never have to pay for food at restaurants?",
+    "responses": ["FREE FOOD is everyone's dream if their sane.", "Unlimited. You'd have to sit down to eat every time that's many hours at dinner.", "Never pay at restaurants"]
   },
   {
     "id": 46,
-    "question": "Would you rather see what was behind every closed door or guess the combination of every safe on the first try?"
+    "question": "Would you rather see what was behind every closed door or guess the combination of every safe on the first try?",
+    "responses": ["See behind every closed door.", "See through doors", "I'd rather see behind a closed door."]
   },
   {
     "id": 47,
-    "question": "Would you rather live in virtual reality where you are all powerful or live in the real world and be able to go anywhere but not interact with anyone or anything?"
+    "question": "Would you rather live in virtual reality where you are all powerful or live in the real world and be able to go anywhere but not interact with anyone or anything?",
+    "responses": ["All powerful VR and live like a king in VR!", "GO anywhere instantly", "All powerful in a VR world #cheatcodes"]
   },
   {
     "id": 48,
-    "question": "Would you rather never be able to eat meat or never be able to eat vegetables?"
+    "question": "Would you rather never be able to eat meat or never be able to eat vegetables?",
+    "responses": ["HAHA", "Easiest one so far.", "Never eat veggies."]
   },
   {
     "id": 49,
-    "question": "Would you rather give up watching TV / movies for a year or give up playing games for a year?"
+    "question": "Would you rather give up watching TV / movies for a year or give up playing games for a year?",
+    "responses": ["Playing games, I don't play games.", "Give Up Gaming", "Playing games for a year"]
   },
   {
     "id": 50,
-    "question": "Would you rather always be able to see 5 minutes into the future or always see 100 years into the future?"
+    "question": "Would you rather always be able to see 5 minutes into the future or always see 100 years into the future?",
+    "responses": ["100 years into the future would be trippy asf bro. Let's do it", "5 minutes would be better, once u see 100 years once its boring.", "100 years! Crazyness!"]
   },
   {
     "id": 51,
-    "question": "Would you rather super sensitive taste or super sensitive hearing?"
+    "question": "Would you rather super sensitive taste or super sensitive hearing?",
+    "responses": ["oh wow. Taste", "hearing and wear Noise cancelling headphones", "Rather have sensitive Taste"]
   },
   {
     "id": 52,
-    "question": "Would you rather be a practicing doctor or a medical researcher?"
+    "question": "Would you rather be a practicing doctor or a medical researcher?",
+    "responses": ["Doctor can have more immediate impact", "Dr. Perez", "Researcher that finds the cure for cancer."]
   },
   {
     "id": 53,
-    "question": "Would you rather be married to a 10 with a bad personality or a 6 with an amazing personality?"
+    "question": "Would you rather be married to a 10 with a bad personality or a 6 with an amazing personality?",
+    "responses": ["6 over the 10", "A 10 personality is the 10 that matters", "6 and then cheat on him constantly"]
   },
   {
     "id": 54,
-    "question": "Would you rather never be able to drink sodas like coke again or only be able to drink sodas and nothing else?"
+    "question": "Would you rather never be able to drink sodas like coke again or only be able to drink sodas and nothing else?",
+    "responses": ["Never drink soda, alcohol is still on the table", "Only drink sodas tehre are many of them.", "Dude. You need water to live. Never drink soda."]
   },
   {
     "id": 55,
-    "question": "Would you rather have amazingly fast typing / texting speed or be able to read ridiculously fast?"
+    "question": "Would you rather have amazingly fast typing / texting speed or be able to read ridiculously fast?",
+    "responses": ["Fast texting", "Reading fast would be only good for school", "Fast reading!! 📚"]
   },
   {
     "id": 56,
-    "question": "Would you rather know the history of every object you touched or be able to talk to animals?"
+    "question": "Would you rather know the history of every object you touched or be able to talk to animals?",
+    "responses": ["History of every object", "Talking to animals!!!!!!!!!!!!!", "Rather speak to animals"]
   },
   {
     "id": 57,
-    "question": "Would you rather have constantly dry eyes or a constant runny nose?"
+    "question": "Would you rather have constantly dry eyes or a constant runny nose?",
+    "responses": ["neither f-k that", "lol", "Dry eyes"]
   },
   {
     "id": 58,
-    "question": "Would you rather be a famous director or a famous actor?"
+    "question": "Would you rather be a famous director or a famous actor?",
+    "responses": ["Actor. Gets paid more.", "Actor.", "I would rather be a famous actor"]
   },
   {
     "id": 59,
-    "question": "Would you rather not be able to open any closed doors (locked or unlocked) or not be able to close any open doors?"
+    "question": "Would you rather not be able to open any closed doors (locked or unlocked) or not be able to close any open doors?",
+    "responses": ["Not be able to Close the open doors", "Rather be able to open doors.. otherwise thats messed up", "Close"]
   },
   {
     "id": 60,
-    "question": "Would you rather give up all drinks except for water or give up eating anything that was cooked in an oven?"
+    "question": "Would you rather give up all drinks except for water or give up eating anything that was cooked in an oven?",
+    "responses": ["Give up. All drinks except water", "I would give up what's cooked in an oven still have options", "Give up drinks? Maybe?"]
   },
   {
     "id": 61,
-    "question": "Would you rather be constantly tired no matter how much you sleep or constantly hungry no matter what you eat?"
+    "question": "Would you rather be constantly tired no matter how much you sleep or constantly hungry no matter what you eat?",
+    "responses": ["Constantly tired", "Always hungry", "Hungry"]
   },
   {
     "id": 62,
-    "question": "Would you rather have to read aloud every word you read or sing everything you say out loud?"
+    "question": "Would you rather have to read aloud every word you read or sing everything you say out loud?",
+    "responses": ["Sing everything I say and never talk lol", "Sing what I say", "Sing!"]
   },
   {
     "id": 63,
-    "question": "Would you rather have whatever you are thinking appear above your head for everyone to see or have absolutely everything you do live streamed for anyone to see?"
+    "question": "Would you rather have whatever you are thinking appear above your head for everyone to see or have absolutely everything you do live streamed for anyone to see?",
+    "responses": ["Live stream..", "Neither one", "I would rather have what I'm thinking appear at least I have privacy when I'm alone."]
   },
   {
     "id": 64,
-    "question": "Would you rather be put in a maximum security prison with the hardest of criminals for one year or be put in a relaxed prison where wall street types are held for ten years?"
+    "question": "Would you rather be put in a maximum security prison with the hardest of criminals for one year or be put in a relaxed prison where wall street types are held for ten years?",
+    "responses": ["Relaxed prison", "Relaxed prison", "Maximum security for a year! Ten years is forever the fu bro..."]
   },
   {
     "id": 65,
-    "question": "Would you rather have a clown only you can see that follows you everywhere and just stands silently in a corner or have a real life stalker who dresses like the Easter bunny that everyone can see?"
+    "question": "Would you rather have a clown only you can see that follows you everywhere and just stands silently in a corner or have a real life stalker who dresses like the Easter bunny that everyone can see?",
+    "responses": ["Worst question", "clown", "Clown"]
   },
   {
     "id": 66,
-    "question": "Would you rather kill one innocent person or five people who committed minor crimes?"
+    "question": "Would you rather kill one innocent person or five people who committed minor crimes?",
+    "responses": ["Five bad people. The police do it everyday anyways in the US.", "One innocent, we are all children of God.", "5"]
   },
   {
     "id": 67,
-    "question": "Would you rather have a completely automated home or a self-driving car?"
+    "question": "Would you rather have a completely automated home or a self-driving car?",
+    "responses": ["Completely automated home... then maybe buy the self driving car later on", "Car, home can change around", "Self Driving Car"]
   },
   {
     "id": 68,
-    "question": "Would you rather work very hard at a rewarding job or hardly have to work at a job that isn't rewarding?"
+    "question": "Would you rather work very hard at a rewarding job or hardly have to work at a job that isn't rewarding?",
+    "responses": ["Rewarding job. Rewarding work is always worth it in the end.", "I rather do the Rewarding job", "Hardly have to work, you mean McDonald's?"]
   },
   {
     "id": 69,
-    "question": "Would you rather be held in high regard by your parents or your friends?"
+    "question": "Would you rather be held in high regard by your parents or your friends?",
+    "responses": ["My parents didn't do sht for me - friends.", "Friends is a larger group of people", "Parents. Day 1."]
   },
   {
     "id": 70,
-    "question": "Would you rather be an amazing painter or a brilliant mathematician?"
+    "question": "Would you rather be an amazing painter or a brilliant mathematician?",
+    "responses": ["Painter", "Coder / Mathie", "Painter would make more money"]
   },
   {
     "id": 71,
-    "question": "Would you rather be reincarnated as a fly or just cease to exist after you die?"
+    "question": "Would you rather be reincarnated as a fly or just cease to exist after you die?",
+    "responses": ["Flies live for like 2 days loooooooool", "Just kill me fam", "Cease to exist"]
   },
   {
     "id": 72,
-    "question": "Would you rather be able to go to any theme park in the world for free for the rest of your life or eat for free at any drive through restaurant for the rest of your life?"
+    "question": "Would you rather be able to go to any theme park in the world for free for the rest of your life or eat for free at any drive through restaurant for the rest of your life?",
+    "responses": ["Theme parks", "Eat for free", "Give me free food over any of these dum a$$ would u rather questions."]
   },
   {
     "id": 73,
-    "question": "Would you rather be only able to watch the few movies with a rotten tomatoes score of 95-100% or only be able to watch the majority of movies with a rotten tomatoes score of 94% and lower?"
+    "question": "Would you rather be only able to watch the few movies with a rotten tomatoes score of 95-100% or only be able to watch the majority of movies with a rotten tomatoes score of 94% and lower?",
+    "responses": ["Few with high scores", "Watch only a few movies", "I would watch the majority of movies can't trust people thse days to give good ratings."]
   },
   {
     "id": 74,
-    "question": "Would you rather never lose your phone again or never lose your keys again?"
+    "question": "Would you rather never lose your phone again or never lose your keys again?",
+    "responses": ["Never lose my phone cause I do that all the fuckin time", "Never lose keys again", "Use your phone to call your roommate and let you in tadahhhhhhh"]
   },
   {
     "id": 75,
-    "question": "Would you rather have one real get out of jail free card or a key that opens any door?"
+    "question": "Would you rather have one real get out of jail free card or a key that opens any door?",
+    "responses": ["If you pick get out of jail card you're a thug or a dumbass.", "A key that opens any door. Invaluable!", "The key."]
   },
   {
     "id": 76,
-    "question": "Would you rather have a criminal justice system that actually works and is fair or an administrative government that is free of corruption?"
+    "question": "Would you rather have a criminal justice system that actually works and is fair or an administrative government that is free of corruption?",
+    "responses": ["Criminal justice system that works.", "A Not corrupt govenment.", "Criminal Justice system that doesn't lock black people up longer than white people."]
   },
   {
     "id": 77,
-    "question": "Would you rather have real political power but be relatively poor or be ridiculously rich and have no political power?"
+    "question": "Would you rather have real political power but be relatively poor or be ridiculously rich and have no political power?",
+    "responses": ["Richness over fame.", "Political Power can easily be turned into money with the right mothod", "Ridiculously rich $$$"]
   },
   {
     "id": 78,
-    "question": "Would you rather have the power to gently nudge anyone's decisions or have complete puppet master control of five people?"
+    "question": "Would you rather have the power to gently nudge anyone's decisions or have complete puppet master control of five people?",
+    "responses": ["Gently nudge decisions if I can use it for sex", "Puppet master of 5 people", "Power to change decisions"]
   },
   {
     "id": 79,
-    "question": "Would you rather have everyone laugh at your jokes but not find anyone else's jokes funny or have no one laugh at your jokes but you still find other people's jokes funny?"
+    "question": "Would you rather have everyone laugh at your jokes but not find anyone else's jokes funny or have no one laugh at your jokes but you still find other people's jokes funny?",
+    "responses": ["Aka would you want to be the only funny person on earth obv not.", "Rather have no one laugh at mine.", "No one laugh at my jokes"]
   },
   {
     "id": 80,
-    "question": "Would you rather be the absolute best at something that no one takes seriously or be well above average but not anywhere near the best at something well respected?"
+    "question": "Would you rather be the absolute best at something that no one takes seriously or be well above average but not anywhere near the best at something well respected?",
+    "responses": ["I would rather be the best in the world at something @GuinnessWR", "Well above average", "Above avg."]
   },
   {
     "id": 81,
-    "question": "Would you rather lose the ability to read or lose the ability to speak?"
+    "question": "Would you rather lose the ability to read or lose the ability to speak?",
+    "responses": ["Wow.. neither", "Read it would be like going to China", "Lose Reading."]
   },
   {
     "id": 82,
-    "question": "Would you rather live under a sky with no stars at night or live under a sky with no clouds during the day?"
+    "question": "Would you rather live under a sky with no stars at night or live under a sky with no clouds during the day?",
+    "responses": ["I would rather live with no stars no one looks at those, rarely.", "rather Live under a sky with no clouds", "No clouds"]
   },
   {
     "id": 83,
-    "question": "Would you rather humans go to the moon again or go to mars?"
+    "question": "Would you rather humans go to the moon again or go to mars?",
+    "responses": ["Mars is next", "ELONNNN BABY", "Go to Mars. Spacex finna do dat shit ."]
   },
   {
     "id": 84,
-    "question": "Would you rather never get angry or never be envious?"
+    "question": "Would you rather never get angry or never be envious?",
+    "responses": ["Never get angry it will help with decisions.", "Never get envious", "Never get jealous!"]
   },
   {
     "id": 85,
-    "question": "Would you rather have free Wi-Fi wherever you go or be able to drink unlimited free coffee at any coffee shop?"
+    "question": "Would you rather have free Wi-Fi wherever you go or be able to drink unlimited free coffee at any coffee shop?",
+    "responses": ["Free Wi-Fi is basically mobile data. Anyone can get that. Next", "Free starbucks for life", "Free coffee"]
   },
   {
     "id": 86,
-    "question": "Would you rather be compelled to high five everyone you meet or be compelled to give wedgies to anyone in a green shirt?"
+    "question": "Would you rather be compelled to high five everyone you meet or be compelled to give wedgies to anyone in a green shirt?",
+    "responses": ["High Fives, I actually know a guy like that lol", "Wedgie", "High fives to everyone, why the f not..."]
   },
   {
     "id": 87,
-    "question": "Would you rather live in a house with see-through walls in a city or in the same see-though house but in the middle of a forest far from civilization?"
+    "question": "Would you rather live in a house with see-through walls in a city or in the same see-though house but in the middle of a forest far from civilization?",
+    "responses": ["This is not Stranger Things people don't live in forests", "Forest House", "See through walls in the city ."]
   },
   {
     "id": 88,
-    "question": "Would you rather take amazing selfies but all of your other pictures are horrible or take breathtaking photographs of anything but yourself?"
+    "question": "Would you rather take amazing selfies but all of your other pictures are horrible or take breathtaking photographs of anything but yourself?",
+    "responses": ["There are girls like this", "Breathetaking photos", "Take amazing photos of anything, and sell for $$"]
   },
   {
     "id": 89,
-    "question": "Would you rather use a push lawn mower with a bar that is far too high or far too low?"
+    "question": "Would you rather use a push lawn mower with a bar that is far too high or far too low?",
+    "responses": ["Who cares?", "idk", "Bar Too Low"]
   },
   {
     "id": 90,
-    "question": "Would you rather be able to dodge anything no matter how fast it's moving or be able ask any three questions and have them answered accurately?"
+    "question": "Would you rather be able to dodge anything no matter how fast it's moving or be able ask any three questions and have them answered accurately?",
+    "responses": ["Dodge anything, start a YT channel, get views, profit", "Rather dodge stuff", "3 questions answered"]
   },
   {
     "id": 91,
-    "question": "Would you rather live on the beach or in a cabin in the woods?"
+    "question": "Would you rather live on the beach or in a cabin in the woods?",
+    "responses": ["Beach House ⛱️", "House on the beach! Malibu, cali", "Live on the beach obv"]
   },
   {
     "id": 92,
-    "question": "Would you rather lose your left hand or right foot?"
+    "question": "Would you rather lose your left hand or right foot?",
+    "responses": ["A foot is easier to get a prosthetic for. So foot.", "Foot", "shit"]
   },
   {
     "id": 93,
-    "question": "Would you rather face your fears or forget that you have them?"
+    "question": "Would you rather face your fears or forget that you have them?",
+    "responses": ["Forget! Bye!", "Forget you have them", "Face ou r fears and knwo that you've conquered them."]
   },
   {
     "id": 94,
-    "question": "Would you rather be forced to dance every time you heard music or be forced to sing along to any song you heard?"
+    "question": "Would you rather be forced to dance every time you heard music or be forced to sing along to any song you heard?",
+    "responses": ["I'm a bomb singer.", "Sing", "Dance along"]
   },
   {
     "id": 95,
-    "question": "Would you rather have skin that changes color based on your emotions or tattoos appear all over your body depicting what you did yesterday?"
+    "question": "Would you rather have skin that changes color based on your emotions or tattoos appear all over your body depicting what you did yesterday?",
+    "responses": ["You can cover up so tattoos", "Tats", "Cameleon skin :)"]
   },
   {
     "id": 96,
-    "question": "Would you rather live in a utopia as a normal person or in a dystopia but you are the supreme ruler?"
+    "question": "Would you rather live in a utopia as a normal person or in a dystopia but you are the supreme ruler?",
+    "responses": ["Utopia as a normal person", "Utopia as a normal person.", "In the Utopia"]
   },
   {
     "id": 97,

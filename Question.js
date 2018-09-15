@@ -40,6 +40,25 @@ export default class Question extends Component {
         }).start();
     }
 
+    shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+      
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+      
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+      
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+      
+        return array;
+      }
+
     submit() {
         this.props.submit();
         setTimeout(() => this.setState({ summary: true }), 500);
@@ -95,14 +114,14 @@ export default class Question extends Component {
         return <View 
             style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height / 2 }}>
 
-                <Text style={styles.summarySectionTitle}>You answered:</Text>
+                <Text style={styles.summarySectionTitle}>Your answer:</Text>
                 <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summarycontainertop} activeOpacity={1}>
                     <Text style={[styles.summaryText, { color: 'white' }]} numberOfLines={4}>{this.state.text}</Text>
                 </TouchableOpacity>
 
                 <Text style={styles.summarySectionTitle}>Other answers:</Text>
                 <FlatList
-                    data={QUESTIONS.find(item => item.id === this.state.rand).responses}
+                    data={typeof QUESTIONS.find(item => item.id === this.state.rand).responses !== 'undefined' ? this.shuffle(QUESTIONS.find(item => item.id === this.state.rand).responses) : []}
                     renderItem={({ item }) =>
                         <View style={styles.summarycontainerbottom}>
                             <Text style={styles.summaryText} numberOfLines={4}>{item}</Text>
