@@ -2,7 +2,7 @@ export const QUESTIONS = [
   {
     "id": 0,
     "question": "Would you rather be able to see 10 minutes into your own future or 10 minutes into the future of anyone but yourself?",
-    "responses": ["idk", "maybe", "who knows"]
+    "responses": ["Into my future", "anyones future including all celebrities", "My future, since I love spoilers I can see the outcome of small things like a first date"]
   },
   {
     "id": 1,

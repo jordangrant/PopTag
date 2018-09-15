@@ -221,10 +221,6 @@ export default class PopTag extends Component {
         this.save();
     }
 
-    backOut() {
-        this.setState({ displayQuestion: false });
-    }
-
     resetBalloons() {
         var balloons = this.state.balloons.map(b => {
             b.popped = false;
@@ -360,7 +356,7 @@ export default class PopTag extends Component {
     }
 
     renderQuestion() {
-        return <Question submit={this.submitAnswer.bind(this)} backOut={() => this.backOut()} endQuestion={() => this.endQuestion()}/>
+        return <Question submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}/>
     }
 
     renderDialogue() {
@@ -387,6 +383,7 @@ export default class PopTag extends Component {
 
                     <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
                         onPressIn={this.handlePressIn.bind(this)}
+                        onPress={this.state.displayQuestion == true ? () => this.endQuestion() : null}
                         onPressOut={this.handlePressOut.bind(this)}>
                         <Animated.View style={animatedStyle}>
                             <Image style={styles.header} source={{ uri: 'ptlogored' }} />

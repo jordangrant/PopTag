@@ -45,16 +45,16 @@ export default class Question extends Component {
         setTimeout(() => this.setState({ summary: true }), 500);
     }
 
-    _renderHeader = ({item}) => (
-        <View style={styles.spacer}/>
-      );
+    _renderHeader = ({ item }) => (
+        <View style={styles.spacer} />
+    );
 
     renderQuestion(animatedStyle) {
         return (
             <TouchableOpacity activeOpacity={1}
                 onPressIn={this.handlePressIn.bind(this)}
                 onPress={Keyboard.dismiss}
-                onLongPress={() => this.props.backOut()}
+                onLongPress={() => this.props.endQuestion()}
                 onPressOut={this.handlePressOut.bind(this)}>
                 <Animated.View style={animatedStyle}>
                     <View style={this.state.text !== '' ? styles.container2 : styles.container}>
@@ -92,17 +92,17 @@ export default class Question extends Component {
     }
 
     renderSummary() {
-        return <TouchableOpacity activeOpacity={1}  onPress={() => this.props.endQuestion()}
-        style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height / 2 }}>
+        return <View 
+            style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height / 2 }}>
 
-            <Text style={styles.summarySectionTitle}>You answered:</Text>
-            <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summarycontainertop} activeOpacity={1}>
-                <Text style={[styles.summaryText, { color: 'white' }]} numberOfLines={4}>{this.state.text}</Text>
-            </TouchableOpacity>
+                <Text style={styles.summarySectionTitle}>You answered:</Text>
+                <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summarycontainertop} activeOpacity={1}>
+                    <Text style={[styles.summaryText, { color: 'white' }]} numberOfLines={4}>{this.state.text}</Text>
+                </TouchableOpacity>
 
-            <Text style={styles.summarySectionTitle}>Other answers:</Text> 
+                <Text style={styles.summarySectionTitle}>Other answers:</Text>
                 <FlatList
-                    data={QUESTIONS.find(item => item.id === 0).responses}
+                    data={QUESTIONS.find(item => item.id === this.state.rand).responses}
                     renderItem={({ item }) =>
                         <View style={styles.summarycontainerbottom}>
                             <Text style={styles.summaryText} numberOfLines={4}>{item}</Text>
@@ -113,7 +113,7 @@ export default class Question extends Component {
                     ListHeaderComponent={this._renderHeader}
                 />
 
-        </TouchableOpacity>
+        </View>
     }
 
     render() {
