@@ -386,23 +386,27 @@ export const QUESTIONS = [
   },
   {
     "id": 96,
-    "question": "Would you rather live in a utopia as a normal person or in a dystopia but you are the supreme ruler?"
+    "question": "Would you rather live in a utopia as a normal person or in a dystopia but you are the supreme ruler?",
   },
   {
     "id": 97,
-    "question": "Would you rather snitch on your best friend for a crime they committed or go to jail for the crime they committed?"
+    "question": "Would you rather snitch on your best friend for a crime they committed or go to jail for the crime they committed?",
+    "responses": ["Depends how long the sentence is","Snitches get stiches","Sorry not sorry, i'm telling"]
   },
   {
     "id": 98,
-    "question": "Would you rather have everything on your phone right now (browsing history, photos, etc.) made public to anyone who Google's you name or never use a cell phone again?"
+    "question": "Would you rather have everything on your phone right now (browsing history, photos, etc.) made public to anyone who Google's you name or never use a cell phone again?",
+    "responses": ["I need my phone, I don't care let them look","I have nothing to hide","Take my phone away I won't be able to handle the shame"]
   },
   {
     "id": 99,
-    "question": "Would you rather eat a box of dry spaghetti noodles or a cup of uncooked rice?"
+    "question": "Would you rather eat a box of dry spaghetti noodles or a cup of uncooked rice?",
+    "responses": ["Noodles sound easier tbh","Ew, neither","Obviously noodles, I do that all the time"]
   },
   {
     "id": 100,
-    "question": "Would you rather wake up as a new random person every year and have full control of them for the whole year or once a week spend a day inside a stranger without having any control of them?"
+    "question": "Would you rather wake up as a new random person every year and have full control of them for the whole year or once a week spend a day inside a stranger without having any control of them?",
+    "responses": ["New person every year","Once a week, it will open my eyes up to different perpectives while I live my own life","Neither, I love my life"]
   },
   {
     "id": 101,
@@ -2678,90 +2682,112 @@ export const QUESTIONS = [
   },
   {
     "id": 669,
-    "question": "What's the fullest you've ever been?"
+    "question": "What's the fullest you've ever been?",
+    "responses": ["So full I vomitted it all back up","Thanksgiving last year I fell asleep at the table after eating",""]
   },
   {
     "id": 670,
-    "question": "What behaviors make you think a person is creepy?"
+    "question": "What behaviors make you think a person is creepy?",
+    "responses": ["Excessive staring","",""]
   },
   {
     "id": 671,
-    "question": "Who in the movie business seems the most down to earth?"
+    "question": "Who in the movie business seems the most down to earth?",
+    "responses": ["Chris Pratt","Michael B Jordan","Lupita Nyong'o"]
   },
   {
     "id": 672,
-    "question": "What's the funniest or most amazing cell phone cover you have seen?"
+    "question": "What's the funniest or most amazing cell phone case you have seen?",
+    "responses": ["Custom case with their dog","Cases are for the weak","It was a mirror case, i was looking at myself"]
   },
   {
     "id": 673,
-    "question": "Which musical artist is greatly overrated?"
+    "question": "Which musical artist is greatly overrated?",
+    "responses": ["DRAKE!","Kanye West","Would you rather be underpaid or overrated? - Jay Z"]
   },
   {
     "id": 674,
-    "question": "What company of franchise do you wish would go out of business?"
+    "question": "What company or franchise do you wish would go out of business?",
+    "responses": ["NRA","Arby's","Mr. Sub"]
   },
   {
     "id": 675,
-    "question": "What's the perfect temperature to set the thermostat at?"
+    "question": "What's the perfect temperature to set the thermostat at?",
+    "responses": ["75F is the perfect temperature","80F warm please","69F nice and chilly"]
   },
   {
     "id": 676,
-    "question": "Who around you has the worst luck?"
+    "question": "Who around you has the worst luck?",
+    "responses": ["Me","My girlfriend","My teachers"]
   },
   {
     "id": 677,
-    "question": "What's your favorite sounding word?"
+    "question": "What's your favorite sounding word?",
+    "responses": ["Money","Sausage","Lit"]
   },
   {
     "id": 678,
-    "question": "What's the weirdest thing that has happened to you in a car?"
+    "question": "What's the weirdest thing that has happened to you in a car?",
+    "responses": ["Someone on the street asked for my number","A cop pulled me over","A random dog jumped in my car"]
   },
   {
     "id": 679,
-    "question": "If you could fit your whole life into one picture what would it look like?"
+    "question": "If you could fit your whole life into one picture what would it look like?",
+    "responses": ["An all-you-can-eat buffet","A black hole","Earth"]
   },
   {
     "id": 680,
-    "question": "What's something that can't be found or bought on the internet?"
+    "question": "What's something that can't be found or bought on the internet?",
+    "responses": ["Nothing","Experiences","I have no clue"]
   },
   {
     "id": 681,
-    "question": "What should the first colony on another planet be called?"
+    "question": "What should the first colony on another planet be called?",
+    "responses": ["Non-humans","We The Second Best","Noxygen"]
   },
   {
     "id": 682,
-    "question": "If you put out a magazine, what would you name it and what would be in it?"
+    "question": "If you put out a magazine, what would you name it and what would be in it?",
+    "responses": ["It would be called PuppyWorld, and be filled with puppies","I'd call it Take Me Away, it would have pictures of exotic destinations","Do people still read magazines?"]
   },
   {
     "id": 683,
-    "question": "If you were challenged to a duel, what weapons would you choose?"
+    "question": "If you were challenged to a duel, what weapons would you choose?",
+    "responses": ["Sword","Sheild","Dagger"]
   },
   {
     "id": 684,
-    "question": "What villain do you really feel for?"
+    "question": "What villain do you really feel for?",
+    "responses": ["Killmonger","Gru","Loki"]
   },
   {
     "id": 685,
-    "question": "What is the most interesting thing you could do with 400 pounds of cheddar cheese?"
+    "question": "What is the most interesting thing you could do with 400 pounds of cheddar cheese?",
+    "responses": ["Melt it and put in in a swimming pool","Chop it up into pieces and feed people","Sell it to a farmer"]
   },
   {
     "id": 686,
-    "question": "What did you think you were good at but are actually quite bad at?"
+    "question": "What did you think you were good at but are actually quite bad at?",
+    "responses": ["Singing, especially in the shower","Sports","Being funny"]
   },
   {
     "id": 687,
-    "question": "What in a trailer automatically makes you assume a movie will be horrible?"
+    "question": "What in a trailer automatically makes you assume a movie will be horrible?",
+    "responses": ["When they show all the good scenes","Bad music selection","A ridiculous title"]
   },
   {
     "id": 688,
-    "question": "What game do you wish you could act out in real life?"
+    "question": "What game do you wish you could act out in real life?",
+    "responses": ["Hunger Games","Monopoply.. oh wait","Fortnite"]
   },
   {
     "id": 689,
-    "question": "What are you really happy about being terrible at?"
+    "question": "What are you really happy about being terrible at?",
+    "responses": ["Life","Singing","Cooking"]
   },
   {
     "id": 690,
-    "question": "What would be the funniest thing to fill a pinata with?"
+    "question": "What would be the funniest thing to fill a pinata with?",
+    "responses": ["Feces","Leave it empty","Insects"]
   }
 ]
