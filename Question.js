@@ -92,18 +92,17 @@ export default class Question extends Component {
     }
 
     renderSummary() {
-        return <View style={{
-            width: Dimensions.get('window').width, height: Dimensions.get('window').height / 2
-        }}>
+        return <TouchableOpacity activeOpacity={1}  onPress={() => this.props.endQuestion()}
+        style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height / 2 }}>
 
             <Text style={styles.summarySectionTitle}>You answered:</Text>
-            <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summarycontainertop}>
+            <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summarycontainertop} activeOpacity={1}>
                 <Text style={[styles.summaryText, { color: 'white' }]} numberOfLines={4}>{this.state.text}</Text>
             </TouchableOpacity>
 
             <Text style={styles.summarySectionTitle}>Other answers:</Text> 
                 <FlatList
-                    data={QUESTIONS.find(item => item.id === this.state.rand).responses}
+                    data={QUESTIONS.find(item => item.id === 0).responses}
                     renderItem={({ item }) =>
                         <View style={styles.summarycontainerbottom}>
                             <Text style={styles.summaryText} numberOfLines={4}>{item}</Text>
@@ -114,7 +113,7 @@ export default class Question extends Component {
                     ListHeaderComponent={this._renderHeader}
                 />
 
-        </View>
+        </TouchableOpacity>
     }
 
     render() {
@@ -129,34 +128,6 @@ export default class Question extends Component {
     }
 }
 
-class QuestionSummary extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            text: '',
-            rand: 0,
-        };
-    }
-
-    render() {
-
-        const animatedStyle = {
-            transform: [{ scale: this.animatedValue }],
-        };
-
-        return (
-            <View>
-                <TouchableOpacity activeOpacity={1}
-                    onPressOut={this.handlePressOut.bind(this)}>
-                </TouchableOpacity>
-
-
-
-            </View>
-
-        )
-    }
-}
 
 const styles = StyleSheet.create({
     summarycontainertop: {
@@ -249,14 +220,14 @@ const styles = StyleSheet.create({
     },
     summaryText: {
         color: 'black',
-        fontWeight: '500',
+        fontWeight: '600',
         fontSize: Dimensions.get('window').width * 0.05,
         textAlign: 'center',
         marginVertical: 10
     },
     summarySectionTitle: {
         color: 'black',
-        fontWeight: '500',
+        fontWeight: '600',
         fontSize: Dimensions.get('window').width * 0.05,
         marginLeft: Dimensions.get('window').width * 0.1,
         marginBottom: 15
