@@ -506,103 +506,128 @@ export const QUESTIONS = [
   },
   {
     "id": 101,
-    "question": "Would you rather be born again in a totally different life or born again with all the knowledge you have now?"
+    "question": "Would you rather be born again in a totally different life or born again with all the knowledge you have now?",
+    "responses": ["Knowledge", "Born with knowledge", "Born with all knowledge"]
   },
   {
     "id": 102,
-    "question": "Would you rather be forced to kill a kitten or kill a puppy?"
+    "question": "Would you rather be forced to kill a kitten or kill a puppy?",
+    "responses": ["Cat", "Kill a puppy", "Cats are the worst."]
   },
   {
     "id": 103,
-    "question": "Would you rather be lost in a bad part of town or lost in the forest?"
+    "question": "Would you rather be lost in a bad part of town or lost in the forest?",
+    "responses": ["Bad part of town", "Lost in the forest then no one can assault you?", "Bad part of Town."]
   },
   {
     "id": 104,
-    "question": "Would you rather never get a paper cut again or never get something stuck in your eye again?"
+    "question": "Would you rather never get a paper cut again or never get something stuck in your eye again?",
+    "responses": ["Paper cuts don't happen that often, so eye", "Eye", "Eye"]
   },
   {
     "id": 105,
-    "question": "Would you rather randomly time travel +/- 20 years every time you fart or teleport to a different place on earth (on land, not water) every time you sneeze?"
+    "question": "Would you rather randomly time travel +/- 20 years every time you fart or teleport to a different place on earth (on land, not water) every time you sneeze?",
+    "responses": ["Neither!", "I would think Farts are more controllable", "Fart"]
   },
   {
     "id": 106,
-    "question": "Would you rather the aliens that make first contact be robotic or organic?"
+    "question": "Would you rather the aliens that make first contact be robotic or organic?",
+    "responses": ["Organic", "organic", "Organic"]
   },
   {
     "id": 107,
-    "question": "Would you rather be famous but ridiculed or be just a normal person?"
+    "question": "Would you rather be famous but ridiculed or be just a normal person?",
+    "responses": ["Normal person", "Normal", "Normal person"]
   },
   {
     "id": 108,
-    "question": "Would you rather be an amazing virtuoso at any instrument but only if you play naked or be able to speak any language but only if close your eyes and dance while you are doing it?"
+    "question": "Would you rather be an amazing virtuoso at any instrument but only if you play naked or be able to speak any language but only if close your eyes and dance while you are doing it?",
+    "responses": ["Naked instrument", "Virtuoso", "Rather speak any language"]
   },
   {
     "id": 109,
-    "question": "Would you rather have a flying carpet or a car that can drive underwater?"
+    "question": "Would you rather have a flying carpet or a car that can drive underwater?",
+    "responses": ["Underwater car", "Flying carpet", "Aladdin"]
   },
   {
     "id": 110,
-    "question": "Would you rather be an amazing artist but not be able to see any of the art you created or be an amazing musician but not be able to hear any of the music you create?"
+    "question": "Would you rather be an amazing artist but not be able to see any of the art you created or be an amazing musician but not be able to hear any of the music you create?",
+    "responses": ["Musician", "Artist", "Musician"]
   },
   {
     "id": 111,
-    "question": "Would you rather there be a perpetual water balloon war going on in your city / town or a perpetual food fight?"
+    "question": "Would you rather there be a perpetual water balloon war going on in your city / town or a perpetual food fight?",
+    "responses": ["Food fight is messier and a waste of food.", "Water gun fight", "Water"]
   },
   {
     "id": 112,
-    "question": "Would you rather find five dollars on the ground or find all of your missing socks?"
+    "question": "Would you rather find five dollars on the ground or find all of your missing socks?",
+    "responses": ["5 bucks", "Five dollars on the ground.", "5 dollars"]
   },
   {
     "id": 113,
-    "question": "Would you rather never have another embarrassing fall in public or never feel the need to pass gas in public again?"
+    "question": "Would you rather never have another embarrassing fall in public or never feel the need to pass gas in public again?",
+    "responses": ["Never fall again!", "Never pass gass", "Let fart be free wherever you be"]
   },
   {
     "id": 114,
-    "question": "Would you rather be able to talk to land animals, animals that fly, or animals that live under the water?"
+    "question": "Would you rather be able to talk to land animals, animals that fly, or animals that live under the water?",
+    "responses": ["Land animals", "Cats and dogs", "Marine animals."]
   },
   {
     "id": 115,
-    "question": "Would you rather lose your best friend or all of your friends except for your best friend?"
+    "question": "Would you rather lose your best friend or all of your friends except for your best friend?",
+    "responses": ["Best friend. You can lose your best friend regardless.", "All friends except bestie", "Best friend"]
   },
   {
     "id": 116,
-    "question": "Would you rather it be impossible for you to be woken up for 11 straight hours every day but you wake up feeling amazing or you can be woken up normally but never feel totally rested?"
+    "question": "Would you rather it be impossible for you to be woken up for 11 straight hours every day but you wake up feeling amazing or you can be woken up normally but never feel totally rested?",
+    "responses": ["11 hours", "11 hour sleep!", "Normal"]
   },
   {
     "id": 117,
-    "question": "Would you rather wake up every morning with a new $100 bill but not know where it came from or wake up every morning with a new $50 bill and know where it comes from?"
+    "question": "Would you rather wake up every morning with a new $100 bill but not know where it came from or wake up every morning with a new $50 bill and know where it comes from?",
+    "responses": ["Why do I need to know. $100 ", "$100 bill", "50 and know where it came from"]
   },
   {
     "id": 118,
-    "question": "Would you rather everything you dream each night come true when you wake up or everything a randomly chosen person dreams each night come true when they wake up?"
+    "question": "Would you rather everything you dream each night come true when you wake up or everything a randomly chosen person dreams each night come true when they wake up?",
+    "responses": [ "Give it to someone else"]
   },
   {
     "id": 119,
-    "question": "Would you rather get 5 dollars for every song you sang in public or 50 dollars for every stranger you kiss?"
+    "question": "Would you rather get 5 dollars for every song you sang in public or 50 dollars for every stranger you kiss?",
+    "responses": ["Every song", "$5", "50 for every stranger!"]
   },
   {
     "id": 120,
-    "question": "Would you rather have a boomerang that can kill any 1 person of your choosing in the world, but can only be used once or a boomerang that always returns to you with one dollar?"
+    "question": "Would you rather have a boomerang that can kill any 1 person of your choosing in the world, but can only be used once or a boomerang that always returns to you with one dollar?",
+    "responses": ["$1", "1 dollar", "$1"]
   },
   {
     "id": 121,
-    "question": "Would you rather have every cat or dog that gets lost end up at your house or everyone's clothes that they forget in the dryer get teleported to your house?"
+    "question": "Would you rather have every cat or dog that gets lost end up at your house or everyone's clothes that they forget in the dryer get teleported to your house?",
+    "responses": ["Nooooo thanks", "Dryer", "Dryer"]
   },
   {
     "id": 122,
-    "question": "Would you rather never be stuck in traffic again or never get another cold?"
+    "question": "Would you rather never be stuck in traffic again or never get another cold?",
+    "responses": ["Never get sick", "Traffic", "Traffic"]
   },
   {
     "id": 123,
-    "question": "Would you rather have to fart loudly once, every time you have a serious conversation or have to burp after every kiss?"
+    "question": "Would you rather have to fart loudly once, every time you have a serious conversation or have to burp after every kiss?",
+    "responses": ["Oh my.. Burp", "Fart", "Honestly neither"]
   },
   {
     "id": 124,
-    "question": "Would you rather know how above or below average you are at everything or know how above or below average people are at one skill / talent just by looking at them?"
+    "question": "Would you rather know how above/below average you are at everything or know how above/below average people are at one skill just by looking at them?",
+    "responses": ["Other people and become a recruiter"]
   },
   {
     "id": 125,
-    "question": "Would you rather know the uncomfortable truth of the world or believe a comforting lie?"
+    "question": "Would you rather know the uncomfortable truth of the world or believe a comforting lie?",
+    "responses": ["Truth of the world", "Ignorance is bliss"]
   },
   {
     "id": 126,
@@ -810,7 +835,8 @@ export const QUESTIONS = [
   },
   {
     "id": 177,
-    "question": "Would you rather spend the rest of your life with a sailboat as your home or an RV as your home?"
+    "question": "Would you rather spend the rest of your life with a sailboat as your home or an RV as your home?",
+    "responses": ["Sailboat", "RV", "RV obviously."]
   },
   {
     "id": 178,
@@ -1086,7 +1112,8 @@ export const QUESTIONS = [
   },
   {
     "id": 246,
-    "question": "Which band / artist � dead or alive would play at your funeral?"
+    "question": "Which band / artist dead or alive would play at your funeral?",
+    "responses": ["Guns And Roses"]
   },
   {
     "id": 247,
@@ -1382,467 +1409,583 @@ export const QUESTIONS = [
   },
   {
     "id": 320,
-    "question": "What is the funniest name you have actually heard used in the real world?"
+    "question": "What is the funniest name you have actually heard used in the real world?",
+    "responses": ["Reginald", "LaMonte", "Dick"]
   },
   {
     "id": 321,
-    "question": "What is the sexiest and least sexy name?"
+    "question": "What is the sexiest and least sexy name?",
+    "responses": ["Selena, Doug", "Scarlett and Norman", "Bob"]
   },
   {
     "id": 322,
-    "question": "What sport would be the funniest to add a mandatory amount of alcohol to?"
+    "question": "What sport would be the funniest to add a mandatory amount of alcohol to?",
+    "responses": ["Baseball", "MMA", "Football"]
   },
   {
     "id": 323,
-    "question": "What movie would be greatly improved if it was made into a musical?"
+    "question": "What movie would be greatly improved if it was made into a musical?",
+    "responses": ["Gremlins", "Mean Girls", "Harry Potter"]
   },
   {
     "id": 324,
-    "question": "If your five-year-old self suddenly found themselves inhabiting your current body, what would your five-year-old self do first?"
+    "question": "If your five-year-old self suddenly found themselves inhabiting your current body, what would your five-year-old self do first?",
+    "responses": ["Go to the gym and go vegan", "Buy stuff", "Cry"]
   },
   {
     "id": 325,
-    "question": "What is something that everyone looks stupid doing?"
+    "question": "What is something that everyone looks stupid doing?",
+    "responses": ["Miming eating ice cream", "Pooping", "Vaping"]
   },
   {
     "id": 326,
-    "question": "What is something that is really popular now, but in 5 years everyone will look back on and be embarrassed by?"
+    "question": "What is something that is really popular now, but in 5 years everyone will look back on and be embarrassed by?",
+    "responses": ["The Shoot Dance", "Dabbing", "Getting addicted to Nicotine from Vaping"]
   },
   {
     "id": 327,
-    "question": "What would be the hat to end all hats? What could you wear on your head that would make people stop what they are doing and stare in awe and amazement?"
+    "question": "What would be the hat to end all hats? What could you wear on your head that would make people stop what they are doing and stare in awe and amazement?",
+    "responses": ["Key and Peele", "Drone", "Apple iHat"]
   },
   {
     "id": 328,
-    "question": "If animals could talk, which would be the rudest?"
+    "question": "If animals could talk, which would be the rudest?",
+    "responses": ["Cats!", "Snakes", "Bulls"]
   },
   {
     "id": 329,
-    "question": "In 40 years what will people be nostalgic for?"
+    "question": "In 40 years what will people be nostalgic for?",
+    "responses": ["Today's tech", "Celebs", "Trap music"]
   },
   {
     "id": 330,
-    "question": "What inanimate object do you wish you could eliminate from existence?"
+    "question": "What inanimate object do you wish you could eliminate from existence?",
+    "responses": ["Vapes", "Those tabs on the top of drinks", "Uggs"]
   },
   {
     "id": 331,
-    "question": "What are some things that are okay to occasionally but definitely not okay to do every day?"
+    "question": "What are some things that are okay to occasionally but definitely not okay to do every day?",
+    "responses": ["Alcohol", "Fast Food", "Sex"]
   },
   {
     "id": 332,
-    "question": "What is the weirdest thing you have seen in someone else's home?"
+    "question": "What is the weirdest thing you have seen in someone else's home?",
+    "responses": ["Pink condom", "One slot toaster", "Naked family portrait"]
   },
   {
     "id": 333,
-    "question": "Who do you know that really reminds you of a character in a TV show or movie?"
+    "question": "Who do you know that really reminds you of a character in a TV show or movie?",
+    "responses": ["Tyler", "Bryson is literally Chandler", "Meg Griffin"]
   },
   {
     "id": 334,
-    "question": "What would be the coolest animal to scale up to the size of a horse?"
+    "question": "What would be the coolest animal to scale up to the size of a horse?",
+    "responses": ["Something that wont kill everything", "None", "Bunny"]
   },
   {
     "id": 335,
-    "question": "What is the most embarrassing thing you have ever worn?"
+    "question": "What is the most embarrassing thing you have ever worn?",
+    "responses": ["A kilt", "See through Yoga pants", "Nothing - naked mile"]
   },
   {
     "id": 336,
-    "question": "What part of a kid's movie completely scarred you?"
+    "question": "What part of a kid's movie completely scarred you?",
+    "responses": ["IT", "Tiger from Aladdin", "Scenes from Pinocchio"]
   },
   {
     "id": 337,
-    "question": "What used to be considered trashy but now is very classy?"
+    "question": "What used to be considered trashy but now is very classy?",
+    "responses": ["Jeans prolly", "Thrifting!", "Wearing hair down"]
   },
   {
     "id": 338,
-    "question": "If you were arrested with no explanation, what would your friends and family assume you had done?"
+    "question": "If you were arrested with no explanation, what would your friends and family assume you had done?",
+    "responses": ["They would think I'm innocent", "Shoplifting", "Got into a fight"]
   },
   {
     "id": 339,
-    "question": "What's the most ridiculous fact you know?"
+    "question": "What's the most ridiculous fact you know?",
+    "responses": ["The National animal of Scotland is a Unicorn", "Lighters were invented before matches", "Pirates used eye patches to see better in the dark"]
   },
   {
     "id": 340,
-    "question": "What set of items could you buy that would make the cashier the most uncomfortable?"
+    "question": "What set of items could you buy that would make the cashier the most uncomfortable?",
+    "responses": ["Condoms", "Tape and blindfold", "Pack of Condoms"]
   },
   {
     "id": 341,
-    "question": "What is the funniest joke you know by heart?"
+    "question": "What is the funniest joke you know by heart?",
+    "responses": ["If two people bump into each other in Canada, three people say sorry", "What's brown and rhymes with snoop? - Dr. Dre", "Where does a one legged waitress work? IHOP"]
   },
   {
     "id": 342,
-    "question": "What are the unwritten rules of where you work?"
+    "question": "What are the unwritten rules of where you work?",
+    "responses": ["Don't snitch", "If you're not part of the crew you won't get as many hours", "If you smash a coworker don't speak about it"]
   },
   {
     "id": 343,
-    "question": "What is something that you just recently realized that you are embarrassed you didn't realize earlier?"
+    "question": "What is something that you just recently realized that you are embarrassed you didn't realize earlier?",
+    "responses": ["I'm not as smart as I thought", "The division symbol is just a fraction with dots in place of the numbers", "Having mono"]
   },
   {
     "id": 344,
-    "question": "What is the funniest corporate / business screw up you have heard of?"
+    "question": "What is the funniest corporate / business screw up you have heard of?",
+    "responses": ["News reporter fails", "New GAP logo"]
   },
   {
     "id": 345,
-    "question": "What's the best type of cheese?"
+    "question": "What's the best type of cheese?",
+    "responses": ["Cheddar", "Brie", "American"]
   },
   {
     "id": 346,
-    "question": "What kind of cult would you like to start?"
+    "question": "What kind of cult would you like to start?",
+    "responses": ["Sex", "Neopets", "Cult for people who wants friends"]
   },
   {
     "id": 347,
-    "question": "In one sentence, how would you sum up the internet?"
+    "question": "In one sentence, how would you sum up the internet?",
+    "responses": ["Cesspool", "Voices of the nobodys", "Unlimited"]
   },
   {
     "id": 348,
-    "question": "First think of a product. Now, what would be the absolute worst brand name for one of those products?"
+    "question": "First think of a product. Now, what would be the absolute worst brand name for one of those products?",
+    "responses": ["Long Wood pencils", "Dukey Porta Potties", "Black Hole Teeth Cleaner"]
   },
   {
     "id": 349,
-    "question": "If the all the States in the USA were represented by food, what food would each state be represented by?"
+    "question": "If the all the States in the USA were represented by food, what food would each state be represented by?",
+    "responses": ["Texas Toast shaped like Texas", "Rhode Island Shrimp", "Florida Dolphin meat"]
   },
   {
     "id": 350,
-    "question": "What are some of the nicknames you have for customers or coworkers?"
+    "question": "What are some of the nicknames you have for customers or coworkers?",
+    "responses": ["The Early crew", "Migos", "Fleas"]
   },
   {
     "id": 351,
-    "question": "What would be the absolute worst name you could give your child?"
+    "question": "What would be the absolute worst name you could give your child?",
+    "responses": ["LeFart"]
   },
   {
     "id": 352,
-    "question": "What are some fun and interesting alternatives to war that countries could settle their differences with?"
+    "question": "What are some fun and interesting alternatives to war that countries could settle their differences with?",
+    "responses": ["Water gun fights"]
   },
   {
     "id": 353,
-    "question": "What would the world be like if it was filled with male and female copies of you?"
+    "question": "What would the world be like if it was filled with male and female copies of you?",
+    "responses": ["Out of control"]
   },
   {
     "id": 354,
-    "question": "What's the best Wi-Fi name you've seen?"
+    "question": "What's the best Wi-Fi name you've seen?",
+    "responses": ["Bill Wi Science Fi"]
   },
   {
     "id": 355,
-    "question": "If life were a video game, what would some of the cheat codes be?"
+    "question": "If life were a video game, what would some of the cheat codes be?",
+    "responses": ["Make everyone randomly fall"]
   },
   {
     "id": 356,
-    "question": "How many chickens would it take to kill an elephant?"
+    "question": "How many chickens would it take to kill an elephant?",
+    "responses": ["Infinity"]
   },
   {
     "id": 357,
-    "question": "What would be the worst \"buy one get one free\" sale of all time?"
+    "question": "What would be the worst \"buy one get one free\" sale of all time?",
+    "responses": ["Toilet plunger"]
   },
   {
     "id": 358,
-    "question": "Is a hotdog a sandwich?"
+    "question": "Is a hotdog a sandwich?",
+    "responses": ["No.."]
   },
   {
     "id": 359,
-    "question": "What secret conspiracy would you like to start?"
+    "question": "What secret conspiracy would you like to start?",
+    "responses": ["Drake has no son"]
   },
   {
     "id": 360,
-    "question": "What would be the worst thing for the government to make illegal?"
+    "question": "What would be the worst thing for the government to make illegal?",
+    "responses": ["Coke"]
   },
   {
     "id": 361,
-    "question": "Which body part do you wish you could detach and why?"
+    "question": "Which body part do you wish you could detach and why?",
+    "responses": ["Dick"]
   },
   {
     "id": 362,
-    "question": "What's the weirdest thing a guest has done at your house?"
+    "question": "What's the weirdest thing a guest has done at your house?",
+    "responses": ["Clogged the toilet"]
   },
   {
     "id": 363,
-    "question": "What's invisible but you wish people could see?"
+    "question": "What's invisible but you wish people could see?",
+    "responses": ["bad breath!"]
   },
   {
     "id": 364,
-    "question": "What movie completely changes its plot when you change one letter in its title? What's the new movie about?"
+    "question": "What movie completely changes its plot when you change one letter in its title? What's the new movie about?",
+    "responses": ["Jaws to Paws"]
   },
   {
     "id": 365,
-    "question": "If you were held at gun point and told that if you didn't impress them with your dance moves you would be killed, what dance moves would you bust out?"
+    "question": "If you were held at gun point and told that if you didn't impress them with dance moves you'd be killed, what dance moves would you bust out?",
+    "responses": ["Look alive dance"]
   },
   {
     "id": 366,
-    "question": "Where is the strangest place you've urinated or defecated?"
+    "question": "Where is the strangest place you've urinated or defecated?",
+    "responses": ["Outside a bar in an alley"]
   },
   {
     "id": 367,
-    "question": "What's the weirdest smell you have ever smelled?"
+    "question": "What's the weirdest smell you have ever smelled?",
+    "responses": ["Indian friend's house"]
   },
   {
     "id": 368,
-    "question": "What mythical creature would improve the world most if it existed?"
+    "question": "What mythical creature would improve the world most if it existed?",
+    "responses": ["Chimerya"]
   },
   {
     "id": 369,
-    "question": "How do you feel about putting pineapple on pizza?"
+    "question": "How do you feel about putting pineapple on pizza?",
+    "responses": ["It's the best"]
   },
   {
     "id": 370,
-    "question": "You're a mad scientist, what scientific experiment would you run if money and ethics weren't an issue?"
+    "question": "You're a mad scientist, what scientific experiment would you run if money and ethics weren't an issue?",
+    "responses": ["Lazer blaster"]
   },
   {
     "id": 371,
-    "question": "What two totally normal things become really weird if you do them back to back?"
+    "question": "What two totally normal things become really weird if you do them back to back?",
+    "responses": ["Go black, and go back"]
   },
   {
     "id": 372,
-    "question": "If peanut butter wasn't called peanut butter, what would it be called?"
+    "question": "If peanut butter wasn't called peanut butter, what would it be called?",
+    "responses": ["Nut"]
   },
   {
     "id": 373,
-    "question": "What would be the creepiest thing you could say while passing a stranger on the street?"
+    "question": "What would be the creepiest thing you could say while passing a stranger on the street?",
+    "responses": ["My name Jeff"]
   },
   {
     "id": 374,
-    "question": "What ridiculous and untrue, yet slightly plausible, theories can you come up with for the cause of common ailments like headaches or cavities?"
+    "question": "What ridiculous and untrue, yet slightly plausible, theories can you come up with for the cause of common ailments like headaches or cavities?",
+    "responses": ["Catching a cold is when a fly lays an egg on your tongue"]
   },
   {
     "id": 375,
-    "question": "What's the most imaginative insult you can come up with?"
+    "question": "What's the most imaginative insult you can come up with?",
+    "responses": ["You look like a burnt chicken nugget"]
   },
   {
     "id": 376,
-    "question": "If you were wrongfully put into an insane asylum, how would you convince them that you're actually sane and not just pretending to be sane?"
+    "question": "If you were wrongfully put into an insane asylum, how would you convince them that you're actually sane and not just pretending to be sane?",
+    "responses": ["Do a reddit AMA"]
   },
   {
     "id": 377,
-    "question": "What would be the best-worst name for different types of businesses? (dry cleaners, amusement parks, etc.)"
+    "question": "What would be the best-worst name for different types of businesses? (dry cleaners, amusement parks, etc.)",
+    "responses": ["Dirty Mike's Dry Cleaners"]
   },
   {
     "id": 378,
-    "question": "If you were transported 400 years into the past with no clothes or anything else, how would you prove that you were from the future?"
+    "question": "If you were transported 400 years into the past with no clothes or anything else, how would you prove that you were from the future?",
+    "responses": ["No idea"]
   },
   {
     "id": 379,
-    "question": "Toilet paper, over or under?"
+    "question": "Toilet paper, over or under?",
+    "responses": ["Doesn't matter", "under"]
   },
   {
     "id": 380,
-    "question": "What fictional character is amazing in their book / show / movie, but would be insufferable if you had to deal with them in mundane everyday situations?"
+    "question": "What fictional character is amazing in their book / show / movie, but would be insufferable if you had to deal with them in mundane everyday situations?",
+    "responses": ["Game of Thrones"]
   },
   {
     "id": 381,
-    "question": "What are some fun ways to answer everyday questions like \"how's it going\" or \"what do you do\"?"
+    "question": "What are some fun ways to answer everyday questions like \"how's it going\" or \"what do you do\"?",
+    "responses": ["Still haven't figured that out"]
   },
   {
     "id": 382,
-    "question": "What would some fairytales be like if they took place in the present and included modern technology and culture?"
+    "question": "What would some fairytales be like if they took place in the present and included modern technology and culture?",
+    "responses": ["Cinderella find my iPhone for her shoe"]
   },
   {
     "id": 383,
-    "question": "Is cereal soup?"
+    "question": "Is cereal soup?",
+    "responses": ["No"]
   },
   {
     "id": 384,
-    "question": "If over time you replace parts on a car, at what point does it stop being the same car you bought? How many parts do you need to replace to make it a new car?"
+    "question": "If over time you replace parts on a car, at what point does it stop being the same car you bought?",
+    "responses": ["It's the same car if it feels like the same car"]
   },
   {
     "id": 385,
-    "question": "If someone asked to be your apprentice and learn all that you know, what would you teach them?"
+    "question": "If someone asked to be your apprentice and learn all that you know, what would you teach them?",
+    "responses": ["How to pick up chicks"]
   },
   {
     "id": 386,
-    "question": "What's the best inside joke you've been a part of?"
+    "question": "What's the best inside joke you've been a part of?",
+    "responses": ["Hiding someone's stuff for hours"]
   },
   {
     "id": 387,
-    "question": "We'll that's all the funny questions to ask that we have. But there are a ton of other questions on the site that you might enjoy!"
+    "question": "What's the funniest thing ever?",
+    "responses": ["Kevin Hart"]
   },
   {
     "id": 388,
-    "question": "If you didn't have to sleep, what would you do with the extra time?"
+    "question": "If you didn't have to sleep, what would you do with the extra time?",
+    "responses": ["Jerk", "Swipe on Tinder"]
   },
   {
     "id": 389,
-    "question": "What's your favorite piece of clothing you own / owned?"
+    "question": "What's your favorite piece of clothing you own / owned?",
+    "responses": ["Leggings", "Flannel"]
   },
   {
     "id": 390,
-    "question": "What hobby would you get into if time and money weren't an issue?"
+    "question": "What hobby would you get into if time and money weren't an issue?",
+    "responses": ["Painting"]
   },
   {
     "id": 391,
-    "question": "What would your perfect room look like?"
+    "question": "What would your perfect room look like?",
+    "responses": ["Pink everything", "Supreme"]
   },
   {
     "id": 392,
-    "question": "How often do you play sports?"
+    "question": "How often do you play sports?",
+    "responses": ["Every week", "Rarely"]
   },
   {
     "id": 393,
-    "question": "What fictional place would you most like to go?"
+    "question": "What fictional place would you most like to go?",
+    "responses": ["Oz", "Hogwarts"]
   },
   {
     "id": 394,
-    "question": "What job would you be terrible at?"
+    "question": "What job would you be terrible at?",
+    "responses": ["Construction worker / building things"]
   },
   {
     "id": 395,
-    "question": "When was the last time you climbed a tree?"
+    "question": "When was the last time you climbed a tree?",
+    "responses": ["Never actually"]
   },
   {
     "id": 396,
-    "question": "If you could turn any activity into an Olympic sport, what would you have a good chance at winning medal for?"
+    "question": "If you could turn any activity into an Olympic sport, what would you have a good chance at winning medal for?",
+    "responses": ["Eating"]
   },
   {
     "id": 397,
-    "question": "What is the most annoying habit that other people have?"
+    "question": "What is the most annoying habit that other people have?",
+    "responses": ["Asking a million questions"]
   },
   {
     "id": 398,
-    "question": "What job do you think you'd be really good at?"
+    "question": "What job do you think you'd be really good at?",
+    "responses": ["Personal shopper"]
   },
   {
     "id": 399,
-    "question": "What skill would you like to master?"
+    "question": "What skill would you like to master?",
+    "responses": ["Backflip"]
   },
   {
     "id": 400,
-    "question": "What would be the most amazing adventure to go on?"
+    "question": "What would be the most amazing adventure to go on?",
+    "responses": ["Machu Pichu"]
   },
   {
     "id": 401,
-    "question": "If you had unlimited funds to build a house that you would live in for the rest of your life, what would the finished house be like?"
+    "question": "If you had unlimited funds to build a house that you would live in for the rest of your life, what would the house be like?",
+    "responses": ["Modern mansion"]
   },
   {
     "id": 402,
-    "question": "What's your favorite drink?"
+    "question": "What's your favorite drink?",
+    "responses": ["Sprite", "Long Island Ice Tea", "Sapporo"]
   },
   {
     "id": 403,
-    "question": "What state or country do you never want to go back to?"
+    "question": "What state or country do you never want to go back to?",
+    "responses": ["Pakistan", "Uganda"]
   },
   {
     "id": 404,
-    "question": "What songs have you completely memorized?"
+    "question": "What songs have you completely memorized?",
+    "responses": ["King Kunta"]
   },
   {
     "id": 405,
-    "question": "What game or movie universe would you most like to live in?"
+    "question": "What game or movie universe would you most like to live in?",
+    "responses": ["Marvel"]
   },
   {
     "id": 406,
-    "question": "What do you consider to be your best find?"
+    "question": "What do you consider to be your best find?",
+    "responses": ["Money"]
   },
   {
     "id": 407,
-    "question": "Are you usually early or late?"
+    "question": "Are you usually early or late?",
+    "responses": ["Slightly late"]
   },
   {
     "id": 408,
-    "question": "What pets did you have while you were growing up?"
+    "question": "What pets did you have while you were growing up?",
+    "responses": ["Fish", "Turtle", "Dog"]
   },
   {
     "id": 409,
-    "question": "When people come to you for help, what do they usually want help with?"
+    "question": "When people come to you for help, what do they usually want help with?",
+    "responses": ["Homework"]
   },
   {
     "id": 410,
-    "question": "What takes up too much of your time?"
+    "question": "What takes up too much of your time?",
+    "responses": ["Netflix"]
   },
   {
     "id": 411,
-    "question": "What do you wish you knew more about?"
+    "question": "What do you wish you knew more about?",
+    "responses": ["Women", "Programming"]
   },
   {
     "id": 412,
-    "question": "What would be your first question after waking up from being cryogenically frozen for 100 years?"
+    "question": "What would be your first question after waking up from being cryogenically frozen for 100 years?",
+    "responses": ["What year is it?", "Where am I?"]
   },
   {
     "id": 413,
-    "question": "What are some small things that make your day better?"
+    "question": "What are some small things that make your day better?",
+    "responses": ["Compliments", "Likes"]
   },
   {
     "id": 414,
-    "question": "Who's your go to band or artist when you can't decide on something to listen to?"
+    "question": "Who's your go to band or artist when you can't decide on something to listen to?",
+    "responses": ["Drake"]
   },
   {
     "id": 415,
-    "question": "What shows are you into?"
+    "question": "What shows are you into?",
+    "responses": ["Grey's Anatomy", "Parks and Rec, Arrested Development, Quantico", "Breaking Bad, Better Call Saul"]
   },
   {
     "id": 416,
-    "question": "What TV channel doesn't exist but really should?"
+    "question": "What TV channel doesn't exist but really should?",
+    "responses": ["FOX News"]
   },
   {
     "id": 417,
-    "question": "Who has impressed you most with what they've accomplished?"
+    "question": "Who has impressed you most with what they've accomplished?",
+    "responses": ["Lebron James"]
   },
   {
     "id": 418,
-    "question": "What age do you wish you could permanently be?"
+    "question": "What age do you wish you could permanently be?",
+    "responses": ["24", "18", "28"]
   },
   {
     "id": 419,
-    "question": "What TV show or movie do you refuse to watch?"
+    "question": "What TV show or movie do you refuse to watch?",
+    "responses": ["Black Mirror"]
   },
   {
     "id": 420,
-    "question": "What would be your ideal way to spend the weekend?"
+    "question": "What would be your ideal way to spend the weekend?",
+    "responses": ["Smoking", "Art Exhibit", "Reading books"]
   },
   {
     "id": 421,
-    "question": "What is something that is considered a luxury, but you don't think you could live without?"
+    "question": "What is something that is considered a luxury, but you don't think you could live without?",
+    "responses": ["My Louis bag", "Running water"]
   },
   {
     "id": 422,
-    "question": "What's your claim to fame?"
+    "question": "What's your claim to fame?",
+    "responses": ["Dunked in beer pong"]
   },
   {
     "id": 423,
-    "question": "What's something you like to do the old-fashioned way?"
+    "question": "What's something you like to do the old-fashioned way?",
+    "responses": ["Dating"]
   },
   {
     "id": 424,
-    "question": "What's your favorite genre of book or movie?"
+    "question": "What's your favorite genre of book or movie?",
+    "responses": ["Comedy"]
   },
   {
     "id": 425,
-    "question": "How often do you people watch?"
+    "question": "How often do you people watch?",
+    "responses": ["Never", "At food courts"]
   },
   {
     "id": 426,
-    "question": "What have you only recently formed an opinion about?"
+    "question": "What have you only recently formed an opinion about?",
+    "responses": ["Trump"]
   },
   {
     "id": 427,
-    "question": "What's the best single day on the calendar?"
+    "question": "What's the best single day on the calendar?",
+    "responses": ["DEC 25", "Christmas", "Birthday"]
   },
   {
     "id": 428,
-    "question": "What are you interested in that most people haven't heard of?"
+    "question": "What are you interested in that most people haven't heard of?",
+    "responses": ["Punk rock"]
   },
   {
     "id": 429,
-    "question": "How do you relax after a hard day of work?"
+    "question": "How do you relax after a hard day of work?",
+    "responses": ["Weed", "Watch Netflix"]
   },
   {
     "id": 430,
-    "question": "What was the best book or series that you've ever read?"
+    "question": "What was the best book or series that you've ever read?",
+    "responses": ["Fifty Shades", "The Hunger Games"]
   },
   {
     "id": 431,
-    "question": "What's the farthest you've ever been from home?"
+    "question": "What's the farthest you've ever been from home?",
+    "responses": ["China"]
   },
   {
     "id": 432,
-    "question": "What is the most heartwarming thing you've ever seen?"
+    "question": "What is the most heartwarming thing you've ever seen?",
+    "responses": ["Girl that could hear from the first time"]
   },
   {
     "id": 433,
-    "question": "What is the most annoying question that people ask you?"
+    "question": "What is the most annoying question that people ask you?",
+    "responses": ["How was your day?"]
   },
   {
     "id": 434,
-    "question": "What could you give a 40-minute presentation on with absolutely no preparation?"
+    "question": "What could you give a 40-minute presentation on with absolutely no preparation?",
+    "responses": ["Soccer"]
   },
   {
     "id": 435,
-    "question": "If you were dictator of a small island nation, what crazy dictator stuff would you do?"
+    "question": "If you were dictator of a small island nation, what crazy dictator stuff would you do?",
+    "responses": ["Offerings to the Gods"]
   },
   {
     "id": 436,
@@ -2214,255 +2357,318 @@ export const QUESTIONS = [
   },
   {
     "id": 528,
-    "question": "What chapters would you separate your autobiography into?"
+    "question": "What chapters would you separate your autobiography into?",
+    "responses": ["Beginning, Middle, end"]
   },
   {
     "id": 529,
-    "question": "What do you like most about your family?"
+    "question": "What do you like most about your family?",
+    "responses": ["Sacrifices"]
   },
   {
     "id": 530,
-    "question": "What do you hope your last words will be?"
+    "question": "What do you hope your last words will be?",
+    "responses": ["Suck my dick", "I love you.", "Thank you."]
   },
   {
     "id": 531,
-    "question": "What stat for your life would you most like to see?"
+    "question": "What stat for your life would you most like to see?",
+    "responses": ["Number of sexual partners", "How much money I make", "The number of times I farted and someone could smell it?"]
   },
   {
     "id": 532,
-    "question": "What are three of the most significant numbers in your life?"
+    "question": "What are three of the most significant numbers in your life?",
+    "responses": ["4, 23, 8", "3 7 and 2014", "7, 1994, 1!"]
   },
   {
     "id": 533,
-    "question": "What could you do with two million dollars to impact the most amount of people?"
+    "question": "What could you do with two million dollars to impact the most amount of people?",
+    "responses": ["Teach kids how to code", "Create a sustainable fund to help at risk youths who didn't choose their environment", "Buy everyone weed"]
   },
   {
     "id": 534,
-    "question": "If you were put into solitary confinement for six months, what would you do to stay sane?"
+    "question": "If you were put into solitary confinement for six months, what would you do to stay sane?",
+    "responses": ["Sleep", "FaceTime my girl", "Do math problems in my head."]
   },
   {
     "id": 535,
-    "question": "What's something horrible that everyone should try at least once?"
+    "question": "What's something horrible that everyone should try at least once?",
+    "responses": ["Not skydiving", "Telling the truth to someone's face", "McDonald's"]
   },
   {
     "id": 536,
-    "question": "What fact are your resigned to?"
+    "question": "What fact are your resigned to?",
+    "responses": ["idk", "Dumb people will get famous.", "Sex sells"]
   },
   {
     "id": 537,
-    "question": "Have you ever saved someone's life?"
+    "question": "Have you ever saved someone's life?",
+    "responses": ["Nope", "I probably am the one that needs saving", "No"]
   },
   {
     "id": 538,
-    "question": "What were some of the turning points in your life?"
+    "question": "What were some of the turning points in your life?",
+    "responses": ["Getting sober", "When I made the Provincial team", "Started hanging out with the wrong people."]
   },
   {
     "id": 539,
-    "question": "What would a mirror opposite of yourself be like?"
+    "question": "What would a mirror opposite of yourself be like?",
+    "responses": ["Shy and doesn't drink!", "Outgoing", "Get's girls"]
   },
   {
     "id": 540,
-    "question": "What are you really good at, but kind of embarrassed that you are good at it?"
+    "question": "What are you really good at, but kind of embarrassed that you are good at it?",
+    "responses": ["Trading card games", "Sewing", "Ballet as a guy"]
   },
   {
     "id": 541,
-    "question": "What are three interesting facts about you?"
+    "question": "What are three interesting facts about you?",
+    "responses": ["I am a dual citizen, I have fired a gun, I graduated summa cum laude", "I can dunk on a 10 foot rim, I'm a Commander in Halo and I have never had a gf", "Nothing is interesting about my pathetic life."]
   },
   {
     "id": 542,
-    "question": "Which of your scars has the best story behind it?"
+    "question": "Which of your scars has the best story behind it?",
+    "responses": ["On my arm. My brother stabbed me.", "On my stomach when I got my appendix removed", "Small scar from stapling myself with a stapler."]
   },
   {
     "id": 543,
-    "question": "What's the title of the current chapter of your life?"
+    "question": "What's the title of the current chapter of your life?",
+    "responses": ["Loving Myself", "22 and Beautiful", "Dessert or Disaster"]
   },
   {
     "id": 544,
-    "question": "What's the hardest lesson you've learned?"
+    "question": "What's the hardest lesson you've learned?",
+    "responses": ["Love is everything, so never let it go.", "Don't get so drunk that you can't defend yourself", "Some people cheat so cheat too or deal with it"]
   },
   {
     "id": 545,
-    "question": "What mistake do you keep making again and again?"
+    "question": "What mistake do you keep making again and again?",
+    "responses": ["Falling for a boy", "Texting my ex ", "Getting high and quitting"]
   },
   {
     "id": 546,
-    "question": "What do people think is weird about you?"
+    "question": "What do people think is weird about you?",
+    "responses": ["T-shirts that I wear with pornstars on them", "My height", "I put ketchup on everything"]
   },
   {
     "id": 547,
-    "question": "When people look at you, what do you think they see / think?"
+    "question": "When people look at you, what do you think they see / think?",
+    "responses": ["I am cool", "Punk", "That I get good grades when in reality I don't"]
   },
   {
     "id": 548,
-    "question": "What have you created that you are most proud of?"
+    "question": "What have you created that you are most proud of?",
+    "responses": ["An original song that I wrote", "My independent clothing label", "Master's Thesis on the Socioeconmic imbalance in New York City"]
   },
   {
     "id": 549,
-    "question": "If you could make a 20 second phone call to yourself at any point in your life present or future, when would you call and what would you say?"
+    "question": "If you could make a 20 second phone call to yourself at any point in your life present or future, when would you call and what would you say?",
+    "responses": ["I would call near the end and find out what I was missing", "If only I could call to the past", "On my wedding day!"]
   },
   {
     "id": 550,
-    "question": "What annoys you most about the in-groups you are a part of?"
+    "question": "What annoys you most about the in-groups you are a part of?",
+    "responses": ["Saying we're going to do stuff but never do", "Complacency", "Too much drinking"]
   },
   {
     "id": 551,
-    "question": "What do you have doubts about?"
+    "question": "What do you have doubts about?",
+    "responses": ["My relationship", "Real friends", "Getting a job anytime soon"]
   },
   {
     "id": 552,
-    "question": "What do you want to be remembered for?"
+    "question": "What do you want to be remembered for?",
+    "responses": ["Being a loving father and husband", "My contributions to the field of Science.", "Humour"]
   },
   {
     "id": 553,
-    "question": "What are some of your personal \"rules\" that you never break?"
+    "question": "What are some of your personal \"rules\" that you never break?",
+    "responses": ["Don't get high on your own supply", "Don't make the same mistake twice or maybe 3 times", "Wash whites separately"]
   },
   {
     "id": 554,
-    "question": "What do you regret not doing or starting when you were younger?"
+    "question": "What do you regret not doing or starting when you were younger?",
+    "responses": ["Learning to speak Chinese", "Trying different foods", "Travelling with all my friends after College."]
   },
   {
     "id": 555,
-    "question": "If you could have a never-ending candle that smelled like anything you wanted, what fragrance would you want it to be?"
+    "question": "If you could have a never-ending candle that smelled like anything you wanted, what fragrance would you want it to be?",
+    "responses": ["Old Spice", "Pizza", "A newborn baby"]
   },
   {
     "id": 556,
-    "question": "What's the best thing about you?"
+    "question": "What's the best thing about you?",
+    "responses": ["I'm too modest", "Big penis", "I put others first, I'm shy and selfless pretty much."]
   },
   {
     "id": 557,
-    "question": "What bends your mind every time you think about it?"
+    "question": "What bends your mind every time you think about it?",
+    "responses": ["How babies are made", "Huge structures like the Burj Khalifa", "Quantum physics"]
   },
   {
     "id": 558,
-    "question": "What's the best thing you got from your parents?"
+    "question": "What's the best thing you got from your parents?",
+    "responses": ["Life", "An iPod on my 13th birthday", "RESP"]
   },
   {
     "id": 559,
-    "question": "What's one responsibility you really wish you didn't have?"
+    "question": "What's one responsibility you really wish you didn't have?",
+    "responses": ["Laundry", "Driving family members", "My son"]
   },
   {
     "id": 560,
-    "question": "What is the \"holy grail\" of your life?"
+    "question": "What is the \"holy grail\" of your life?",
+    "responses": ["Doing whatever I want whenever I want", "Starbucks and Yoga", "My puppy!"]
   },
   {
     "id": 561,
-    "question": "If your childhood had a smell, what would it be?"
+    "question": "If your childhood had a smell, what would it be?",
+    "responses": ["Farts", "Chicken nuggets", "Fresh cookies"]
   },
   {
     "id": 562,
-    "question": "What are the top three things you want to accomplish before you die? How close are you to accomplishing them?"
+    "question": "What are the top three things you want to accomplish before you die? How close are you to accomplishing them?",
+    "responses": ["Climb Everest, visit 50 countries, mile high club", "1M followers, I have 700", "Get married, Get a Mercedes, Take the stairs up the CN Tower"]
   },
   {
     "id": 563,
-    "question": "What do you wish you could tell yourself 10 years ago? What do you think you'll want to tell your current self 10 years from now?"
+    "question": "What do you wish you could tell yourself 10 years ago? What do you think you'll want to tell your current self 10 years from now?",
+    "responses": ["Start learning how to code or build robots", "In 10 years, probably would say save more money", "Travel more, Travel more"]
   },
   {
     "id": 564,
-    "question": "In your group of friends, what role do you play?"
+    "question": "In your group of friends, what role do you play?",
+    "responses": ["Joker", "THE MOM", "The designated driver - every time"]
   },
   {
     "id": 565,
-    "question": "Among your friends or family, what are you famous for?"
+    "question": "Among your friends or family, what are you famous for?",
+    "responses": ["My YouTube channel", "Getting my MBA", "Working at Google"]
   },
   {
     "id": 566,
-    "question": "What is the biggest lesson you never learned?"
+    "question": "What is the biggest lesson you never learned?",
+    "responses": ["Love conquers all", "The love of money is a sin", "Grass is always greener on the other side"]
   },
   {
     "id": 567,
-    "question": "What's the most immature thing that you do?"
+    "question": "What's the most immature thing that you do?",
+    "responses": ["Pick my nose and wipe it", "Always punch back", "Toilet paper on the seat"]
   },
   {
     "id": 568,
-    "question": "If your life was a book, what would its title be?"
+    "question": "If your life was a book, what would its title be?",
+    "responses": ["Uh Oh", "Hung Chedleigh", "The Unbegotten Traveller"]
   },
   {
     "id": 569,
-    "question": "What's the best and worst thing about getting older?"
+    "question": "What's the best and worst thing about getting older?",
+    "responses": ["Wrinkles", "Can't play sports", "No sex"]
   },
   {
     "id": 570,
-    "question": "What's something that happened or something that someone said that changed how you view the world?"
+    "question": "What's something that happened or something that someone said that changed how you view the world?",
+    "responses": ["Assault", "Lying", "Donald Trump getting elected"]
   },
   {
     "id": 571,
-    "question": "What are you most likely very wrong about?"
+    "question": "What are you most likely very wrong about?",
+    "responses": ["My stock picks", "My major", "Who's the most attractive Kardashian (Kourtney)"]
   },
   {
     "id": 572,
-    "question": "If you had a personal flag, what would be on it?"
+    "question": "If you had a personal flag, what would be on it?",
+    "responses": ["Incredible hulk", "Backwoods", "Gamertag"]
   },
   {
     "id": 573,
-    "question": "What lifestyle change have you been meaning to make for a while now?"
+    "question": "What lifestyle change have you been meaning to make for a while now?",
+    "responses": ["Vegan", "Bike to work", "Visit parents more often"]
   },
   {
     "id": 574,
-    "question": "What would be your spirit animal?"
+    "question": "What would be your spirit animal?",
+    "responses": ["Capybara", "Elephant", "Dolphin"]
   },
   {
     "id": 575,
-    "question": "What incredibly strong opinion or belief do you have that is completely unimportant in the grand scheme of things?"
+    "question": "What incredibly strong opinion or belief do you have that is completely unimportant in the grand scheme of things?",
+    "responses": ["Best Friends character", "Must match belt with shoes", "Kendrick should have beaten Macklemore"]
   },
   {
     "id": 576,
-    "question": "What chance encounter changed your life forever?"
+    "question": "What chance encounter changed your life forever?",
+    "responses": ["Almost getting hit", "Acid", "Sarah"]
   },
   {
     "id": 577,
-    "question": "If you could have a video of any one event in your life, what event would you choose?"
+    "question": "If you could have a video of any one event in your life, what event would you choose?",
+    "responses": ["Coming out of my mother", "Paper in garbage first try", "Dance battles with my younger brother"]
   },
   {
     "id": 578,
-    "question": "If you were forced to relive one 10-minute block of your life again and again for all eternity, what 10 minutes of your life would you choose?"
+    "question": "If you were forced to relive one 10-minute block of your life again and again for all eternity, what 10 minutes of your life would you choose?",
+    "responses": ["Prom night", "Championship basketball game", "World Cup Finals"]
   },
   {
     "id": 579,
-    "question": "Very personal questions to get to know someone better"
+    "question": "What's a very personal question to get to know someone better",
+    "responses": ["Got any kids?", "What are your goals?", "Would your mother like me?"]
   },
   {
     "id": 580,
-    "question": "How do you hope you'll change as a person in the future?"
+    "question": "How do you hope you'll change as a person in the future?",
+    "responses": ["Stay the same", "Get richer", "Healthier"]
   },
   {
     "id": 581,
-    "question": "What keeps you up at night?"
+    "question": "What keeps you up at night?",
+    "responses": ["Netflix", "Less fortunate kids around the world.", "Instagram feed"]
   },
   {
     "id": 582,
-    "question": "What's the most surprising self-realization you've had?"
+    "question": "What's the most surprising self-realization you've had?",
+    "responses": ["Not that many people like me", "I'm actually very tall", "dont know"]
   },
   {
     "id": 583,
-    "question": "What's the most illegal thing you've done?"
+    "question": "What's the most illegal thing you've done?",
+    "responses": ["Weed", "Trespassing", "Streaking in public"]
   },
   {
     "id": 584,
-    "question": "What lie do you tell most often?"
+    "question": "What lie do you tell most often?",
+    "responses": ["Everything is fine", "I can get any girl", "My tits are not that saggy"]
   },
   {
     "id": 585,
-    "question": "What do you regret not doing?"
+    "question": "What do you regret not doing?",
+    "responses": ["Running for the bus last year", "Going out", "Doing better in school"]
   },
   {
     "id": 586,
-    "question": "What gives your life meaning?"
+    "question": "What gives your life meaning?",
+    "responses": ["Cake", "Family", "My job"]
   },
   {
     "id": 587,
-    "question": "What do you most often look down on people for? What do you think other people look down on you for?"
+    "question": "What do you most often look down on people for? What do you think other people look down on you for?",
+    "responses": ["Clothes", "Outfit", "Blemishes on their face, probably my style"]
   },
   {
     "id": 588,
-    "question": "What bridges do you not regret burning?"
+    "question": "What bridges do you not regret burning?",
+    "responses": ["Recruiter", "Ex Friend", "Bad Ex-BF"]
   },
   {
     "id": 589,
-    "question": "What are you most insecure about?"
+    "question": "What are you most insecure about?",
+    "responses": ["Looks", "Car", "My bank account LOL"]
   },
   {
     "id": 590,
-    "question": "How do you get in the way of your own success?"
+    "question": "How do you get in the way of your own success?",
+    "responses": ["I can change my mind so quickly it's hard to stick to one thing.", "", ""]
   },
   {
     "id": 591,
@@ -2470,311 +2676,388 @@ export const QUESTIONS = [
   },
   {
     "id": 592,
-    "question": "What are you afraid people see when they look at you?"
+    "question": "What are you afraid people see when they look at you?",
+    "responses": ["How much of a mess I am", "I don't care about it", "My pimples"]
   },
   {
     "id": 593,
-    "question": "What is the silliest recent fashion trend?"
+    "question": "What is the silliest recent fashion trend?",
+    "responses": ["Ugly ass shoes like Balenciagas", "Fashion Nova", "Anything the Kardashians wear"]
   },
   {
     "id": 594,
-    "question": "What technology from science fiction do you wish existed?"
+    "question": "What technology from science fiction do you wish existed?",
+    "responses": ["Star Trek Beam me up Scotty!", "Lightsabers", "Tony Stark's J.A.R.V.I.S"]
   },
   {
     "id": 595,
-    "question": "What is the dumbest chorus from a recent song?"
+    "question": "What is the dumbest chorus from a recent song?",
+    "responses": ["Gucci Gang", "Fefe got that wet wet got that drip drip got that super soaker", "You're such a f*cking hoe, I love it"]
   },
   {
     "id": 596,
-    "question": "After you survive the apocalypse, what will your job be?"
+    "question": "After you survive the apocalypse, what will your job be?",
+    "responses": ["Pimp", "Wolf of Wall Street 2", "There would be no jobs cause everybody is dead"]
   },
   {
     "id": 597,
-    "question": "What job would you be absolutely terrible at?"
+    "question": "What job would you be absolutely terrible at?",
+    "responses": ["Construction worker", "Psychiatrist", "Doctor of anything"]
   },
   {
     "id": 598,
-    "question": "What would your perfect Saturday be like?"
+    "question": "What would your perfect Saturday be like?",
+    "responses": ["Morning sex, breakfast and cartoons, then sports game and dinner", "Swim in the pool all day", "Sitting in bed and being brought food while netflix binging :P"]
   },
   {
     "id": 599,
-    "question": "What mildly annoying curse do you wish you could curse people with?"
+    "question": "What mildly annoying curse do you wish you could curse people with?",
+    "responses": ["Trip and fall over", "Random tickles in their neck and sides", "Everytime they try and post on their story their phone shuts off so they can never post"]
   },
   {
     "id": 600,
-    "question": "How much would you pay a hacker threatening to release your browsing history to your friends and family?"
+    "question": "How much would you pay a hacker threatening to release your browsing history to your friends and family?",
+    "responses": ["Nothing everyone watches porn, right?", "10 bucks", "$1000"]
   },
   {
     "id": 601,
-    "question": "If your life had a mascot, what would the mascot be?"
+    "question": "If your life had a mascot, what would the mascot be?",
+    "responses": ["A bird that flies into windows a lot", "Barbie", "A giant Red Bottom shoe"]
   },
   {
     "id": 602,
-    "question": "What easy thing do you most often screw up?"
+    "question": "What easy thing do you most often screw up?",
+    "responses": ["People's names loool", "Small talk", "Reading the time on an analog clock"]
   },
   {
     "id": 603,
-    "question": "What would be the worst ingredients to fill a burrito with?"
+    "question": "What would be the worst ingredients to fill a burrito with?",
+    "responses": ["Crap", "Vaccuum dust", "Lemon Juice, vinegar, Soy Sauce"]
   },
   {
     "id": 604,
-    "question": "If you could choose one celebrity to instantly become disappear from the spot light, which celebrity would you choose and why?"
+    "question": "If you could choose one celebrity to instantly disappear from the spotlight, which celebrity would you choose and why?",
+    "responses": ["Iggy Azzalea", "Lil Tay", "Bhad Bhabie"]
   },
   {
     "id": 605,
-    "question": "If you had to replace your hands with something other than hands or claws, what would put at the ends of your arms?"
+    "question": "If you had to replace your hands with something other than hands or claws, what would put at the ends of your arms?",
+    "responses": ["Boxing gloves", "Knife", "A paintball gun"]
   },
   {
     "id": 606,
-    "question": "What's something that people think makes them look cool but actually has the opposite effect?"
+    "question": "What's something that people think makes them look cool but actually has the opposite effect?",
+    "responses": ["Showing off jewelry", "duck face", "Taking pics with bottles at the club"]
   },
   {
     "id": 607,
-    "question": "What futuristic thing do you wish your clothing or accessories could do?"
+    "question": "What futuristic thing do you wish your clothing or accessories could do?",
+    "responses": ["Change colour", "De-wrinkle", "Have invisible pockets for food"]
   },
   {
     "id": 608,
-    "question": "If you could level up humans as a species, what stat or ability would you increase?"
+    "question": "If you could level up humans as a species, what stat or ability would you increase?",
+    "responses": ["Empathy", "Penis size", "The ability to hypnotize others if practiced"]
   },
   {
     "id": 609,
-    "question": "Which�movie sequel�do you wish you could erase from history?"
+    "question": "Which movie sequel do you wish you could erase from history?",
+    "responses": ["Taken", "Hunger game part 3", "Transformers"]
   },
   {
     "id": 610,
-    "question": "If you suddenly found out that your internal monologue for the last week was actually audible, how screwed would you be?"
+    "question": "If you suddenly found out that your internal monologue for the last week was actually audible, how screwed would you be?",
+    "responses": ["Not that", "Fired from my job I reckon", "Dunno"]
   },
   {
     "id": 611,
-    "question": "What is the funniest doomsday device a super villain could threaten the world with?"
+    "question": "What is the funniest doomsday device a super villain could threaten the world with?",
+    "responses": ["Dildo Penetrator", "Banana peel shooter gun", "Laughing gas? Inherently funny"]
   },
   {
     "id": 612,
-    "question": "What's the silliest invention you have heard of?"
+    "question": "What's the silliest invention you have heard of?",
+    "responses": ["Standing sleeping bag", "Spork", "Bottled water"]
   },
   {
     "id": 613,
-    "question": "What would your perfect vacation entail?"
+    "question": "What would your perfect vacation entail?",
+    "responses": ["Food being brought to me on the beach", "Sex party at an Aspen resort, ski vacation", "Gelato in Italy"]
   },
   {
     "id": 614,
-    "question": "What was the funniest way that you have been injured?"
+    "question": "What was the funniest way that you have been injured?",
+    "responses": ["Falling off my bike", "Trying to stand on a table when drunk.", "Getting a dart through my hand lol"]
   },
   {
     "id": 615,
-    "question": "If your life was a movie, what songs would be on the soundtrack?"
+    "question": "If your life was a movie, what songs would be on the soundtrack?",
+    "responses": ["Get Low by Lil John", "Celine Dion My Heart Will Go On", "Sonic X Theme song"]
   },
   {
     "id": 616,
-    "question": "What scene from a TV show will you never forget?"
+    "question": "What scene from a TV show will you never forget?",
+    "responses": ["When we finally meet the Mother", "The Red Wedding", "When Hannah Montana and Jake Ryan kissed"]
   },
   {
     "id": 617,
-    "question": "What�movie trope�annoys you the most?"
+    "question": "What movie trope annoys you the most?",
+    "responses": ["The unpopular girl becoming popular", "Waking up and everything changes", "Product placements"]
   },
   {
     "id": 618,
-    "question": "If coffee was illegal, what would its street name be?"
+    "question": "If coffee was illegal, what would its street name be?",
+    "responses": ["Cofeta", "Uppity", "Beanazzz"]
   },
   {
     "id": 619,
-    "question": "What TV catch phrase do you most enjoy using?"
+    "question": "What TV catch phrase do you most enjoy using?",
+    "responses": ["What's the sitch.", "Nothing good happens after 2AM", "Oh, snap!"]
   },
   {
     "id": 620,
-    "question": "What terrible movie do you love?"
+    "question": "What terrible movie do you love?",
+    "responses": ["Drillbit Taylor", "The Ringer", "Pulp Fiction"]
   },
   {
     "id": 621,
-    "question": "What song do you have to sing along with when you hear it?"
+    "question": "What song do you have to sing along with when you hear it?",
+    "responses": ["God's Plan", "I Don't Care", "Fergalicious"]
   },
   {
     "id": 622,
-    "question": "What golden age are we currently living through?"
+    "question": "What golden age are we currently living through?",
+    "responses": ["Social Media", "Dating on an app", "Everyone being offended at everything"]
   },
   {
     "id": 623,
-    "question": "If you had to become an inanimate object for a year, what object would you choose to be?"
+    "question": "If you had to become an inanimate object for a year, what object would you choose to be?",
+    "responses": ["A dildo", "A sports car", "Oven"]
   },
   {
     "id": 624,
-    "question": "If someone painted a portrait of you, how would it look (clothes, background, pose, etc.) and what else would be in the painting with you?"
+    "question": "If someone painted a portrait of you, how would it look (clothes, background, pose, etc.) and what else would be in the painting with you?",
+    "responses": ["Me and a SubWay sandwich ;) footlong", "Atop the Eiffel Tower with my love", "In a rarri"]
   },
   {
     "id": 625,
-    "question": "What game are / were you really good at?"
+    "question": "What game are / were you really good at?",
+    "responses": ["Halo 3", "Jump rope in middle school", "DOTA 2"]
   },
   {
     "id": 626,
-    "question": "If you were a DJ, what would your DJ name be?"
+    "question": "If you were a DJ, what would your DJ name be?",
+    "responses": ["DJ JD", "Swizzy", "Carlos"]
   },
   {
     "id": 627,
-    "question": "Which movie do they need to a sequel to?"
+    "question": "Which movie do they need to a sequel to?",
+    "responses": ["The Incredibles", "Codename The Cleaner", "Coach Carter"]
   },
   {
     "id": 628,
-    "question": "What would be the most ironic way that someone could die?"
+    "question": "What would be the most ironic way that someone could die?",
+    "responses": ["Helping someone else", "Setting a trap to kill someone else", "Skydiving and thinking they will die"]
   },
   {
     "id": 629,
-    "question": "What reality TV show would you most like to see made?"
+    "question": "What reality TV show would you most like to see made?",
+    "responses": ["Dogs vs Cats idk", "Famous For A Day: Celeb life", "Put a bunch of nerds on an Island with hotties for like a month and see what happens"]
   },
   {
     "id": 630,
-    "question": "What is the most unprofessional thing you've seen someone do?"
+    "question": "What is the most unprofessional thing you've seen someone do?",
+    "responses": ["Throw a ball in the office almost hitting someone :|", "Take someone else's food without hesitation", ""]
   },
   {
     "id": 631,
-    "question": "You can have one secret video / audio feed from anywhere in the world. Where do you put it?"
+    "question": "You can have one secret video / audio feed from anywhere in the world. Where do you put it?",
+    "responses": ["It goes wherever Beyonce goes", "Backstage at the VS fashion show, I wonder what they talk abt..", "In the Oval Office"]
   },
   {
     "id": 632,
-    "question": "The last thing you ate is now the only thing you can eat. How soon do you die?"
+    "question": "The last thing you ate is now the only thing you can eat. How soon do you die?",
+    "responses": ["18 years of a heart attack", "Normal time", "Never"]
   },
   {
     "id": 633,
-    "question": "If you have a logo instead of a name, what would it look like?"
+    "question": "If you have a logo instead of a name, what would it look like?",
+    "responses": ["A serpent around a blade", "Minimalist letters", "Beach theme"]
   },
   {
     "id": 634,
-    "question": "You are about to get into a fight, what song comes on as your soundtrack?"
+    "question": "You are about to get into a fight, what song comes on as your soundtrack?",
+    "responses": ["Lose Control", "In Da Club", "Walk This Way"]
   },
   {
     "id": 635,
-    "question": "What word do you always misspell?"
+    "question": "What word do you always misspell?",
+    "responses": ["Their", "Mississippi", "Thought"]
   },
   {
     "id": 636,
-    "question": "Would you enjoy a vacation away from all of your technology?"
+    "question": "Would you enjoy a vacation away from all of your technology?",
+    "responses": ["No.", "yes", "yeah"]
   },
   {
     "id": 637,
-    "question": "What is the ugliest vegetable?"
+    "question": "What is the ugliest vegetable?",
+    "responses": ["Pear", "Eggplant", "Durian"]
   },
   {
     "id": 638,
-    "question": "What product would you seriously stockpile if you found out they weren't going to sell it anymore?"
+    "question": "What product would you seriously stockpile if you found out they weren't going to sell it anymore?",
+    "responses": ["Codeine", "Polo Red", "Lulu tights"]
   },
   {
     "id": 639,
-    "question": "What is the absolute�worst movie�you have ever seen?"
+    "question": "What is the absolute worst movie you have ever seen?",
+    "responses": ["Dumb and dumber", "Sierra burgess is a loser", "Adam Sandler"]
   },
   {
     "id": 640,
-    "question": "What food do you crave most often?"
+    "question": "What food do you crave most often?",
+    "responses": ["Chicken fingers", "Calamari", "Steak"]
   },
   {
     "id": 641,
-    "question": "What is the grossest sounding English word?"
+    "question": "What is the grossest sounding English word?",
+    "responses": ["Moist", "moist", "Salad"]
   },
   {
     "id": 642,
-    "question": "What silliest thing you get nostalgic for?"
+    "question": "What silliest thing you get nostalgic for?",
+    "responses": ["Chicken nuggets", "Cartoon Network shows!", "That's So raven"]
   },
   {
     "id": 643,
-    "question": "When is lying the right thing to do?"
+    "question": "When is lying the right thing to do?",
+    "responses": ["Never", "When you gotta, you gotta.", "It's never the right thing."]
   },
   {
     "id": 644,
-    "question": "What is your version of \"There's two types of people in this world�\"?"
+    "question": "What is your version of \"There's two types of people in this world\"?",
+    "responses": ["People who dream and people who chase their dreams", "People that understand binary and people that do not", "Those that fall in love, and those that love."]
   },
   {
     "id": 645,
-    "question": "If you could only eat one food for the rest of your life, what would it be?"
+    "question": "If you could only eat one food for the rest of your life, what would it be?",
+    "responses": ["Pizza", "Chicken Parmigiana", "Soup"]
   },
   {
     "id": 646,
-    "question": "What is your dream car?"
+    "question": "What is your dream car?",
+    "responses": ["Tesla Roadster 2020", "Mercedes G Wagon", "La Ferrari in red"]
   },
   {
     "id": 647,
-    "question": "If you opened a restaurant, what kind of restaurant would it be?"
+    "question": "If you opened a restaurant, what kind of restaurant would it be?",
+    "responses": ["Gourmet cheeseburgers", "Sushi!", "Ice Cream and French Fries"]
   },
   {
     "id": 648,
-    "question": "What quote do you (try to) live by?"
+    "question": "What quote do you (try to) live by?",
+    "responses": ["Live free, die hard", "It's not the size of the dogs we fight but the size of the fight in the dog", "Act lke a lady, think like a man"]
   },
   {
     "id": 649,
-    "question": "What is your hometown famous for?"
+    "question": "What is your hometown famous for?",
+    "responses": ["Grilled cheese sandwiches", "Teen pregnancies", ""]
   },
   {
     "id": 650,
-    "question": "Do you think the world would be a better or worse place if everyone suddenly could read each other's thoughts?"
+    "question": "Do you think the world would be a better or worse place if everyone suddenly could read each other's thoughts?",
+    "responses": ["Bad", "Absolutely worse.", "Way better!"]
   },
   {
     "id": 651,
-    "question": "If you lived in a tribal society, what role would you play? (Hunter, gatherer, shaman, chieftain, etc.)"
+    "question": "If you lived in a tribal society, what role would you play? (Hunter, gatherer, shaman, chieftain, etc.)",
+    "responses": ["The naked lady on a horse", "Chief", "Town whore lol"]
   },
   {
     "id": 652,
-    "question": "Which appliance can you not live without?"
+    "question": "Which appliance can you not live without?",
+    "responses": ["Oven", "Fridge", "Stove"]
   },
   {
     "id": 653,
-    "question": "Whose advice do you always listen to?"
+    "question": "Whose advice do you always listen to?",
+    "responses": ["My mother", "Gary Vaynerchuck", "My best friend Kristen!"]
   },
   {
     "id": 654,
-    "question": "Would you go to another planet even if it meant that you would never return to earth and eventually die on that planet?"
+    "question": "Would you go to another planet even if it meant that you would never return to earth and eventually die on that planet?",
+    "responses": ["No", "Why would you do that.", "Yes"]
   },
   {
     "id": 655,
-    "question": "Would you rather take a two week all expenses paid vacation right now or a one month all expenses paid vacation in one year?"
+    "question": "Would you rather take a two week all expenses paid vacation right now or a one month all expenses paid vacation in one year?",
+    "responses": ["One year", "1 year", "Gimme a vacation right now, 2 weeks is plenty."]
   },
   {
     "id": 656,
-    "question": "What was the last thing you created?"
+    "question": "What was the last thing you created?",
+    "responses": ["Self portrait", "A word document.", "An app."]
   },
   {
     "id": 657,
-    "question": "Who is a better cook your mother or grandmother?"
+    "question": "Who is a better cook your mother or grandmother?",
+    "responses": ["Neither", "Mom", "Mother"]
   },
   {
     "id": 658,
-    "question": "What book do you wish would be turned into a movie?"
+    "question": "What book do you wish would be turned into a movie?",
+    "responses": ["Harry Potter o wait", "No one reads", "Alex Rider"]
   },
   {
     "id": 659,
-    "question": "Is there an app that you hate but use anyways?"
+    "question": "Is there an app that you hate but use anyways?",
+    "responses": ["Snapchat or Facebook", "Instagram", "Facebook"]
   },
   {
     "id": 660,
-    "question": "What was the last thing that you fixed?"
+    "question": "What was the last thing that you fixed?",
+    "responses": ["Toilet that was clogged", "Car", "Computer"]
   },
   {
     "id": 661,
-    "question": "Could you survive in the wilderness for a month?"
+    "question": "Could you survive in the wilderness for a month?",
+    "responses": ["Hell no", "Yes", "Yeah"]
   },
   {
     "id": 662,
-    "question": "What are some songs you know by heart?"
+    "question": "What are some songs you know by heart?",
+    "responses": ["My Humps", "Yeah by usher", "Rap God"]
   },
   {
     "id": 663,
-    "question": "What piece of technology brings you the most joy?"
+    "question": "What piece of technology brings you the most joy?",
+    "responses": ["iPhone", "Netflix", "Cell phone"]
   },
   {
     "id": 664,
-    "question": "If you could rename the street you lived on, what would you rename it?"
+    "question": "If you could rename the street you lived on, what would you rename it?",
+    "responses": ["No", "Lil' Hemmings Drive", "Desenuts Ave"]
   },
   {
     "id": 665,
-    "question": "What do your clothes say about you?"
+    "question": "What do your clothes say about you?",
+    "responses": ["Ohhh he got moneyyyyyyy", "Simple fashion", "Colorful personality, with a retro twist"]
   },
   {
     "id": 666,
-    "question": "What's your \"going to bed\" routine?"
+    "question": "What's your \"going to bed\" routine?",
+    "responses": ["Drink lean and fall asleep", "Nothing", "Wash face, brush teeth, tuck in tight."]
   },
   {
     "id": 667,
-    "question": "What animal best represents your personality?"
+    "question": "What animal best represents your personality?",
+    "responses": ["Kitty cat", "Lion", "Koala"]
   },
   {
     "id": 668,
-    "question": "What piece of clothing or accessory can someone wear that immediately makes you have a bad opinion of them as a person?"
+    "question": "What piece of clothing or accessory can someone wear that immediately makes you have a bad opinion of them as a person?",
+    "responses": ["Fedora", "Choker", "A small top that shows boobs"]
   },
   {
     "id": 669,

@@ -41,23 +41,25 @@ export default class Question extends Component {
     }
 
     shuffle(array) {
+
         var currentIndex = array.length, temporaryValue, randomIndex;
-      
+
         // While there remain elements to shuffle...
         while (0 !== currentIndex) {
-      
-          // Pick a remaining element...
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex -= 1;
-      
-          // And swap it with the current element.
-          temporaryValue = array[currentIndex];
-          array[currentIndex] = array[randomIndex];
-          array[randomIndex] = temporaryValue;
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
         }
-      
+
         return array;
-      }
+
+    }
 
     submit() {
         this.props.submit();
@@ -111,26 +113,26 @@ export default class Question extends Component {
     }
 
     renderSummary() {
-        return <View 
+        return <View
             style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height / 2 }}>
 
-                <Text style={styles.summarySectionTitle}>Your answer:</Text>
-                <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summarycontainertop} activeOpacity={1}>
-                    <Text style={[styles.summaryText, { color: 'white' }]} numberOfLines={4}>{this.state.text}</Text>
-                </TouchableOpacity>
+            <Text style={styles.summarySectionTitle}>Your answer:</Text>
+            <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summarycontainertop} activeOpacity={1}>
+                <Text style={[styles.summaryText, { color: 'white' }]} numberOfLines={4}>{this.state.text}</Text>
+            </TouchableOpacity>
 
-                <Text style={styles.summarySectionTitle}>Other answers:</Text>
-                <FlatList
-                    data={typeof QUESTIONS.find(item => item.id === this.state.rand).responses !== 'undefined' ? this.shuffle(QUESTIONS.find(item => item.id === this.state.rand).responses) : []}
-                    renderItem={({ item }) =>
-                        <View style={styles.summarycontainerbottom}>
-                            <Text style={styles.summaryText} numberOfLines={4}>{item}</Text>
-                        </View>}
-                    scrollEnabled
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    ListHeaderComponent={this._renderHeader}
-                />
+            <Text style={styles.summarySectionTitle}>Other answers:</Text>
+            <FlatList
+                data={typeof QUESTIONS.find(item => item.id === this.state.rand).responses !== 'undefined' ? this.shuffle(QUESTIONS.find(item => item.id === this.state.rand).responses) : []}
+                renderItem={({ item }) =>
+                    <View style={styles.summarycontainerbottom}>
+                        <Text style={styles.summaryText} numberOfLines={4}>{item}</Text>
+                    </View>}
+                scrollEnabled
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                ListHeaderComponent={this._renderHeader}
+            />
 
         </View>
     }
@@ -240,14 +242,14 @@ const styles = StyleSheet.create({
     summaryText: {
         color: 'black',
         fontWeight: '600',
-        fontSize: Dimensions.get('window').width * 0.05,
+        fontSize: Dimensions.get('window').width * 0.049,
         textAlign: 'center',
         marginVertical: 10
     },
     summarySectionTitle: {
         color: 'black',
         fontWeight: '600',
-        fontSize: Dimensions.get('window').width * 0.05,
+        fontSize: Dimensions.get('window').width * 0.049,
         marginLeft: Dimensions.get('window').width * 0.1,
         marginBottom: 15
     },

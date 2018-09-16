@@ -53,8 +53,7 @@ export default class Dialogue extends Component {
 
                 <Animated.View style={animatedStyle}>
                     <View style={styles.container}>
-                        <Text style={styles.mainText} numberOfLines={4}>Pop Tag is a glorified icebreaker. Just hand someone your
-                        phone and let them answer a question!</Text>
+                        <Text style={styles.mainText} numberOfLines={4}>Pop Tag is the ultimate icebreaker. Pop a balloon to get a question!</Text>
                     </View>
                 </Animated.View>
             </TouchableOpacity>
