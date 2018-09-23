@@ -114,7 +114,11 @@ export default class Question extends Component {
 
     renderSummary() {
         return <View
-            style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height / 2 }}>
+            style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height * 0.7 }}>
+
+            <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summaryquestion} activeOpacity={1}>
+                <Text style={styles.mainText} numberOfLines={4}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>
+            </TouchableOpacity>
 
             <Text style={styles.summarySectionTitle}>Your answer:</Text>
             <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summarycontainertop} activeOpacity={1}>
@@ -151,6 +155,18 @@ export default class Question extends Component {
 
 
 const styles = StyleSheet.create({
+    summaryquestion: {
+        borderRadius: 13,
+        width: Dimensions.get('window').width * 0.8,
+        height: Dimensions.get('window').width * 0.25,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        alignContent: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        padding: 20,
+        marginVertical: 20
+    },
     summarycontainertop: {
         borderRadius: 13,
         width: Dimensions.get('window').width * 0.8,
@@ -161,7 +177,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
         padding: 20,
-        marginBottom: 40
+        marginBottom: 20
     },
     summarycontainerbottom: {
         borderRadius: 13,

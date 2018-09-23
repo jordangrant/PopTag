@@ -73,7 +73,7 @@ export default class PopTag extends Component {
             ],
             displayQuestion: false,
             displayGif: false,
-            background: ['#F4FA58', '#3A82D6', '#B8E986', '#50E3C2'],
+            background: ['#F4FA58', '#3A82D6', '#B8E986', '#50E3C2', '#002947'],
             bgColor: 0,
             gif: 0,
             dialogue: false,
@@ -104,7 +104,7 @@ export default class PopTag extends Component {
         this.animatedValue = new Animated.Value(1);
 
         RNShakeEvent.addEventListener('shake', () => {
-            if (this.state.bgColor < 3) {
+            if (this.state.bgColor < 4) {
                 this.setState({ bgColor: (this.state.bgColor + 1) });
                 this.save();
                 this.forceUpdate();
