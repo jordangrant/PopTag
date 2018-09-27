@@ -48,8 +48,10 @@ class MyListItem extends Component {
             this.forceUpdate()
         } else {
             global.palette = global.palette.concat(this.props.data.id);
+            this.props.success();
             this.forceUpdate()
         }
+
     }
 
     render() {
@@ -61,13 +63,13 @@ class MyListItem extends Component {
             }
         })
 
-        const colors = ['#FD3B00', '#4A90E2', '#5EAA06', '#FFBF00', '#673AB7'];
+        const colors = ['#4A90E2', '#FD3B00', '#5EAA06', '#FFBF00', '#673AB7', '#ef6c00', '#607d8b'];
 
         const animatedStyle = {
             transform: [{ scale: this.animatedValue }],
         };
         return (
-            <TouchableOpacity activeOpacity={1} style={[styles.summarycontainerbottom, { backgroundColor: colors[this.props.index % 5] }]}
+            <TouchableOpacity activeOpacity={1} style={[styles.summarycontainerbottom, { backgroundColor: colors[this.props.index % 7] }]}
                               onPress={() => this.handleAdd(uri)}>
                 <Text style={styles.summaryText} numberOfLines={1}>{this.props.data.name}</Text>
                 <Image style={styles.starimage} source={{ uri: uri ? 'starclosed' : 'staropen' }} />
@@ -95,27 +97,29 @@ export default class Dialogue extends Component {
     }
 
     _renderHeader = ({ item }) => (
-        <View style={styles.container}>
-            <Text style={styles.mainText} numberOfLines={3}>Our world is full of diverse, interesting people - go meet them!</Text>
-        </View>
+        <TouchableOpacity activeOpacity={1} style={styles.container} onPress={() => this.props.toggleDialogue()}>
+            <Text style={styles.mainText} numberOfLines={3}>Find someone who matches an attribute below, and meet them!</Text>
+        </TouchableOpacity>
     );
 
     _renderItem = ({ item, index }) => (
         <MyListItem
             data={item}
             index={index}
+            success={this.props.success}
         />
     );
 
     render() {
         return (
-            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: Dimensions.get('window').height * 0.2 }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: Dimensions.get('window').height * 0.17,
+        marginBottom: Dimensions.get('window').height * 0.125}}>
 
                 <FlatList
                     data={MISSIONS}
                     renderItem={this._renderItem}
                     scrollEnabled
-                    showsVerticalScrollIndicator={true}
+                    showsVerticalScrollIndicator={false}
                     ListHeaderComponent={this._renderHeader}
                 />
             </View>

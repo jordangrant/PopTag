@@ -73,7 +73,7 @@ export default class PopTag extends Component {
             ],
             displayQuestion: false,
             displayGif: false,
-            background: ['#F4FA58', '#3A82D6', '#B8E986', '#50E3C2', '#002947'],
+            background: ['#F4FA58', '#3A82D6', '#B8E986', '#50E3C2', 'pink'],
             bgColor: 0,
             gif: 0,
             dialogue: false,
@@ -105,9 +105,9 @@ export default class PopTag extends Component {
             if (list !== null) {
               global.palette = JSON.parse(list);
             } else {
-              var freshList = JSON.stringify([0,1])
+              var freshList = JSON.stringify([])
               AsyncStorage.setItem('palette', freshList);
-              global.palette = [0,1];
+              global.palette = [];
             }
           });
 
@@ -302,6 +302,10 @@ export default class PopTag extends Component {
         this.setState({ displayQuestion: false })
     }
 
+    successToast() {
+        this.refs.toast.show('Success ✅');
+    }
+
     addContact() {
         var newPerson = {
             //familyName: "Attrac",
@@ -348,6 +352,9 @@ export default class PopTag extends Component {
         if (this.state.displayQuestion == false) {
             this.setState({ dialogue: !this.state.dialogue });
         }
+        else {
+            this.endQuestion();
+        }
     }
 
     _keyboardDidShow() {
@@ -370,7 +377,7 @@ export default class PopTag extends Component {
     }
 
     renderDialogue() {
-        return <Dialogue toggleDialogue={this.toggleDialogue.bind(this)} />
+        return <Dialogue toggleDialogue={this.toggleDialogue.bind(this)} success={() => this.successToast()}/>
     }
 
     renderGif() {
@@ -403,23 +410,23 @@ export default class PopTag extends Component {
                     {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() :
                         this.state.displayGif ? this.renderGif() : this.renderBalloons()}
 
-                    {this.state.dialogue !== true ?
+        
                     <TouchableOpacity activeOpacity={0.9} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
                         <Image style={styles.ibutton} source={{ uri: 'palette' }} />
                     </TouchableOpacity>
-                    : null }
+            
 
-                    {this.state.dialogue !== true ?
+            
                     <TouchableOpacity activeOpacity={0.9} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
                         <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
                     </TouchableOpacity>
-                    : null }
+                  
 
-                    {this.state.dialogue !== true ?
+
                     <TouchableOpacity activeOpacity={0.9} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
                         <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
                     </TouchableOpacity>
-                    : null }
+
                 
                 </View>
 

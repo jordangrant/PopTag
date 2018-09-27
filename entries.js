@@ -2668,7 +2668,7 @@ export const QUESTIONS = [
   {
     "id": 590,
     "question": "How do you get in the way of your own success?",
-    "responses": ["I can change my mind so quickly it's hard to stick to one thing.", "", ""]
+    "responses": ["I can change my mind so quickly it's hard to stick to one thing."]
   },
   {
     "id": 591,
@@ -2867,7 +2867,7 @@ export const QUESTIONS = [
   {
     "id": 630,
     "question": "What is the most unprofessional thing you've seen someone do?",
-    "responses": ["Throw a ball in the office almost hitting someone :|", "Take someone else's food without hesitation", ""]
+    "responses": ["Throw a ball in the office almost hitting someone :|", "Take someone else's food without hesitation"]
   },
   {
     "id": 631,
@@ -2962,7 +2962,7 @@ export const QUESTIONS = [
   {
     "id": 649,
     "question": "What is your hometown famous for?",
-    "responses": ["Grilled cheese sandwiches", "Teen pregnancies", ""]
+    "responses": ["Grilled cheese sandwiches", "Teen pregnancies"]
   },
   {
     "id": 650,
@@ -3062,12 +3062,12 @@ export const QUESTIONS = [
   {
     "id": 669,
     "question": "What's the fullest you've ever been?",
-    "responses": ["So full I vomitted it all back up","Thanksgiving last year I fell asleep at the table after eating",""]
+    "responses": ["So full I vomitted it all back up","Thanksgiving last year I fell asleep at the table after eating"]
   },
   {
     "id": 670,
     "question": "What behaviors make you think a person is creepy?",
-    "responses": ["Excessive staring","",""]
+    "responses": ["Excessive staring"]
   },
   {
     "id": 671,
