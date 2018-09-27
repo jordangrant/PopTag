@@ -114,7 +114,8 @@ export default class Question extends Component {
 
     renderSummary() {
         return <View
-            style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height * 0.7 }}>
+            style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height * 0.7,
+        backgroundColor: 'transparent' }}>
 
             <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summaryquestion} activeOpacity={1}>
                 <Text style={styles.mainText} numberOfLines={4}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>

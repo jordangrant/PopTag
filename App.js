@@ -101,6 +101,16 @@ export default class PopTag extends Component {
             }
         })
 
+        AsyncStorage.getItem('palette').then(list => {
+            if (list !== null) {
+              global.palette = JSON.parse(list);
+            } else {
+              var freshList = JSON.stringify([0,1])
+              AsyncStorage.setItem('palette', freshList);
+              global.palette = [0,1];
+            }
+          });
+
         this.animatedValue = new Animated.Value(1);
 
         RNShakeEvent.addEventListener('shake', () => {
@@ -383,27 +393,34 @@ export default class PopTag extends Component {
 
                     <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
                         onPressIn={this.handlePressIn.bind(this)}
-                        onPress={this.state.displayQuestion == true ? () => this.endQuestion() : null}
+                        onPress={this.state.displayQuestion == true ? () => this.endQuestion() : this.state.dialogue == true ? () => this.toggleDialogue() : null}
                         onPressOut={this.handlePressOut.bind(this)}>
                         <Animated.View style={animatedStyle}>
-                            <Image style={styles.header} source={{ uri: 'ptlogored' }} />
+                            <Image style={styles.header} source={{ uri: this.state.dialogue ? 'palettetitle' : 'ptlogored' }} />
                         </Animated.View>
                     </TouchableOpacity>
 
                     {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() :
                         this.state.displayGif ? this.renderGif() : this.renderBalloons()}
 
+                    {this.state.dialogue !== true ?
                     <TouchableOpacity activeOpacity={0.9} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
-                        <Image style={styles.ibutton} source={{ uri: 'ibutton' }} />
+                        <Image style={styles.ibutton} source={{ uri: 'palette' }} />
                     </TouchableOpacity>
+                    : null }
 
+                    {this.state.dialogue !== true ?
                     <TouchableOpacity activeOpacity={0.9} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
                         <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
                     </TouchableOpacity>
+                    : null }
 
+                    {this.state.dialogue !== true ?
                     <TouchableOpacity activeOpacity={0.9} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
                         <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
                     </TouchableOpacity>
+                    : null }
+                
                 </View>
 
                 <Toast
@@ -504,7 +521,8 @@ const styles = StyleSheet.create({
     },
     ibutton: {
         width: width * 0.303 * 1.0778947368,
-        height: width * 0.303 * 1.0778947368
+        height: width * 0.303 * 1.0778947368,
+        tintColor: 'white'
     },
     woman: {
         backgroundColor: 'red',

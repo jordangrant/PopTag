@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import {
     StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
-    Animated, AsyncStorage, Text, TextInput, Keyboard, Platform
+    Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList
 } from 'react-native';
+import { MISSIONS } from './entries2';
 
-export default class Dialogue extends Component {
+class MyListItem extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            text: '',
-            rand: 0
+            following: '',
         };
+
     }
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
-        this.state.rand = Math.round(Math.random() * 25);
     }
 
     handlePressIn() {
@@ -39,24 +40,85 @@ export default class Dialogue extends Component {
         }).start();
     }
 
+    handleAdd(following) {
+        const index = global.palette.indexOf(this.props.data.id);
+
+        if (following) {
+            global.palette.splice(index, 1);
+            this.forceUpdate()
+        } else {
+            global.palette = global.palette.concat(this.props.data.id);
+            this.forceUpdate()
+        }
+    }
+
     render() {
+        var uri = false;
+
+        (global.palette).forEach(id => {
+            if (id == this.props.data.id) {
+                uri = true;
+            }
+        })
+
+        const colors = ['#FD3B00', '#4A90E2', '#5EAA06', '#FFBF00', '#673AB7'];
 
         const animatedStyle = {
             transform: [{ scale: this.animatedValue }],
         };
-
         return (
-            <TouchableOpacity activeOpacity={1} style={{ position: 'absolute', top: this.props.top, left: this.props.left }}
-                onPressIn={this.handlePressIn.bind(this)}
-                onPress={() => this.props.toggleDialogue()}
-                onPressOut={this.handlePressOut.bind(this)}>
-
-                <Animated.View style={animatedStyle}>
-                    <View style={styles.container}>
-                        <Text style={styles.mainText} numberOfLines={4}>Pop Tag is the ultimate icebreaker. Pop a balloon to get a question!</Text>
-                    </View>
-                </Animated.View>
+            <TouchableOpacity activeOpacity={1} style={[styles.summarycontainerbottom, { backgroundColor: colors[this.props.index % 5] }]}
+                              onPress={() => this.handleAdd(uri)}>
+                <Text style={styles.summaryText} numberOfLines={1}>{this.props.data.name}</Text>
+                <Image style={styles.starimage} source={{ uri: uri ? 'starclosed' : 'staropen' }} />
             </TouchableOpacity>
+        );
+    }
+}
+
+export default class Dialogue extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            text: '',
+            rand: 0,
+            following: '',
+        };
+    }
+
+    componentWillMount() {
+        this.state.rand = Math.round(Math.random() * 25);
+    }
+
+    componentWillUnmount() {
+        AsyncStorage.setItem('palette', JSON.stringify(global.palette));
+    }
+
+    _renderHeader = ({ item }) => (
+        <View style={styles.container}>
+            <Text style={styles.mainText} numberOfLines={3}>Our world is full of diverse, interesting people - go meet them!</Text>
+        </View>
+    );
+
+    _renderItem = ({ item, index }) => (
+        <MyListItem
+            data={item}
+            index={index}
+        />
+    );
+
+    render() {
+        return (
+            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: Dimensions.get('window').height * 0.2 }}>
+
+                <FlatList
+                    data={MISSIONS}
+                    renderItem={this._renderItem}
+                    scrollEnabled
+                    showsVerticalScrollIndicator={true}
+                    ListHeaderComponent={this._renderHeader}
+                />
+            </View>
 
         );
     }
@@ -65,14 +127,38 @@ export default class Dialogue extends Component {
 const styles = StyleSheet.create({
     container: {
         borderRadius: 13,
-        width: Dimensions.get('window').width * 0.75,
-        height: Dimensions.get('window').width * 0.75 * 0.52,
+        width: Dimensions.get('window').width * 0.90666,
+        height: Dimensions.get('window').width * 0.90666 * 0.3,
         backgroundColor: 'white',
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
         padding: 15,
-        marginBottom: Dimensions.get('window').height * 0
+        marginBottom: 6,
+        alignSelf: 'center'
+    },
+    summaryText: {
+        color: 'white',
+        fontWeight: '700',
+        fontSize: Dimensions.get('window').width * 0.052,
+    },
+    summarycontainerbottom: {
+        borderRadius: 13,
+        width: Dimensions.get('window').width * 0.90666,
+        height: Dimensions.get('window').width * 0.90666 * 0.2,
+        padding: 20,
+        marginVertical: 6,
+        marginHorizontal: 6,
+        backgroundColor: 'white',
+        alignSelf: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.15,
+        shadowRadius: 4
     },
     inputcontainer: {
         borderRadius: 7,
@@ -86,7 +172,7 @@ const styles = StyleSheet.create({
     mainText: {
         color: 'black',
         fontWeight: '500',
-        fontSize: Dimensions.get('window').width*0.05,
+        fontSize: Dimensions.get('window').width * 0.05,
         textAlign: 'center',
         marginVertical: 10
     },
@@ -94,5 +180,9 @@ const styles = StyleSheet.create({
         color: '#4A4A4A',
         fontSize: 15,
         textAlign: 'center'
+    },
+    starimage: {
+        height: 30,
+        width: 30
     }
 });
