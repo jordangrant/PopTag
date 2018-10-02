@@ -166,7 +166,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
         padding: 20,
-        marginVertical: 20
+        marginBottom: 20,
+        marginTop: 30
     },
     summarycontainertop: {
         borderRadius: 13,
@@ -240,8 +241,8 @@ const styles = StyleSheet.create({
     },
     mainText: {
         color: 'black',
-        fontWeight: '500',
-        fontSize: Dimensions.get('window').width * 0.04,
+        fontWeight: '600',
+        fontSize: Dimensions.get('window').width * 0.044,
         textAlign: 'center',
         marginVertical: 10
     },

@@ -3,7 +3,7 @@ import {
     StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList
 } from 'react-native';
-import { MISSIONS } from './entries2';
+import { MISSIONS, WLUHOCO } from './entries2';
 
 class MyListItem extends Component {
     constructor(props) {
@@ -63,14 +63,16 @@ class MyListItem extends Component {
             }
         })
 
-        const colors = ['#4A90E2', '#FD3B00', '#5EAA06', '#FFBF00', '#673AB7', '#ef6c00', '#607d8b'];
+        const colors = ['#FDB82A', '#F78119', '#E0393E', '#963D97', '#079CDB', '#62BA47'];
 
         const animatedStyle = {
             transform: [{ scale: this.animatedValue }],
         };
         return (
-            <TouchableOpacity activeOpacity={1} style={[styles.summarycontainerbottom, { backgroundColor: colors[this.props.index % 7] }]}
+            <TouchableOpacity activeOpacity={1} style={[styles.summarycontainerbottom, { backgroundColor: colors[this.props.index % 6] }]}
                               onPress={() => this.handleAdd(uri)}>
+             {/* <TouchableOpacity activeOpacity={1} style={styles.summarycontainerbottom}
+                                onPress={() => this.handleAdd(uri)}> */}
                 <Text style={styles.summaryText} numberOfLines={1}>{this.props.data.name}</Text>
                 <Image style={styles.starimage} source={{ uri: uri ? 'starclosed' : 'staropen' }} />
             </TouchableOpacity>
@@ -98,7 +100,7 @@ export default class Dialogue extends Component {
 
     _renderHeader = ({ item }) => (
         <TouchableOpacity activeOpacity={1} style={styles.container} onPress={() => this.props.toggleDialogue()}>
-            <Text style={styles.mainText} numberOfLines={3}>Find someone who matches an attribute below, and meet them!</Text>
+            <Text style={styles.mainText} numberOfLines={3}>Our world is full of unique, interesting people - go meet them!</Text>
         </TouchableOpacity>
     );
 
@@ -112,8 +114,7 @@ export default class Dialogue extends Component {
 
     render() {
         return (
-            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: Dimensions.get('window').height * 0.17,
-        marginBottom: Dimensions.get('window').height * 0.125}}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: Dimensions.get('window').height * 0.17}}>
 
                 <FlatList
                     data={MISSIONS}

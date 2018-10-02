@@ -1,7 +1,7 @@
 export const MISSIONS = [
     {
         "id": 0,
-        "name": "Attractive",
+        "name": "Has a nice smile",
       },
       {
         "id": 1,
@@ -83,4 +83,31 @@ export const MISSIONS = [
         "id": 20,
         "name": "Wearing a tie",
       },
+]
+
+export const WLUHOCO = [
+  {
+      "id": 0,
+      "name": "Wearing purple",
+    },
+    {
+      "id": 1,
+      "name": "Most attractive Goldenhawk",
+    },
+    {
+      "id": 2,
+      "name": "Face paint",
+    },
+    {
+      "id": 3,
+      "name": "Drink in hand",
+    },
+    {
+      "id": 4,
+      "name": "Wearing the Hawk",
+    },
+    {
+      "id": 5,
+      "name": "Blonde hair",
+    },
 ]

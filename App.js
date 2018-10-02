@@ -303,7 +303,7 @@ export default class PopTag extends Component {
     }
 
     successToast() {
-        this.refs.toast.show('Success ✅');
+        //this.refs.toast.show('Mission Accomplished ✅');
     }
 
     addContact() {
@@ -411,22 +411,23 @@ export default class PopTag extends Component {
                         this.state.displayGif ? this.renderGif() : this.renderBalloons()}
 
         
-                    <TouchableOpacity activeOpacity={0.9} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
+                    {this.state.dialogue == false ?
+                    <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
                         <Image style={styles.ibutton} source={{ uri: 'palette' }} />
                     </TouchableOpacity>
-            
+                    : null}
 
-            
-                    <TouchableOpacity activeOpacity={0.9} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
+                    {this.state.dialogue == false ?
+                    <TouchableOpacity activeOpacity={1} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
                         <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
                     </TouchableOpacity>
-                  
+                    : null}
 
-
-                    <TouchableOpacity activeOpacity={0.9} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
+                    {this.state.dialogue == false ?
+                    <TouchableOpacity activeOpacity={1} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
                         <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
                     </TouchableOpacity>
-
+                    : null}
                 
                 </View>
 
