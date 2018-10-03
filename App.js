@@ -412,14 +412,14 @@ export default class PopTag extends Component {
 
         
                     {this.state.dialogue == false ?
-                    <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
-                        <Image style={styles.ibutton} source={{ uri: 'palette' }} />
+                    <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
+                        <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
                     </TouchableOpacity>
                     : null}
 
                     {this.state.dialogue == false ?
-                    <TouchableOpacity activeOpacity={1} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
-                        <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
+                    <TouchableOpacity activeOpacity={1} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
+                        <Image style={styles.ibutton} source={{ uri: 'palette' }} />
                     </TouchableOpacity>
                     : null}
 

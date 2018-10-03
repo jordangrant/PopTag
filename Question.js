@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     mainText: {
         color: 'black',
         fontWeight: '600',
-        fontSize: Dimensions.get('window').width * 0.044,
+        fontSize: Dimensions.get('window').width * 0.04,
         textAlign: 'center',
         marginVertical: 10
     },

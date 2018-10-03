@@ -100,7 +100,7 @@ export default class Dialogue extends Component {
 
     _renderHeader = ({ item }) => (
         <TouchableOpacity activeOpacity={1} style={styles.container} onPress={() => this.props.toggleDialogue()}>
-            <Text style={styles.mainText} numberOfLines={3}>Our world is full of unique, interesting people - go meet them!</Text>
+            <Text style={styles.mainText} numberOfLines={3}>Our world is full of unique, amazing people - go meet them!</Text>
         </TouchableOpacity>
     );
 
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     },
     summaryText: {
         color: 'white',
-        fontWeight: '700',
+        fontWeight: '600',
         fontSize: Dimensions.get('window').width * 0.052,
     },
     summarycontainerbottom: {
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     },
     mainText: {
         color: 'black',
-        fontWeight: '500',
+        fontWeight: '600',
         fontSize: Dimensions.get('window').width * 0.05,
         textAlign: 'center',
         marginVertical: 10
