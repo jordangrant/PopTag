@@ -537,10 +537,6 @@ const styles = StyleSheet.create({
     header: {
         //width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462
         flex: 1 , width: undefined, height: undefined,
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
     },
     headerBounding: {
         position: 'absolute',
