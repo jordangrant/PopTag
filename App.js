@@ -81,7 +81,8 @@ export default class PopTag extends Component {
             dialogue: false,
             bottomHeight: 25,
             message: 'testestestest',
-            custom: 0
+            custom: 0,
+            loading: true
         };
     }
 
@@ -108,10 +109,12 @@ export default class PopTag extends Component {
             if (custom !== null) {
                 global.custom = JSON.parse(custom);
                 this.setState({ custom: JSON.parse(custom)});
+                this.setState({ loading: false });
             } else {
                 AsyncStorage.setItem('custom', '0');
                 global.custom = 0;
                 this.setState({ custom: 0 });
+                this.setState({ loading: false });
             }
         });
 
@@ -419,6 +422,9 @@ export default class PopTag extends Component {
 
         return (
             <View style={styles.base}>
+            {this.state.loading == true ?
+                <View/>
+                :
                 <View style={[styles.container, { backgroundColor: COMPANIES.find(item => item.id === this.state.custom).bgcolor }]}>
 
                     <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
@@ -454,6 +460,7 @@ export default class PopTag extends Component {
                         : null}
 
                 </View>
+                }
 
                 <Toast
                     ref="toast"
@@ -465,6 +472,7 @@ export default class PopTag extends Component {
                     opacity={0.4}
                     textStyle={{ color: 'white' }}
                 />
+                
             </View>
         );
     }
