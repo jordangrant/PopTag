@@ -3,7 +3,9 @@ import {
     StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList
 } from 'react-native';
-import { MISSIONS, WLUHOCO } from './entries2';
+import { COMPANIES } from './xcompanies';
+import { DEFAULT, WLUHOCO } from './xmissions';
+import Slider from './Slider';
 
 class MyListItem extends Component {
     constructor(props) {
@@ -63,13 +65,13 @@ class MyListItem extends Component {
             }
         })
 
-        const colors = ['#FDB82A', '#F78119', '#E0393E', '#963D97', '#079CDB', '#62BA47'];
+        const colors = COMPANIES.find(item => item.id === global.custom).palette;
 
         const animatedStyle = {
             transform: [{ scale: this.animatedValue }],
         };
         return (
-            <TouchableOpacity activeOpacity={1} style={[styles.summarycontainerbottom, { backgroundColor: colors[this.props.index % 6] }]}
+            <TouchableOpacity activeOpacity={1} style={[styles.summarycontainerbottom, { backgroundColor: colors[this.props.index % COMPANIES.find(item => item.id === global.custom).palette.length] }]}
                               onPress={() => this.handleAdd(uri)}>
              {/* <TouchableOpacity activeOpacity={1} style={styles.summarycontainerbottom}
                                 onPress={() => this.handleAdd(uri)}> */}
@@ -99,9 +101,7 @@ export default class Dialogue extends Component {
     }
 
     _renderHeader = ({ item }) => (
-        <TouchableOpacity activeOpacity={1} style={styles.container} onPress={() => this.props.toggleDialogue()}>
-            <Text style={styles.mainText} numberOfLines={3}>Our world is full of unique, amazing people - go meet them!</Text>
-        </TouchableOpacity>
+        <Slider changeCustom={this.props.changeCustom} />
     );
 
     _renderItem = ({ item, index }) => (
@@ -117,7 +117,7 @@ export default class Dialogue extends Component {
             <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: Dimensions.get('window').height * 0.17}}>
 
                 <FlatList
-                    data={MISSIONS}
+                    data={DEFAULT}
                     renderItem={this._renderItem}
                     scrollEnabled
                     showsVerticalScrollIndicator={false}
@@ -152,18 +152,18 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 0.90666,
         height: Dimensions.get('window').width * 0.90666 * 0.2,
         padding: 20,
-        marginVertical: 6,
-        marginHorizontal: 6,
+        marginVertical: 6.5,
+        marginHorizontal: Dimensions.get('window').width * (1-0.90666)/2,
         backgroundColor: 'white',
         alignSelf: 'center',
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.15,
-        shadowRadius: 4
+        // shadowColor: 'black',
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.15,
+        // shadowRadius: 4
     },
     inputcontainer: {
         borderRadius: 7,

@@ -3,7 +3,8 @@ import {
     StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList
 } from 'react-native';
-import { QUESTIONS } from './entries';
+import { COMPANIES } from './xcompanies';
+import { DEFAULT } from './xquestions';
 export default class Question extends Component {
     constructor(props) {
         super(props);
@@ -79,7 +80,7 @@ export default class Question extends Component {
                 onPressOut={this.handlePressOut.bind(this)}>
                 <Animated.View style={animatedStyle}>
                     <View style={this.state.text !== '' ? styles.container2 : styles.container}>
-                        <Text style={styles.mainText} numberOfLines={5}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>
+                        <Text style={styles.mainText} numberOfLines={5}>{DEFAULT.find(item => item.id === this.state.rand).question}</Text>
 
                         <View style={styles.inputcontainer}>
                             <TextInput
@@ -118,7 +119,7 @@ export default class Question extends Component {
         backgroundColor: 'transparent' }}>
 
             <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summaryquestion} activeOpacity={1}>
-                <Text style={styles.mainText} numberOfLines={4}>{QUESTIONS.find(item => item.id === this.state.rand).question}</Text>
+                <Text style={styles.mainText} numberOfLines={4}>{DEFAULT.find(item => item.id === this.state.rand).question}</Text>
             </TouchableOpacity>
 
             <Text style={styles.summarySectionTitle}>Your answer:</Text>
@@ -128,7 +129,7 @@ export default class Question extends Component {
 
             <Text style={styles.summarySectionTitle}>Other answers:</Text>
             <FlatList
-                data={typeof QUESTIONS.find(item => item.id === this.state.rand).responses !== 'undefined' ? this.shuffle(QUESTIONS.find(item => item.id === this.state.rand).responses) : []}
+                data={typeof DEFAULT.find(item => item.id === this.state.rand).responses !== 'undefined' ? this.shuffle(DEFAULT.find(item => item.id === this.state.rand).responses) : []}
                 renderItem={({ item }) =>
                     <View style={styles.summarycontainerbottom}>
                         <Text style={styles.summaryText} numberOfLines={4}>{item}</Text>

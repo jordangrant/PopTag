@@ -1,4 +1,4 @@
-export const QUESTIONS = [
+export const DEFAULT = [
   {
     "id": 0,
     "question": "Would you rather be able to see 10 minutes into your own future or 10 minutes into the future of anyone but yourself?",

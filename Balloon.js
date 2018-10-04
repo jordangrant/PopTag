@@ -3,6 +3,7 @@ import {
     StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Platform
 } from 'react-native';
+import { COMPANIES } from './xcompanies';
 
 export default class Balloon extends Component {
     constructor(props) {
@@ -60,13 +61,16 @@ export default class Balloon extends Component {
                 //onPress={() => this.pop()}
                 onPressOut={this.handlePressOut.bind(this)}>
 
-                <Animated.View style={animatedStyle}>
+                <Animated.View style={[animatedStyle, { height: 125, width: 125, 
+                    alignContent: 'center', justifyContent: 'center' }]}>
                     {!this.props.popped ?
-                        <Image style={{ height: 125, width: 125, shadowColor: 'black', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4 }}
-                            source={{ uri: 'balloon' }} />
+                        <Image style={[COMPANIES.find(item => item.id === this.props.custom).shrinkicon ? styles.balloonshrunk : styles.balloon, 
+                            { tintColor: COMPANIES.find(item => item.id === this.props.custom).iconoverlay !== 'null' ? COMPANIES.find(item => item.id === this.props.custom).iconoverlay : null }]}
+                            source={{ uri: COMPANIES.find(item => item.id === this.props.custom).icon }} />
                         :
-                        <Image style={{ height: 59, width: 77, marginHorizontal: 24, marginVertical: 33 }}
-                            source={{ uri: 'pop' }} />
+                        <Image resizeMode={'contain'} style={[ COMPANIES.find(item => item.id === this.props.custom).shrinkiconalternate ? styles.poppedshrunk : styles.popped, {
+                            tintColor: COMPANIES.find(item => item.id === this.props.custom).iconalternateoverlay !== 'null' ? COMPANIES.find(item => item.id === this.props.custom).iconalternateoverlay : null }]}
+                            source={{ uri: COMPANIES.find(item => item.id === this.props.custom).iconalternate !== 'null' ? COMPANIES.find(item => item.id === this.props.custom).iconalternate : 'pop' }} />
                     }
                 </Animated.View>
             </TouchableOpacity>
@@ -76,5 +80,35 @@ export default class Balloon extends Component {
 }
 
 const styles = StyleSheet.create({
-
+    balloon: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        flex: 1, width: undefined, height: undefined,
+    },
+    balloonshrunk: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        flex: 1, width: undefined, height: undefined,
+        margin: 20
+    },
+    popped: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        flex: 1, width: undefined, height: undefined,
+        margin: 0
+    },
+    poppedshrunk: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        flex: 1, width: undefined, height: undefined,
+        margin: 25
+    }
 });

@@ -16,6 +16,7 @@ import Dialogue from './Dialogue';
 import Contacts from 'react-native-contacts';
 import Sound from 'react-native-sound';
 import Toast, { DURATION } from 'react-native-easy-toast';
+import { COMPANIES } from './xcompanies';
 
 const width = Dimensions.get('window').width * 0.264;
 const height = width * 0.5656;
@@ -73,12 +74,14 @@ export default class PopTag extends Component {
             ],
             displayQuestion: false,
             displayGif: false,
-            background: ['#F4FA58', '#3A82D6', '#B8E986', '#50E3C2', 'pink'],
+            //background: ['#F4FA58', '#3A82D6', '#B8E986', '#50E3C2', 'pink'],
+            background: '',
             bgColor: 0,
             gif: 0,
             dialogue: false,
             bottomHeight: 25,
-            message: 'testestestest'
+            message: 'testestestest',
+            custom: 0
         };
     }
 
@@ -89,11 +92,11 @@ export default class PopTag extends Component {
             }
         })
 
-        AsyncStorage.getItem('bgColor').then(b => {
-            if (b !== null) {
-                this.setState({ bgColor: parseInt(b) });
-            }
-        })
+        // AsyncStorage.getItem('bgColor').then(b => {
+        //     if (b !== null) {
+        //         this.setState({ bgColor: parseInt(b) });
+        //     }
+        // })
 
         AsyncStorage.getItem('gif').then(b => {
             if (b !== null) {
@@ -101,30 +104,41 @@ export default class PopTag extends Component {
             }
         })
 
+        AsyncStorage.getItem('custom').then(custom => {
+            if (custom !== null) {
+                global.custom = JSON.parse(custom);
+                this.setState({ custom: JSON.parse(custom)});
+            } else {
+                AsyncStorage.setItem('custom', '0');
+                global.custom = 0;
+                this.setState({ custom: 0 });
+            }
+        });
+
         AsyncStorage.getItem('palette').then(list => {
             if (list !== null) {
-              global.palette = JSON.parse(list);
+                global.palette = JSON.parse(list);
             } else {
-              var freshList = JSON.stringify([])
-              AsyncStorage.setItem('palette', freshList);
-              global.palette = [];
+                var freshList = JSON.stringify([])
+                AsyncStorage.setItem('palette', freshList);
+                global.palette = [];
             }
-          });
+        });
 
         this.animatedValue = new Animated.Value(1);
 
-        RNShakeEvent.addEventListener('shake', () => {
-            if (this.state.bgColor < 4) {
-                this.setState({ bgColor: (this.state.bgColor + 1) });
-                this.save();
-                this.forceUpdate();
-            }
-            else {
-                this.setState({ bgColor: 0 });
-                this.save();
-                this.forceUpdate();
-            }
-        });
+        // RNShakeEvent.addEventListener('shake', () => {
+        //     if (this.state.bgColor < 4) {
+        //         this.setState({ bgColor: (this.state.bgColor + 1) });
+        //         this.save();
+        //         this.forceUpdate();
+        //     }
+        //     else {
+        //         this.setState({ bgColor: 0 });
+        //         this.save();
+        //         this.forceUpdate();
+        //     }
+        // });
 
         this.forceUpdate();
     }
@@ -139,15 +153,16 @@ export default class PopTag extends Component {
     }
 
     componentWillUnmount() {
-        RNShakeEvent.removeEventListener('shake');
+        //RNShakeEvent.removeEventListener('shake');
         // this.keyboardDidShowListener.remove();
         // this.keyboardDidHideListener.remove();
     }
 
     async save() {
         await AsyncStorage.setItem('balloons', JSON.stringify(this.state.balloons));
-        await AsyncStorage.setItem('bgColor', JSON.stringify(this.state.bgColor));
         await AsyncStorage.setItem('gif', JSON.stringify(this.state.gif));
+        await AsyncStorage.setItem('custom', JSON.stringify(this.state.custom));
+        //await AsyncStorage.setItem('bgColor', JSON.stringify(this.state.bgColor));
         console.log('balloons:' + JSON.stringify(this.state.balloons));
     }
 
@@ -213,6 +228,13 @@ export default class PopTag extends Component {
         else {
             Linking.openURL('https://instagram.com/poptagtv')
         }
+    }
+
+    changeCustom(custom) {
+        global.custom = custom;
+        this.setState({ custom: custom });
+        this.toggleDialogue();
+        this.save();
     }
 
     popBalloon(id) {
@@ -368,16 +390,17 @@ export default class PopTag extends Component {
     renderBalloons() {
         return this.state.balloons.map(b =>
             <Balloon key={b.id} top={b.top} left={b.left} id={b.id} popped={b.popped} pop={this.popBalloon.bind(this)}
-                playPop={() => this.playPop()} playWoosh={() => this.playWoosh()} />
+                playPop={() => this.playPop()} playWoosh={() => this.playWoosh()} custom={this.state.custom} />
         );
     }
 
     renderQuestion() {
-        return <Question submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}/>
+        return <Question submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()} />
     }
 
     renderDialogue() {
-        return <Dialogue toggleDialogue={this.toggleDialogue.bind(this)} success={() => this.successToast()}/>
+        return <Dialogue changeCustom={(b) => this.changeCustom(b)}
+        toggleDialogue={this.toggleDialogue.bind(this)} success={() => this.successToast()} />
     }
 
     renderGif() {
@@ -396,39 +419,40 @@ export default class PopTag extends Component {
 
         return (
             <View style={styles.base}>
-                <View style={[styles.container, { backgroundColor: this.state.background[this.state.bgColor] }]}>
+                <View style={[styles.container, { backgroundColor: COMPANIES.find(item => item.id === this.state.custom).bgcolor }]}>
 
                     <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
                         onPressIn={this.handlePressIn.bind(this)}
                         onPress={this.state.displayQuestion == true ? () => this.endQuestion() : this.state.dialogue == true ? () => this.toggleDialogue() : null}
                         onPressOut={this.handlePressOut.bind(this)}>
-                        <Animated.View style={animatedStyle}>
-                            <Image style={styles.header} source={{ uri: this.state.dialogue ? 'palettetitle' : 'ptlogored' }} />
+                        <Animated.View style={[animatedStyle, { width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462 }]}>
+                            <Image style={[styles.header, { tintColor:  COMPANIES.find(item => item.id === this.state.custom).wordmarkoverlay !== 'null' ? COMPANIES.find(item => item.id === this.state.custom).wordmarkoverlay : null }]} resizeMode={'contain'}
+                            source={{ uri: COMPANIES.find(item => item.id === this.state.custom).wordmark !== 'null' ? COMPANIES.find(item => item.id === this.state.custom).wordmark : 'ptlogored' }} />
                         </Animated.View>
                     </TouchableOpacity>
 
                     {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() :
                         this.state.displayGif ? this.renderGif() : this.renderBalloons()}
 
-        
-                    {this.state.dialogue == false ?
-                    <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
-                        <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
-                    </TouchableOpacity>
-                    : null}
 
                     {this.state.dialogue == false ?
-                    <TouchableOpacity activeOpacity={1} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
-                        <Image style={styles.ibutton} source={{ uri: 'palette' }} />
-                    </TouchableOpacity>
-                    : null}
+                        <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
+                            <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
+                        </TouchableOpacity>
+                        : null}
 
                     {this.state.dialogue == false ?
-                    <TouchableOpacity activeOpacity={1} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
-                        <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
-                    </TouchableOpacity>
-                    : null}
-                
+                        <TouchableOpacity activeOpacity={1} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
+                            <Image style={styles.ibutton} source={{ uri: 'palette' }} />
+                        </TouchableOpacity>
+                        : null}
+
+                    {this.state.dialogue == false ?
+                        <TouchableOpacity activeOpacity={1} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
+                            <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
+                        </TouchableOpacity>
+                        : null}
+
                 </View>
 
                 <Toast
@@ -463,7 +487,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
+        shadowOpacity: 0.25,
         shadowRadius: 4,
         backgroundColor: '#4CAF50',
         alignItems: 'center',
@@ -477,7 +501,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
+        shadowOpacity: 0.25,
         shadowRadius: 4,
         backgroundColor: '#FD3B00',
         alignSelf: 'center',
@@ -493,7 +517,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
+        shadowOpacity: 0.25,
         shadowRadius: 4,
         backgroundColor: '#4A90E2',
         alignItems: 'center',
@@ -503,8 +527,12 @@ const styles = StyleSheet.create({
         height: height,
     },
     header: {
-        width: Dimensions.get('window').width * 0.7,
-        height: Dimensions.get('window').width * 0.7 * 0.2461538462
+        //width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462
+        flex: 1 , width: undefined, height: undefined,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
     },
     headerBounding: {
         position: 'absolute',

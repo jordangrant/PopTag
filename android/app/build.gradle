@@ -90,8 +90,8 @@ android {
         applicationId "com.poptag"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 6
-        versionName "5.1"
+        versionCode 7
+        versionName "5.2"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
