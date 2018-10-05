@@ -12,7 +12,7 @@ import { captureScreen } from "react-native-view-shot";
 import RNShakeEvent from 'react-native-shake-event';
 import Balloon from './Balloon';
 import Question from './Question';
-import Dialogue from './Dialogue';
+import Dialogue from './Dialogue2';
 import Contacts from 'react-native-contacts';
 import Sound from 'react-native-sound';
 import Toast, { DURATION } from 'react-native-easy-toast';
@@ -495,7 +495,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
+        shadowOpacity: 0.2,
         shadowRadius: 4,
         backgroundColor: '#4CAF50',
         alignItems: 'center',
@@ -509,7 +509,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
+        shadowOpacity: 0.2,
         shadowRadius: 4,
         backgroundColor: '#FD3B00',
         alignSelf: 'center',
@@ -525,7 +525,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
+        shadowOpacity: 0.2,
         shadowRadius: 4,
         backgroundColor: '#4A90E2',
         alignItems: 'center',

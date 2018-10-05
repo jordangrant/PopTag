@@ -11,6 +11,7 @@
 		"react-native": "0.44.3",
 		"react-native-contacts": "^2.2.3",
 		"react-native-easy-toast": "^1.1.0",
+		"react-native-linear-gradient": "^2.4.2",
 		"react-native-shake-event": "^4.0.1",
 		"react-native-sound": "^0.10.9",
 		"react-native-view-shot": "^2.4.0",

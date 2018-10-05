@@ -41,6 +41,7 @@
 		96EE6081213B211400323758 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96EE6080213B210400323758 /* libRCTCameraRoll.a */; };
 		96FFACE32141F7EE007B9A22 /* woosh.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 96FFACE22141F7EE007B9A22 /* woosh.m4a */; };
 		96FFACE52141F7FC007B9A22 /* pop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 96FFACE42141F7FC007B9A22 /* pop.m4a */; };
+		EED9A43D83554DE1A4100F7D /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A67AF25BF44D5F912166B3 /* libBVLinearGradient.a */; };
 		F5A88E80529E4C11BBD743C2 /* libRNShakeEvent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C4BCA4993047369FAD87AB /* libRNShakeEvent.a */; };
 /* End PBXBuildFile section */
 
@@ -241,6 +242,20 @@
 			remoteGlobalIDString = 1441618E1BD0A79300FA4F59;
 			remoteInfo = RCTContacts;
 		};
+		96BE82332167378D004FD830 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D9D5E98B4BB46128241B8A0 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = BVLinearGradient;
+		};
+		96BE82352167378D004FD830 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D9D5E98B4BB46128241B8A0 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 64AA15081EF7F30100718508;
+			remoteInfo = "BVLinearGradient-tvOS";
+		};
 		96EE6042213B0F1200323758 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12DE30BF28024ECEB33E90FF /* RNShakeEvent.xcodeproj */;
@@ -295,6 +310,7 @@
 		2D02E4901E0B4A5D006451C7 /* PopTag-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PopTag-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF960335C174195A60D8E15 /* RCTContacts.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTContacts.xcodeproj; path = "../node_modules/react-native-contacts/ios/RCTContacts.xcodeproj"; sourceTree = "<group>"; };
 		596B6E7004354CDA87FD5E54 /* RNSound.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
+		5D9D5E98B4BB46128241B8A0 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		7346371FE5F54DD5AF15AB73 /* libRCTContacts.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTContacts.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -306,6 +322,7 @@
 		CC0D0E423DC3477F85C7A8C6 /* libRNViewShot.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNViewShot.a; sourceTree = "<group>"; };
 		EF94E2FE8BC8470E9492F5BA /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
 		F4C4BCA4993047369FAD87AB /* libRNShakeEvent.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNShakeEvent.a; sourceTree = "<group>"; };
+		F6A67AF25BF44D5F912166B3 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +354,7 @@
 				0977A037B28441C7B8AF7E0B /* libRNViewShot.a in Frameworks */,
 				15C2F09BB204439FBA6E8A60 /* libRCTContacts.a in Frameworks */,
 				49D9D94F462148BD803D4D8D /* libRNSound.a in Frameworks */,
+				EED9A43D83554DE1A4100F7D /* libBVLinearGradient.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +536,7 @@
 				B70D467DBA184982AC28E506 /* RNViewShot.xcodeproj */,
 				3BF960335C174195A60D8E15 /* RCTContacts.xcodeproj */,
 				596B6E7004354CDA87FD5E54 /* RNSound.xcodeproj */,
+				5D9D5E98B4BB46128241B8A0 /* BVLinearGradient.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -561,6 +580,15 @@
 			isa = PBXGroup;
 			children = (
 				96988DCB213F604500434112 /* libRCTContacts.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		96BE822F2167378C004FD830 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96BE82342167378D004FD830 /* libBVLinearGradient.a */,
+				96BE82362167378D004FD830 /* libBVLinearGradient.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -711,6 +739,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 96BE822F2167378C004FD830 /* Products */;
+					ProjectRef = 5D9D5E98B4BB46128241B8A0 /* BVLinearGradient.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -969,6 +1001,20 @@
 			remoteRef = 96988DCA213F604500434112 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		96BE82342167378D004FD830 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = 96BE82332167378D004FD830 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		96BE82362167378D004FD830 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = 96BE82352167378D004FD830 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		96EE6043213B0F1200323758 /* libRNShakeEvent.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1130,12 +1176,14 @@
 					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 				);
 				INFOPLIST_FILE = PopTagTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1161,12 +1209,14 @@
 					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 				);
 				INFOPLIST_FILE = PopTagTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1195,6 +1245,7 @@
 					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 				);
 				INFOPLIST_FILE = PopTag/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1223,6 +1274,7 @@
 					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 				);
 				INFOPLIST_FILE = PopTag/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1256,11 +1308,13 @@
 					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 				);
 				INFOPLIST_FILE = "PopTag-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1296,11 +1350,13 @@
 					"$(SRCROOT)/../node_modules/react-native-view-shot/ios",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 				);
 				INFOPLIST_FILE = "PopTag-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1337,6 +1393,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.PopTag-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1361,6 +1418,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
