@@ -376,14 +376,14 @@ export default class PopTag extends Component {
     }
 
     toggleDialogue() {
-        if(this.state.displayGif == true){
+        if (this.state.displayQuestion || this.state.displayChallenge) {
+            this.endQuestion();
+        }
+        else if (this.state.displayGif) {
             this.dismissGif();
         }
-        else if (this.state.displayQuestion == false && this.state.displayChallenge == false) {
-            this.setState({ dialogue: !this.state.dialogue });
-        }
         else {
-            this.endQuestion();
+            this.setState({ dialogue: !this.state.dialogue})
         }
     }
 

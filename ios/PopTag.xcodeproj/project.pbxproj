@@ -481,6 +481,8 @@
 				CC0D0E423DC3477F85C7A8C6 /* libRNViewShot.a */,
 				7346371FE5F54DD5AF15AB73 /* libRCTContacts.a */,
 				EF94E2FE8BC8470E9492F5BA /* libRNSound.a */,
+				F6A67AF25BF44D5F912166B3 /* libBVLinearGradient.a */,
+				481188F0993E49A09B9CAE5E /* libRNCamera.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
