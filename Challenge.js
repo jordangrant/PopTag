@@ -8,6 +8,7 @@ import { COMPANIES } from './xcompanies';
 import { DEFAULT } from './xquestions';
 import { shareOnFacebook, shareOnTwitter } from 'react-native-social-share';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Camera from './Camera';
 
 export default class Challenge extends Component {
     constructor(props) {
@@ -16,7 +17,8 @@ export default class Challenge extends Component {
             text: '',
             rand: 0,
             summary: false,
-            spinner: false
+            spinner: false,
+            camera: false
         };
     }
 
@@ -67,10 +69,8 @@ export default class Challenge extends Component {
 
     }
 
-    submit() {
-        this.refs.input.blur();
-        this.props.submit();
-        setTimeout(() => this.setState({ summary: true }), 500);
+    toggleCamera() {
+        this.setState({ camera: !this.state.camera });
     }
 
     tweet() {
@@ -124,12 +124,18 @@ export default class Challenge extends Component {
                         <Text style={styles.mainText} numberOfLines={5}>{DEFAULT.find(item => item.id === this.state.rand).question}</Text>
                     </View>
 
-                        <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.submit()}>
+                        <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.toggleCamera()}>
                             <Text style={styles.send}>Let's do it!</Text>
                         </TouchableOpacity>
 
                 </Animated.View>
             </TouchableOpacity>
+        )
+    }
+
+    renderCamera() {
+        return (
+        <Camera />
         )
     }
 
@@ -170,7 +176,7 @@ export default class Challenge extends Component {
         };
 
         return (
-            this.state.summary == false ? this.renderChallenge(animatedStyle) : this.renderSummary(animatedStyle)
+            this.state.camera ? this.renderCamera() : !this.state.summary ? this.renderChallenge(animatedStyle) : this.renderSummary(animatedStyle)
         );
     }
 }
