@@ -82,32 +82,32 @@ export default class Balloon extends Component {
 const styles = StyleSheet.create({
     balloon: {
         shadowColor: 'black',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0,
-        shadowRadius: 2,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
         flex: 1, width: undefined, height: undefined,
     },
     balloonshrunk: {
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0,
-        shadowRadius: 2,
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
         flex: 1, width: undefined, height: undefined,
         margin: 20
     },
     popped: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0,
-        shadowRadius: 2,
+        // shadowColor: 'black',
+        // shadowOffset: { width: 0, height: 1 },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 4,
         flex: 1, width: undefined, height: undefined,
         margin: 0
     },
     poppedshrunk: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0,
-        shadowRadius: 2,
+        // shadowColor: 'black',
+        // shadowOffset: { width: 0, height: 1 },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 4,
         flex: 1, width: undefined, height: undefined,
         margin: 25
     }

@@ -8,7 +8,8 @@ import { COMPANIES } from './xcompanies';
 import { DEFAULT } from './xquestions';
 import { shareOnFacebook, shareOnTwitter } from 'react-native-social-share';
 import Spinner from 'react-native-loading-spinner-overlay';
-export default class Question extends Component {
+
+export default class Challenge extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -110,7 +111,7 @@ export default class Question extends Component {
         <View style={{ width: Dimensions.get('window').width * 0.05 }}/>
     );
 
-    renderQuestion(animatedStyle) {
+    renderChallenge(animatedStyle) {
         return (
             <TouchableOpacity activeOpacity={1}
                 onPressIn={this.handlePressIn.bind(this)}
@@ -118,35 +119,14 @@ export default class Question extends Component {
                 onLongPress={() => this.props.endQuestion()}
                 onPressOut={this.handlePressOut.bind(this)}>
                 <Animated.View style={animatedStyle}>
-                    <View style={this.state.text !== '' ? styles.container2 : styles.container}>
+                    <View style={styles.container}>
+                    <Image source={{ uri: 'trophy' }} style={styles.trophy}/>
                         <Text style={styles.mainText} numberOfLines={5}>{DEFAULT.find(item => item.id === this.state.rand).question}</Text>
-
-                        <View style={styles.inputcontainer}>
-                            <TextInput
-                                ref="input"
-                                style={[styles.subtext, { width: Dimensions.get('window').width * 0.75 * 0.88, textAlign: 'center' }]}
-                                autoFocus={true}
-                                placeholder={'Type something…'}
-                                placeholderTextColor={'rgba(74,74,74,0.5)'}
-                                onChangeText={(text) => this.setState({ text })}
-                                value={this.state.text}
-                                //onSubmitEditing={() => this.props.submit()}
-                                enablesReturnKeyAutomatically={true}
-                                returnKeyType={'done'}
-                                blurOnSubmit={true}
-                                multiline={true}
-                                numberOfLines={2}
-                                spellCheck={false}
-                                underlineColorAndroid={'transparent'}
-                            />
-                        </View>
                     </View>
 
-                    {this.state.text !== '' ?
                         <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.submit()}>
-                            <Text style={styles.send}>Send</Text>
+                            <Text style={styles.send}>Let's do it!</Text>
                         </TouchableOpacity>
-                        : null}
 
                 </Animated.View>
             </TouchableOpacity>
@@ -190,7 +170,7 @@ export default class Question extends Component {
         };
 
         return (
-            this.state.summary == false ? this.renderQuestion(animatedStyle) : this.renderSummary(animatedStyle)
+            this.state.summary == false ? this.renderChallenge(animatedStyle) : this.renderSummary(animatedStyle)
         );
     }
 }
@@ -241,31 +221,16 @@ const styles = StyleSheet.create({
         marginRight: Dimensions.get('window').width * 0.05,
     },
     container: {
-        borderRadius: 13,
-        width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').width * 0.88 * 0.52,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        alignContent: 'center',
-        justifyContent: 'center',
-        padding: 20,
-        marginBottom: Dimensions.get('window').height * 0.23,
-        // shadowColor: 'black',
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowOpacity: 0.05,
-        // shadowRadius: 4,
-    },
-    container2: {
         borderTopLeftRadius: 13,
         borderTopRightRadius: 13,
         width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').width * 0.88 * 0.52,
+        height: Dimensions.get('window').width * 0.88 * 0.47,
         backgroundColor: 'white',
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
         padding: 20,
-        marginBottom: Dimensions.get('window').height * 0.23,
+        marginBottom: Dimensions.get('window').height * 0.13,
         // shadowColor: 'black',
         // shadowOffset: { width: 0, height: 2 },
         // shadowOpacity: 0.05,
@@ -273,7 +238,7 @@ const styles = StyleSheet.create({
     },
     blue: {
         position: 'absolute',
-        top: Dimensions.get('window').width * 0.88 * 0.52 - (Dimensions.get('window').width * 0.88 * 0.15 * 0.13),
+        top: Dimensions.get('window').width * 0.88 * 0.47 - (Dimensions.get('window').width * 0.88 * 0.15 * 0.13),
         borderBottomLeftRadius: 13,
         borderBottomRightRadius: 13,
         width: Dimensions.get('window').width * 0.8,
@@ -321,7 +286,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: Dimensions.get('window').width * 0.04,
         textAlign: 'center',
-        marginVertical: 10
+        marginVertical: 16
     },
     subtext: {
         color: '#4A4A4A',
@@ -357,5 +322,10 @@ const styles = StyleSheet.create({
     },
     spacer: {
         width: Dimensions.get('window').width * 0.1,
+    },
+    trophy: {
+        height: 31,
+        width: 31,
+        tintColor: '#FFD700'
     }
 });

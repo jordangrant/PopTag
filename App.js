@@ -12,14 +12,17 @@ import { captureScreen } from "react-native-view-shot";
 import RNShakeEvent from 'react-native-shake-event';
 import Balloon from './Balloon';
 import Question from './Question';
+import Challenge from './Challenge';
 import Dialogue from './Dialogue2';
 import Contacts from 'react-native-contacts';
 import Sound from 'react-native-sound';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { COMPANIES } from './xcompanies';
 
-const width = Dimensions.get('window').width * 0.264;
-const height = width * 0.5656;
+//const width = Dimensions.get('window').width * 0.264;
+const width = Dimensions.get('window').width * 0.43733;
+//const height = width * 0.5656;
+const height = width * 0.34146;
 
 const topR1 = (Platform.OS === 'ios' && Dimensions.get('window').height > 800) ? Dimensions.get('window').height * 0.24 : Dimensions.get('window').height * 0.211;
 const topR2 = topR1 + 62;
@@ -73,6 +76,7 @@ export default class PopTag extends Component {
                 { id: 6, top: topR4, left: leftC3, popped: false },
             ],
             displayQuestion: false,
+            displayChallenge: false,
             displayGif: false,
             //background: ['#F4FA58', '#3A82D6', '#B8E986', '#50E3C2', 'pink'],
             background: '',
@@ -82,7 +86,7 @@ export default class PopTag extends Component {
             bottomHeight: 25,
             message: 'testestestest',
             custom: 0,
-            loading: true
+            loading: true,
         };
     }
 
@@ -108,7 +112,7 @@ export default class PopTag extends Component {
         AsyncStorage.getItem('custom').then(custom => {
             if (custom !== null) {
                 global.custom = JSON.parse(custom);
-                this.setState({ custom: JSON.parse(custom)});
+                this.setState({ custom: JSON.parse(custom) });
                 this.setState({ loading: false });
             } else {
                 AsyncStorage.setItem('custom', '0');
@@ -147,18 +151,11 @@ export default class PopTag extends Component {
     }
 
     componentDidMount() {
-        // this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
-        //     this._keyboardDidShow();
-        // });
-        // this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-        //     this._keyboardDidHide();
-        // });
+        
     }
 
     componentWillUnmount() {
         //RNShakeEvent.removeEventListener('shake');
-        // this.keyboardDidShowListener.remove();
-        // this.keyboardDidHideListener.remove();
     }
 
     async save() {
@@ -225,7 +222,7 @@ export default class PopTag extends Component {
 
     navigateToInstagram() {
         if (Platform.OS === 'ios') {
-            Linking.openURL('instagram://user?username=poptagtv')
+            Linking.openURL('instagram://user?username=poptagtv');
             setTimeout(() => Linking.openURL('https://instagram.com/poptagtv'), 10);
         }
         else {
@@ -252,7 +249,13 @@ export default class PopTag extends Component {
             this.resetBalloons();
         }
 
-        this.setState({ displayQuestion: true });
+        if (COMPANIES.find(item => item.id === this.state.custom).type == 'questions') {
+            this.setState({ displayQuestion: true });
+        }
+        else {
+            this.setState({ displayChallenge: true });
+        }
+
         this.save();
     }
 
@@ -300,11 +303,9 @@ export default class PopTag extends Component {
                     quality: 1
                 })
                     .then(uri => {
+                        global.uri = uri;
                         this.requestExternalStoragePermission(uri);
-                    })
-                    .then(() => {
-                        //this.setState({ displayQuestion: false });
-                    }), 500);
+                    }));
         }
         else {
             captureScreen({
@@ -312,6 +313,7 @@ export default class PopTag extends Component {
                 quality: 1
             })
                 .then(uri => {
+                    global.uri = uri;
                     CameraRoll.saveToCameraRoll(uri)
                         .then((newUri) => {
                             if (typeof newUri !== 'undefined') {
@@ -319,16 +321,16 @@ export default class PopTag extends Component {
                             }
                         });
                 })
-            //this.setState({ displayQuestion: false });
         }
     }
 
+
     endQuestion() {
-        this.setState({ displayQuestion: false })
+        this.setState({ displayQuestion: false, displayChallenge: false })
     }
 
     successToast() {
-        //this.refs.toast.show('Mission Accomplished ✅');
+        this.refs.toast.show('Posted! ✅');
     }
 
     addContact() {
@@ -374,7 +376,10 @@ export default class PopTag extends Component {
     }
 
     toggleDialogue() {
-        if (this.state.displayQuestion == false) {
+        if(this.state.displayGif == true){
+            this.dismissGif();
+        }
+        else if (this.state.displayQuestion == false && this.state.displayChallenge == false) {
             this.setState({ dialogue: !this.state.dialogue });
         }
         else {
@@ -398,12 +403,18 @@ export default class PopTag extends Component {
     }
 
     renderQuestion() {
-        return <Question submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()} />
+        return <Question submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
+            toggleLoading={() => this.toggleLoading()} success={() => this.successToast()} />
+    }
+
+    renderChallenge() {
+        return <Challenge submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
+            toggleLoading={() => this.toggleLoading()} success={() => this.successToast()} />
     }
 
     renderDialogue() {
         return <Dialogue changeCustom={(b) => this.changeCustom(b)}
-        toggleDialogue={this.toggleDialogue.bind(this)} success={() => this.successToast()} />
+            toggleDialogue={this.toggleDialogue.bind(this)} />
     }
 
     renderGif() {
@@ -422,44 +433,44 @@ export default class PopTag extends Component {
 
         return (
             <View style={styles.base}>
-            {this.state.loading == true ?
-                <View/>
-                :
-                <View style={[styles.container, { backgroundColor: COMPANIES.find(item => item.id === this.state.custom).bgcolor }]}>
+                {this.state.loading == true ?
+                    <View />
+                    :
+                    <View style={[styles.container, { backgroundColor: COMPANIES.find(item => item.id === this.state.custom).bgcolor }]}>
 
-                    <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
-                        onPressIn={this.handlePressIn.bind(this)}
-                        onPress={this.state.displayQuestion == true ? () => this.endQuestion() : this.state.dialogue == true ? () => this.toggleDialogue() : null}
-                        onPressOut={this.handlePressOut.bind(this)}>
-                        <Animated.View style={[animatedStyle, { width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462 }]}>
-                            <Image style={[styles.header, { tintColor:  COMPANIES.find(item => item.id === this.state.custom).wordmarkoverlay !== 'null' ? COMPANIES.find(item => item.id === this.state.custom).wordmarkoverlay : null }]} resizeMode={'contain'}
-                            source={{ uri: COMPANIES.find(item => item.id === this.state.custom).wordmark !== 'null' ? COMPANIES.find(item => item.id === this.state.custom).wordmark : 'ptlogored' }} />
-                        </Animated.View>
-                    </TouchableOpacity>
+                        <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
+                            onPressIn={this.handlePressIn.bind(this)}
+                            onPress={this.state.displayQuestion ? () => this.endQuestion() : this.state.displayChallenge ? () => this.endQuestion() :
+                                 this.state.dialogue ? () => this.toggleDialogue() : this.state.displayGif ? () => this.dismissGif() : null}
+                            onPressOut={this.handlePressOut.bind(this)}>
+                            <Animated.View style={[animatedStyle, { width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462 }]}>
+                                <Image style={[styles.header, { tintColor: COMPANIES.find(item => item.id === this.state.custom).wordmarkoverlay !== 'null' ? COMPANIES.find(item => item.id === this.state.custom).wordmarkoverlay : null }]} resizeMode={'contain'}
+                                    source={{ uri: COMPANIES.find(item => item.id === this.state.custom).wordmark !== 'null' ? COMPANIES.find(item => item.id === this.state.custom).wordmark : 'ptlogored' }} />
+                            </Animated.View>
+                        </TouchableOpacity>
 
-                    {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() :
-                        this.state.displayGif ? this.renderGif() : this.renderBalloons()}
+                        {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() : this.state.displayChallenge ? this.renderChallenge() :
+                            this.state.displayGif ? this.renderGif() : this.renderBalloons()}
 
-
-                    {this.state.dialogue == false ?
+                        {/* {this.state.dialogue == false ?
                         <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
                             <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
                         </TouchableOpacity>
-                        : null}
+                        : null} */}
 
-                    {this.state.dialogue == false ?
-                        <TouchableOpacity activeOpacity={1} style={[styles.button2, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
-                            <Image style={styles.ibutton} source={{ uri: 'palette' }} />
-                        </TouchableOpacity>
-                        : null}
+                        {this.state.dialogue == false ?
+                            <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
+                                <Image style={styles.ibutton} source={{ uri: this.state.displayQuestion || this.state.displayGif || this.state.displayChallenge ? 'home' : 'palette' }} />
+                            </TouchableOpacity>
+                            : null}
 
-                    {this.state.dialogue == false ?
-                        <TouchableOpacity activeOpacity={1} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
-                            <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
-                        </TouchableOpacity>
-                        : null}
+                        {this.state.dialogue == false ?
+                            <TouchableOpacity activeOpacity={1} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
+                                <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
+                            </TouchableOpacity>
+                            : null}
 
-                </View>
+                    </View>
                 }
 
                 <Toast
@@ -472,7 +483,7 @@ export default class PopTag extends Component {
                     opacity={0.4}
                     textStyle={{ color: 'white' }}
                 />
-                
+
             </View>
         );
     }
@@ -491,13 +502,13 @@ const styles = StyleSheet.create({
     },
     button1: {
         position: 'absolute',
-        left: 26,
+        left: 16,
         borderRadius: 8,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#FD3B00',
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
@@ -511,7 +522,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
-        backgroundColor: '#FD3B00',
+        backgroundColor: '#4CAF50',
         alignSelf: 'center',
         alignItems: 'center',
         alignContent: 'center',
@@ -521,7 +532,7 @@ const styles = StyleSheet.create({
     },
     button3: {
         position: 'absolute',
-        right: 26,
+        right: 16,
         borderRadius: 8,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
@@ -536,7 +547,7 @@ const styles = StyleSheet.create({
     },
     header: {
         //width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462
-        flex: 1 , width: undefined, height: undefined,
+        flex: 1, width: undefined, height: undefined,
     },
     headerBounding: {
         position: 'absolute',
@@ -555,13 +566,13 @@ const styles = StyleSheet.create({
         tintColor: 'white'
     },
     instagrambutton: {
-        width: width * 0.303 * 1.0778947368,
-        height: width * 0.303 * 1.0778947368,
+        width: 36,
+        height: 36,
         tintColor: 'white'
     },
     ibutton: {
-        width: width * 0.303 * 1.0778947368,
-        height: width * 0.303 * 1.0778947368,
+        width: 36,
+        height: 36,
         tintColor: 'white'
     },
     woman: {

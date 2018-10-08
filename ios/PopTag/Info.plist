@@ -24,6 +24,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fb</string>
+		<string>twitter</string>
+		<string>instagram</string>
+	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -43,6 +49,10 @@
 	<string>PopTag will save your answers to Camera Roll.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>PopTag will save your answers to Camera Roll.</string>
+  <key>NSCameraUsageDescription</key>
+  <string>PopTag will use your camera to capture challenges.</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>PopTag will use your microphone to record challenges.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

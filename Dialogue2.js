@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
     StyleSheet, View, Image, Dimensions, TouchableOpacity,
-    Animated, AsyncStorage, Platform, FlatList, Text
+    Animated, AsyncStorage, Platform, FlatList, Text,
+    TextInput
 } from 'react-native';
 import { COMPANIES } from './xcompanies';
 import { DEFAULT, WLUHOCO } from './xmissions';
@@ -24,9 +25,13 @@ class MyListItem extends Component {
                 style={styles.summarycontainerbottom}>
                 <Image source={{ uri: COMPANIES.find(item => item.id === this.props.data.id).cover }} style={styles.cell}>
                     <LinearGradient
-                        colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.5)']}
+                        colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.5)']}
+                        locations={[0, 0.5, 0.7, 1]}
                         style={styles.linearGradient}>
-                        <Text style={styles.summaryText} numberOfLines={1}>{COMPANIES.find(item => item.id === this.props.data.id).name}</Text>
+                        <View style={styles.aligner}>
+                            <Text style={styles.summaryText} numberOfLines={1}>{COMPANIES.find(item => item.id === this.props.data.id).name}</Text>
+                            <Image style={styles.trophy} source={{ uri: COMPANIES.find(item => item.id === this.props.data.id).type == 'challenges' ? 'trophy' : '' }} />
+                        </View>
                     </LinearGradient>
 
                 </Image>
@@ -38,6 +43,12 @@ class MyListItem extends Component {
 export default class Dialogue2 extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            text: '',
+            query: '',
+        };
+
     }
 
     componentWillMount() {
@@ -69,17 +80,14 @@ export default class Dialogue2 extends Component {
         }).start()
     }
 
-    _renderHeader = ({ item }) => (
-        <TouchableOpacity activeOpacity={1} style={styles.container} >
-            <Image style={styles.search} source={{ uri: 'search' }} />
-        </TouchableOpacity>
+    _renderFooter = ({ item }) => (
+        <View style={{ height: 20 }} />
     );
 
     _renderItem = ({ item, index }) => (
         <MyListItem
             data={item}
             index={index}
-            success={this.props.success}
             changeCustom={this.props.changeCustom}
         />
     );
@@ -90,16 +98,34 @@ export default class Dialogue2 extends Component {
             transform: [{ scale: this.animatedValue }]
         }
 
+        const search = COMPANIES.filter(x => x.name.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1).sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase());
+
         return (
-            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: Dimensions.get('window').height * 0.17 }}>
+            <View style={{ marginTop: Dimensions.get('window').height * 0.17 }}>
+            <View style={styles.container}>
+                            <Image style={styles.search} source={{ uri: 'search' }} />
+                            <TextInput
+                                style={styles.subtext}
+                                placeholder={'Search'}
+                                placeholderTextColor={'rgba(74,74,74,0.5)'}
+                                onChangeText={(query) => this.setState({ query })}
+                                value={this.state.query}
+                                enablesReturnKeyAutomatically={true}
+                                returnKeyType={'done'}
+                                blurOnSubmit={true}
+                                numberOfLines={1}
+                                spellCheck={false}
+                                underlineColorAndroid={'transparent'} />
+                        </View>
                 <FlatList
-                    data={COMPANIES}
+                    data={search}
                     renderItem={this._renderItem}
                     scrollEnabled
                     showsVerticalScrollIndicator={false}
-                    ListHeaderComponent={this._renderHeader}
+                    ListFooterComponent={this._renderFooter}
                     showsHorizontalScrollIndicator={false}
                     numColumns={2}
+                    extraData={this.state}
                 />
             </View>
 
@@ -114,13 +140,15 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').width * 0.904 * 0.12684,
         backgroundColor: 'white',
         alignItems: 'center',
-        alignContent: 'center',
-        justifyContent: 'center',
+        //alignContent: 'center',
         alignSelf: 'center',
-        marginVertical: 6,
+        marginBottom: 10,
+        marginHorizontal: 6,
+        paddingLeft: 16,
+        flexDirection: 'row',
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
+        shadowOpacity: 0.15,
         shadowRadius: 4,
     },
     summaryText: {
@@ -131,15 +159,17 @@ const styles = StyleSheet.create({
     },
     summarycontainerbottom: {
         borderRadius: 13,
+        borderWidth: 0.25,
+        borderColor: 'black',
         width: Dimensions.get('window').width * 0.43733,
         height: Dimensions.get('window').width * 0.43733 * 0.829268,
         marginVertical: 6,
         marginHorizontal: 6,
         backgroundColor: 'white',
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
+        // shadowColor: 'black',
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 4,
         overflow: 'hidden'
     },
     inputcontainer: {
@@ -158,26 +188,39 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 10
     },
+    search: {
+        height: 25,
+        width: 25,
+        tintColor: 'black',
+        marginRight: 5
+    },
     subtext: {
         color: '#4A4A4A',
-        fontSize: 15,
-        textAlign: 'center'
-    },
-    search: {
-        height: 30,
-        width: 30,
-        tintColor: 'black'
+        fontSize: Dimensions.get('window').width * 0.043,
+        paddingTop: 1,
+        flex: 1
     },
     linearGradient: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        paddingLeft: Dimensions.get('window').width * 0.43733 * 0.08,
+        height: Dimensions.get('window').width * 0.43733 * 0.829268,
+        paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
         paddingBottom: Dimensions.get('window').width * 0.43733 * 0.08,
-        borderRadius: 13,
+        justifyContent: 'flex-end',
     },
     cell: {
         width: Dimensions.get('window').width * 0.43733,
         height: Dimensions.get('window').width * 0.43733 * 0.829268,
-        resizeMode: 'cover'
+        resizeMode: 'cover',
+        justifyContent: 'flex-end'
+    },
+    trophy: {
+        width: 20,
+        height: 20,
+        tintColor: '#FFD700'
+    },
+    aligner: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        alignContent: 'center'
     }
 });

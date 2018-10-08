@@ -3,6 +3,8 @@ package com.poptag;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.reactnative.camera.RNCameraPackage;
+import com.barefootcoders.android.react.KDSocialShare.KDSocialShare;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rt2zz.reactnativecontacts.ReactNativeContacts;
@@ -28,6 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNCameraPackage(),
+            new KDSocialShare(),
             new LinearGradientPackage(),
             new RNSoundPackage(),
             new ReactNativeContacts(),
