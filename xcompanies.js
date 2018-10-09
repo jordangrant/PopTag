@@ -1,3 +1,6 @@
+import { NELK, CHALLENGES } from './xchallenges';
+import { DEFAULT } from './xquestions';
+
 export const COMPANIES = [
     {
       "id": 0,
@@ -12,28 +15,26 @@ export const COMPANIES = [
       "iconalternateoverlay": 'null',
       "shrinkiconalternate": true,
       "palette": ['#FD3B00', '#4A90E2', '#4CAF50'],
-      "questions": 'DEFAULT',
+      "questions": DEFAULT,
       "cover": 'poptagcover',
       "type": 'questions',
-      //"missions": 'DEFAULT',
     },
     {
       "id": 1,
-      "name": "Ultimate Software",
-      "bgcolor": '#509E2F',
-      "wordmark": 'ultimatesoftwarelogo',
-      "wordmarkoverlay": '#FFFFFF',
+      "name": "Challenges",
+      "bgcolor": 'gray',
+      "wordmark": 'null',
+      "wordmarkoverlay": 'null',
       "icon": 'balloon',
-      "iconoverlay": '#FFFFFF',
-      "shrinkicon": true,
-      "iconalternate": 'ultimatesoftwareicon',
+      "iconoverlay": '#FFD700',
+      "shrinkicon": false,
+      "iconalternate": 'null',
       "iconalternateoverlay": 'null',
       "shrinkiconalternate": true,
       "palette": ['#63666A', '#115E67', '#003B5C', '#7A4183', '#ED8B00', '#CEDC00'],
-      "questions": 'DEFAULT',
-      "cover": 'ultimatesoftwarecover',
-      "type": 'questions',
-      //"missions": 'WLUHOCO',
+      "questions": CHALLENGES,
+      "cover": 'challengescover',
+      "type": 'challenges',
     },
     {
       "id": 2,
@@ -48,9 +49,8 @@ export const COMPANIES = [
       "iconalternateoverlay": 'null',
       "shrinkiconalternate": true,
       "palette": ['#FBB23A', '#7EC242'],
-      "questions": 'NELK',
+      "questions": NELK,
       "cover": 'nelkcover',
       "type": 'challenges',
-      //"missions": 'WLUHOCO',
     },
 ]

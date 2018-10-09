@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
+    StyleSheet, View, Image, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList,
     Linking
 } from 'react-native';
@@ -21,7 +21,7 @@ export default class Question extends Component {
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
-        this.state.rand = Math.round(Math.random() * 689);
+        this.state.rand = Math.floor(Math.random() * COMPANIES.find(item => item.id === global.custom).questions.length);
     }
 
     handlePressIn() {
@@ -74,11 +74,11 @@ export default class Question extends Component {
 
     tweet() {
         shareOnTwitter({
-            'text': DEFAULT.find(item => item.id === this.state.rand).question + " @poptagtv #poptag 🎈",
+            'text': COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question + " @poptagtv #poptag 🎈",
             //'link': 'https://artboost.com/',
-            //'imagelink': global.uri,
+            //'imagelink': global.screenshot,
             //or use image
-            'image': global.uri,
+            'image': global.screenshot,
         },
             (results) => {
                 if(results == "not_available") {
@@ -88,7 +88,7 @@ export default class Question extends Component {
 
                 }
                 else if (results == "success") {
-                    this.props.success();
+                    this.props.successTweet();
                 }
             }
         );
@@ -111,6 +111,8 @@ export default class Question extends Component {
     );
 
     renderQuestion(animatedStyle) {
+        var question = COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question;
+
         return (
             <TouchableOpacity activeOpacity={1}
                 onPressIn={this.handlePressIn.bind(this)}
@@ -119,7 +121,8 @@ export default class Question extends Component {
                 onPressOut={this.handlePressOut.bind(this)}>
                 <Animated.View style={animatedStyle}>
                     <View style={this.state.text !== '' ? styles.container2 : styles.container}>
-                        <Text style={styles.mainText} numberOfLines={5}>{DEFAULT.find(item => item.id === this.state.rand).question}</Text>
+                        <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.031 : question.length > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042}]}
+                         numberOfLines={5}>{question}</Text>
 
                         <View style={styles.inputcontainer}>
                             <TextInput
@@ -154,6 +157,8 @@ export default class Question extends Component {
     }
 
     renderSummary() {
+        var question = COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question;
+
         return <View
             style={{
                 width: Dimensions.get('window').width, height: Dimensions.get('window').height * 0.7,
@@ -162,13 +167,14 @@ export default class Question extends Component {
             <Spinner visible={this.state.spinner} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
 
             <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summaryquestion} activeOpacity={1}>
-                <Text style={styles.mainText} numberOfLines={4}>{DEFAULT.find(item => item.id === this.state.rand).question}</Text>
+                <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.031 : question.length > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042 }]}
+                 numberOfLines={4}>{question}</Text>
             </TouchableOpacity>
 
             <View style={styles.summaryDivider} />
 
             <FlatList
-                data={typeof DEFAULT.find(item => item.id === this.state.rand).responses !== 'undefined' ? this.shuffle(DEFAULT.find(item => item.id === this.state.rand).responses) : []}
+                data={typeof COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).responses !== 'undefined' ? this.shuffle(COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).responses) : []}
                 renderItem={({ item }) =>
                     <View style={styles.summarycontainerbottom}>
                         <Text style={styles.summaryText} numberOfLines={4}>{item}</Text>
@@ -177,7 +183,7 @@ export default class Question extends Component {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 ListHeaderComponent={this._renderHeader}
-                ListFooterComponent={typeof DEFAULT.find(item => item.id === this.state.rand).responses !== 'undefined' ? this._renderFooter : null}
+                ListFooterComponent={typeof COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).responses !== 'undefined' ? this._renderFooter : null}
             />
 
         </View>
@@ -319,9 +325,8 @@ const styles = StyleSheet.create({
     mainText: {
         color: 'black',
         fontWeight: '600',
-        fontSize: Dimensions.get('window').width * 0.04,
         textAlign: 'center',
-        marginVertical: 10
+        marginVertical: 11
     },
     subtext: {
         color: '#4A4A4A',

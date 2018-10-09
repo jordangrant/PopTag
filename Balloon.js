@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
-    Animated, AsyncStorage, Platform
+    StyleSheet, View, Image, Dimensions, TouchableOpacity,
+    Animated, Platform
 } from 'react-native';
 import { COMPANIES } from './xcompanies';
 

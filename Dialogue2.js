@@ -5,7 +5,6 @@ import {
     TextInput
 } from 'react-native';
 import { COMPANIES } from './xcompanies';
-import { DEFAULT, WLUHOCO } from './xmissions';
 import LinearGradient from 'react-native-linear-gradient';
 
 class MyListItem extends Component {
@@ -30,7 +29,7 @@ class MyListItem extends Component {
                         style={styles.linearGradient}>
                         <View style={styles.aligner}>
                             <Text style={styles.summaryText} numberOfLines={1}>{COMPANIES.find(item => item.id === this.props.data.id).name}</Text>
-                            <Image style={styles.trophy} source={{ uri: COMPANIES.find(item => item.id === this.props.data.id).type == 'challenges' ? 'trophy' : '' }} />
+                            <Image style={styles.trophy} source={{ uri: COMPANIES.find(item => item.id === this.props.data.id).type == 'challenges' ? 'trophy' : 'chatbubble' }} />
                         </View>
                     </LinearGradient>
 

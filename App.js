@@ -5,8 +5,7 @@
 import React, { Component } from 'react';
 import {
     AppRegistry, StyleSheet, Text, View, TouchableOpacity, Dimensions, Keyboard,
-    Image, Animated, AsyncStorage, CameraRoll, Platform, Linking, ImageBackground,
-    PermissionsAndroid
+    Image, Animated, AsyncStorage, CameraRoll, Platform, Linking, PermissionsAndroid
 } from 'react-native';
 import { captureScreen } from "react-native-view-shot";
 import RNShakeEvent from 'react-native-shake-event';
@@ -87,6 +86,7 @@ export default class PopTag extends Component {
             message: 'testestestest',
             custom: 0,
             loading: true,
+            camera: false
         };
     }
 
@@ -303,7 +303,7 @@ export default class PopTag extends Component {
                     quality: 1
                 })
                     .then(uri => {
-                        global.uri = uri;
+                        global.screenshot = uri;
                         this.requestExternalStoragePermission(uri);
                     }));
         }
@@ -313,7 +313,7 @@ export default class PopTag extends Component {
                 quality: 1
             })
                 .then(uri => {
-                    global.uri = uri;
+                    global.screenshot = uri;
                     CameraRoll.saveToCameraRoll(uri)
                         .then((newUri) => {
                             if (typeof newUri !== 'undefined') {
@@ -329,8 +329,12 @@ export default class PopTag extends Component {
         this.setState({ displayQuestion: false, displayChallenge: false })
     }
 
-    successToast() {
+    successTweet() {
         this.refs.toast.show('Posted! ✅');
+    }
+
+    successCameraRoll() {
+        this.refs.toast.show('Saved to Camera Roll');
     }
 
     addContact() {
@@ -404,12 +408,14 @@ export default class PopTag extends Component {
 
     renderQuestion() {
         return <Question submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
-            toggleLoading={() => this.toggleLoading()} success={() => this.successToast()} />
+            toggleLoading={() => this.toggleLoading()} successTweet={() => this.successTweet()} />
     }
 
     renderChallenge() {
         return <Challenge submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
-            toggleLoading={() => this.toggleLoading()} success={() => this.successToast()} />
+            toggleLoading={() => this.toggleLoading()} successTweet={() => this.successTweet()}
+            successCameraRoll={() => this.successCameraRoll()}
+            camera={() => this.setState({ camera: !this.state.camera })} />
     }
 
     renderDialogue() {
@@ -458,13 +464,13 @@ export default class PopTag extends Component {
                         </TouchableOpacity>
                         : null} */}
 
-                        {this.state.dialogue == false ?
+                        {!this.state.dialogue && !this.state.camera ?
                             <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
                                 <Image style={styles.ibutton} source={{ uri: this.state.displayQuestion || this.state.displayGif || this.state.displayChallenge ? 'home' : 'palette' }} />
                             </TouchableOpacity>
                             : null}
 
-                        {this.state.dialogue == false ?
+                        {!this.state.dialogue && !this.state.camera ?
                             <TouchableOpacity activeOpacity={1} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
                                 <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
                             </TouchableOpacity>

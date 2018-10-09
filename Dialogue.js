@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet, View, Image, ImageBackground, Dimensions, TouchableOpacity,
+    StyleSheet, View, Image, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList
 } from 'react-native';
 import { COMPANIES } from './xcompanies';
