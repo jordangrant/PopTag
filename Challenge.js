@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import {
     StyleSheet, View, Image, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList,
-    Linking, CameraRoll, ImageBackground
+    Linking, CameraRoll, ImageBackground, NativeModules
 } from 'react-native';
 import { COMPANIES } from './xcompanies';
 import { DEFAULT } from './xquestions';
 import { shareOnFacebook, shareOnTwitter } from 'react-native-social-share';
+import RNInstagramStoryShare from 'react-native-instagram-story-share';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Camera from './Camera';
 import Video from 'react-native-video';
 import LinearGradient from 'react-native-linear-gradient';
 import RNFetchBlob from 'rn-fetch-blob';
+
+var ReadImageData = NativeModules.ReadImageData;
 
 export default class Challenge extends Component {
     constructor(props) {
@@ -89,6 +92,18 @@ export default class Challenge extends Component {
     }
 
     tweet() {
+        var uri = this.state.uri;
+        ReadImageData.readImage(uri, (imageBase64) => {
+            RNInstagramStoryShare.share({
+                backgroundImage: `data:image/png;base64,${imageBase64}`,
+                deeplinkingUrl: 'instagram-stories://share'
+            })
+            .then(() => console.log('SUCCESS'))
+            .catch(e => console.log('ERRORZZZZZZZZ', e))
+            });
+    }
+
+    tweet2() {
         var uri = this.state.uri;
         const dirs = RNFetchBlob.fs.dirs
 
@@ -329,7 +344,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
-        padding: 20,
         // shadowColor: 'black',
         // shadowOffset: { width: 0, height: 2 },
         // shadowOpacity: 0.05,

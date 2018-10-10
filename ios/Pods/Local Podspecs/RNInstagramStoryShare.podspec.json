@@ -1,0 +1,22 @@
+{
+  "name": "RNInstagramStoryShare",
+  "version": "0.1.0",
+  "summary": "React Native Module for Instagram Story Share",
+  "description": "A Instagram Story Share implementation for React Native, supporting iOS & Android.",
+  "homepage": "http://callosum-sw.de/",
+  "license": "MIT",
+  "authors": "Callosum Software GmbH",
+  "source": {
+    "git": "https://gitlab.com/Tellonym/react-native-instagram-story-share.git"
+  },
+  "source_files": "RNInstagramStoryShare/**/*.{h,m}",
+  "resources": "RNInstagramStoryShare/**/*.xib",
+  "platforms": {
+    "ios": "8.0"
+  },
+  "dependencies": {
+    "React": [
+
+    ]
+  }
+}

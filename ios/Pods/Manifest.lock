@@ -1,0 +1,30 @@
+PODS:
+  - React (0.56.0):
+    - React/Core (= 0.56.0)
+  - React/Core (0.56.0):
+    - yoga (= 0.56.0.React)
+  - RNInstagramStoryShare (0.1.0):
+    - React
+  - yoga (0.56.0.React)
+
+DEPENDENCIES:
+  - React (from `../node_modules/react-native`)
+  - RNInstagramStoryShare (from `../node_modules/react-native-instagram-story-share/ios`)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+
+EXTERNAL SOURCES:
+  React:
+    :path: "../node_modules/react-native"
+  RNInstagramStoryShare:
+    :path: "../node_modules/react-native-instagram-story-share/ios"
+  yoga:
+    :path: "../node_modules/react-native/ReactCommon/yoga"
+
+SPEC CHECKSUMS:
+  React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
+  RNInstagramStoryShare: eca347b80831872ffa40e80111cb7f32d567c299
+  yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
+
+PODFILE CHECKSUM: c4ba2065bba1a37e7952c0e1542e9983f7ce299f
+
+COCOAPODS: 1.5.3
