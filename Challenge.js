@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet, View, Image, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList,
-    Linking, CameraRoll
+    Linking, CameraRoll, ImageBackground
 } from 'react-native';
 import { COMPANIES } from './xcompanies';
 import { DEFAULT } from './xquestions';
@@ -196,7 +196,7 @@ export default class Challenge extends Component {
                 }]}>
 
                     <View style={styles.summarycontainertop}>
-                        <Image source={{ uri: this.state.uri }} style={styles.cell}>
+                        <ImageBackground source={{ uri: this.state.uri }} style={styles.cell}>
                             <LinearGradient
                                 colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.6)']}
                                 locations={[0, 0.5, 0.7, 1]}
@@ -205,7 +205,7 @@ export default class Challenge extends Component {
                                     <Text style={styles.summaryText} numberOfLines={2}>{COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question}</Text>
                                 </View>
                             </LinearGradient>
-                        </Image>
+                        </ImageBackground>
                     </View>
 
                     <TouchableOpacity style={styles.blue2} activeOpacity={1} onPress={() => this.tweet()}>
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 13,
         borderTopRightRadius: 13,
         width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').width * 0.8 * 1.15,
+        height: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 : Dimensions.get('window').width * 0.8 * 1.15,
         // backgroundColor: '#4A90E2',
         backgroundColor: 'white',
         alignItems: 'center',
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
     },
     blue2: {
         position: 'absolute',
-        top: Dimensions.get('window').width * 0.8 * 1.13 + Dimensions.get('window').height * 0.1,
+        top: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 * 0.98 + Dimensions.get('window').height * 0.1 : Dimensions.get('window').width * 0.8 * 1.13 + Dimensions.get('window').height * 0.1,
         borderBottomLeftRadius: 13,
         borderBottomRightRadius: 13,
         width: Dimensions.get('window').width * 0.8,
@@ -386,7 +386,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         fontWeight: '600',
         fontSize: Dimensions.get('window').width * 0.042,
-        marginVertical: 10,
+        marginVertical: Platform.OS === 'android' ? 20 : 10,
     },
     summarySectionTitle: {
         color: 'black',
@@ -417,7 +417,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     linearGradient: {
-        height: Dimensions.get('window').width * 0.8 * 1.15,
+        height: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 : Dimensions.get('window').width * 0.8 * 1.15,
         paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
         paddingBottom: Dimensions.get('window').width * 0.43733 * 0.08,
         justifyContent: 'flex-end',

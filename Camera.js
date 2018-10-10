@@ -88,7 +88,7 @@ export default class Camera extends Component {
           autoFocus={RNCamera.Constants.AutoFocus.on}
           captureAudio={true}
           onCameraReady={() => this.activate()}
-          videoStabilizationMode={RNCamera.Constants.VideoStabilization['auto']}
+          videoStabilizationMode={Platform.OS === 'android' ? null : RNCamera.Constants.VideoStabilization['auto']}
           type={this.state.type}
           flashMode={this.state.flashMode}
           permissionDialogTitle={'Permission to use camera'}

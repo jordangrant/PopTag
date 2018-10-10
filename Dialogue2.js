@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet, View, Image, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Platform, FlatList, Text,
-    TextInput
+    TextInput, ImageBackground
 } from 'react-native';
 import { COMPANIES } from './xcompanies';
 import LinearGradient from 'react-native-linear-gradient';
@@ -22,7 +22,7 @@ class MyListItem extends Component {
         return (
             <TouchableOpacity activeOpacity={1} onPress={() => this.props.changeCustom(this.props.data.id)}
                 style={styles.summarycontainerbottom}>
-                <Image source={{ uri: COMPANIES.find(item => item.id === this.props.data.id).cover }} style={styles.cell}>
+                <ImageBackground source={{ uri: COMPANIES.find(item => item.id === this.props.data.id).cover }} style={styles.cell}>
                     <LinearGradient
                         colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.5)']}
                         locations={[0, 0.5, 0.7, 1]}
@@ -33,7 +33,7 @@ class MyListItem extends Component {
                         </View>
                     </LinearGradient>
 
-                </Image>
+                </ImageBackground>
             </TouchableOpacity>
         );
     }

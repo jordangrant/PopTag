@@ -43,6 +43,11 @@ public class MainApplication extends Application implements ReactApplication {
             new RNShakeEventPackage()
       );
     }
+
+    @Override
+    protected String getJSMainModuleName() {
+      return "index";
+    }
   };
 
   @Override
