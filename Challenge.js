@@ -13,6 +13,9 @@ import Camera from './Camera';
 import Video from 'react-native-video';
 import LinearGradient from 'react-native-linear-gradient';
 import RNFetchBlob from 'rn-fetch-blob';
+import RNFS from 'react-native-fs';
+import ImageRotate from 'react-native-image-rotate';
+import ImageResizer from 'react-native-image-resizer';
 
 var ReadImageData = NativeModules.ReadImageData;
 
@@ -91,57 +94,105 @@ export default class Challenge extends Component {
         this.togglePreview();
     }
 
-    tweet() {
+    async insta() {
         var uri = this.state.uri;
-        ReadImageData.readImage(uri, (imageBase64) => {
-            RNInstagramStoryShare.share({
-                backgroundImage: `data:image/png;base64,${imageBase64}`,
-                deeplinkingUrl: 'instagram-stories://share'
-            })
-            .then(() => console.log('SUCCESS'))
-            .catch(e => console.log('ERRORZZZZZZZZ', e))
+
+        if (uri.indexOf('assets-library') !== -1) {
+            ReadImageData.readImage(uri, (imageBase64) => {
+                RNInstagramStoryShare.share({
+                    backgroundImage: `data:image/png;base64,${imageBase64}`,
+                    deeplinkingUrl: 'instagram-stories://share'
+                })
+                    .then(() => console.log('SUCCESS'))
+                    .catch(e => console.log('ERRORZZZZZZZZ', e))
             });
+        }
+        else {
+            ImageResizer.createResizedImage(uri, 1920, 1080, 'JPEG', 100,
+                90, `${RNFS.DocumentDirectoryPath}`)
+                .then((success) => {
+                    RNFS.readFile(success.path, 'base64').then((imageBase64) => {
+                        RNInstagramStoryShare.share({
+                            backgroundImage: `data:image/png;base64,${imageBase64}`,
+                            deeplinkingUrl: 'instagram-stories://share'
+                        })
+                            .then(() => console.log('SUCCESS'))
+                            .catch(e => console.log('ERRORZZZZZZZZ', e))
+                    })
+                })
+        }
     }
 
-    tweet2() {
+    facebookShare() {
+        var uri = this.state.uri;
+        const dirs = RNFetchBlob.fs.dirs
+
+
+        if (uri.indexOf('assets-library') !== -1) {
+            //from camera roll
+            RNFetchBlob.fs.cp(uri, `${dirs.DocumentDir}/helloworld.png`)
+                .then((success) => {
+                    shareOnFacebook({
+                        'text': " #poptag",
+                        //'link':'https://artboost.com/',
+                        //'imagelink':'https://artboost.com/apple-touch-icon-144x144.png',
+                        //or use image
+                        'image': `${dirs.DocumentDir}/helloworld.png`,
+                    },
+                        (results) => {
+                            if (results == "not_available") {
+                                Linking.openURL('itms-apps://itunes.apple.com/ca/app/facebook/id284882215?mt=8')
+                            }
+                            else if (results == "cancelled") {
+
+                            }
+                            else if (results == "success") {
+                                this.props.successTweet();
+                            }
+                        }
+                    );
+                })
+                .catch(() => { })
+        }
+        else {
+            //local file:/// extension
+            shareOnFacebook({
+                'text': " #poptag #poptagapp",
+                //'link':'https://artboost.com/',
+                //'imagelink':'https://artboost.com/apple-touch-icon-144x144.png',
+                //or use image
+                'image': uri.replace("file://", ""),
+            },
+                (results) => {
+                    if (results == "not_available") {
+                        Linking.openURL('itms-apps://itunes.apple.com/ca/app/facebook/id284882215?mt=8')
+                    }
+                    else if (results == "cancelled") {
+
+                    }
+                    else if (results == "success") {
+                        this.props.successTweet();
+                    }
+                }
+            );
+        }
+
+    }
+
+    tweet() {
         var uri = this.state.uri;
         const dirs = RNFetchBlob.fs.dirs
 
         if (uri.indexOf('assets-library') !== -1) {
-
-            if (uri.indexOf('MOV') !== -1) {
-                RNFetchBlob.fs.cp(uri, `${dirs.DocumentDir}/helloworld.mp4`)
-                    .then((success) => {
-                        CameraRoll.saveToCameraRoll(`${dirs.DocumentDir}/helloworld.mp4`)
-                            .then((newUri) => {
-                                if (typeof newUri !== 'undefined') {
-                                    this.props.successCameraRoll();
-                                }
-                            })
-                    })
-                    .catch(() => { })
-            }
-            else {
-                RNFetchBlob.fs.cp(uri, `${dirs.DocumentDir}/helloworld.png`)
-                    .then((success) => {
-                        this.SOT(`${dirs.DocumentDir}/helloworld.png`);
-                    })
-                    .catch(() => { })
-            }
-
-        }
-        else if (uri.indexOf('mov') !== -1) {
-            CameraRoll.saveToCameraRoll(uri)
-                .then((newUri) => {
-                    if (typeof newUri !== 'undefined') {
-                        this.props.successCameraRoll();
-                    }
+            RNFetchBlob.fs.cp(uri, `${dirs.DocumentDir}/helloworld.png`)
+                .then((success) => {
+                    this.SOT(`${dirs.DocumentDir}/helloworld.png`);
                 })
+                .catch(() => { })
         }
         else {
             this.SOT(uri.replace("file://", ""));
         }
-
     }
 
     SOT(uri) {
@@ -164,6 +215,34 @@ export default class Challenge extends Component {
                 }
             }
         );
+    }
+
+    downloadVideo() {
+        var uri = this.state.uri;
+        const dirs = RNFetchBlob.fs.dirs
+
+        if (uri.indexOf('assets-library') !== -1) {
+            if (uri.indexOf('MOV') !== -1) {
+                RNFetchBlob.fs.cp(uri, `${dirs.DocumentDir}/helloworld.mp4`)
+                    .then((success) => {
+                        CameraRoll.saveToCameraRoll(`${dirs.DocumentDir}/helloworld.mp4`)
+                            .then((newUri) => {
+                                if (typeof newUri !== 'undefined') {
+                                    this.props.successCameraRoll();
+                                }
+                            })
+                    })
+                    .catch(() => { })
+            }
+        }
+        else if (uri.indexOf('mov') !== -1) {
+            CameraRoll.saveToCameraRoll(uri)
+                .then((newUri) => {
+                    if (typeof newUri !== 'undefined') {
+                        this.props.successCameraRoll();
+                    }
+                })
+        }
     }
 
     renderChallenge(animatedStyle) {
@@ -199,37 +278,59 @@ export default class Challenge extends Component {
     renderPreview(animatedStyle) {
 
         var twee = this.state.uri.indexOf('mov') == -1 && this.state.uri.indexOf('MOV') == -1
-        
+
         return (
             twee ?
-            <TouchableOpacity activeOpacity={1}
-                onPressIn={this.handlePressIn.bind(this)}
-                onPressOut={this.handlePressOut.bind(this)}>
-                <Animated.View style={[animatedStyle, {
-                    width: Dimensions.get('window').width,
-                    height: Dimensions.get('window').height * 0.7, paddingTop: Dimensions.get('window').height * 0.1
-                }]}>
+                <TouchableOpacity activeOpacity={1}
+                    onPressIn={this.handlePressIn.bind(this)}
+                    onPressOut={this.handlePressOut.bind(this)}>
+                    <Animated.View style={[animatedStyle, {
+                        width: Dimensions.get('window').width,
+                        height: Dimensions.get('window').height * 0.7, paddingTop: Dimensions.get('window').height * 0.1
+                    }]}>
 
-                    <View style={styles.summarycontainertop}>
-                        <ImageBackground source={{ uri: this.state.uri }} style={styles.cell}>
-                            <LinearGradient
-                                colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.6)']}
-                                locations={[0, 0.5, 0.7, 1]}
-                                style={styles.linearGradient}>
-                                <View style={styles.aligner}>
-                                    <Text style={styles.summaryText} numberOfLines={2}>{COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question}</Text>
-                                </View>
-                            </LinearGradient>
-                        </ImageBackground>
-                    </View>
+                        <View style={styles.summarycontainertop}>
+                            <ImageBackground source={{ uri: this.state.uri }} style={styles.cell}>
+                                <LinearGradient
+                                    colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.6)']}
+                                    locations={[0, 0.5, 0.7, 1]}
+                                    style={styles.linearGradient}>
+                                    <View style={styles.aligner}>
+                                        <Text style={styles.summaryText} numberOfLines={2}>{COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question}</Text>
+                                    </View>
+                                </LinearGradient>
+                            </ImageBackground>
+                        </View>
 
-                    <TouchableOpacity style={styles.blue2} activeOpacity={1} onPress={() => this.tweet()}>
-                        <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                    </TouchableOpacity>
+                        <View style={styles.blue2}>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
+                                <Image source={{ uri: 'blank' }} style={styles.instablock} />
+                            </TouchableOpacity>
 
-                </Animated.View>
-            </TouchableOpacity>
-            :
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.insta()}>
+                                <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.facebookShare()}>
+                                <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => this.tweet()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                                <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => this.insta()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                                <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => this.facebookShare()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                                <Image source={{ uri: 'fb' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                            </TouchableOpacity>
+                        </View>
+
+                    </Animated.View>
+                </TouchableOpacity>
+                :
                 <View style={{
                     width: Dimensions.get('window').width,
                     height: Dimensions.get('window').height * 0.7, paddingTop: Dimensions.get('window').height * 0.1
@@ -237,10 +338,10 @@ export default class Challenge extends Component {
 
                     <View style={styles.summarycontainertop}>
                         <Video source={{ uri: this.state.uri }} style={styles.backgroundVideo}
-                        repeat
-                        resizeMode={'cover'}
-                        ignoreSilentSwitch={"obey"}
-                        controls={false}
+                            repeat
+                            resizeMode={'cover'}
+                            ignoreSilentSwitch={"obey"}
+                            controls={false}
                         >
                             <LinearGradient
                                 colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.7)']}
@@ -253,7 +354,7 @@ export default class Challenge extends Component {
                         </Video>
                     </View>
 
-                    <TouchableOpacity style={styles.blue2} activeOpacity={1} onPress={() => this.tweet()}>
+                    <TouchableOpacity style={styles.blue2} activeOpacity={1} onPress={() => this.downloadVideo()}>
                         <Image source={{ uri: 'download' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                     </TouchableOpacity>
 
@@ -362,6 +463,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
         padding: 20,
+        flexDirection: 'row',
+        overflow: 'hidden'
         // shadowColor: 'black',
         // shadowOffset: { width: 0, height: 2 },
         // shadowOpacity: 0.05,
@@ -446,5 +549,9 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.8 * 1.15,
         justifyContent: 'flex-start',
-      },
+    },
+    instablock: {
+        width: Dimensions.get('window').width * 0.8 / 3,
+        height: Dimensions.get('window').width * 0.88 * 0.15,
+    }
 });

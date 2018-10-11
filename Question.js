@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import {
     StyleSheet, View, Image, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList,
-    Linking
+    Linking, NativeModules
 } from 'react-native';
 import { COMPANIES } from './xcompanies';
 import { DEFAULT } from './xquestions';
 import { shareOnFacebook, shareOnTwitter } from 'react-native-social-share';
+import RNInstagramStoryShare from 'react-native-instagram-story-share';
 import Spinner from 'react-native-loading-spinner-overlay';
+import RNFS from 'react-native-fs';
+
+var ReadImageData = NativeModules.ReadImageData;
+
 export default class Question extends Component {
     constructor(props) {
         super(props);
@@ -72,6 +77,17 @@ export default class Question extends Component {
         setTimeout(() => this.setState({ summary: true }), 500);
     }
 
+    async insta() {
+        const imageBase64 = await RNFS.readFile(global.screenshot, 'base64');
+
+        RNInstagramStoryShare.share({
+            backgroundImage: `data:image/png;base64,${imageBase64}`,
+            deeplinkingUrl: 'instagram-stories://share'
+        })
+        .then(() => console.log('SUCCESS'))
+        .catch(e => console.log('ERRORZZZZZZZZ', e))
+    }
+
     tweet() {
         shareOnTwitter({
             'text': COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question + " @poptagtv #poptag 🎈",
@@ -81,10 +97,32 @@ export default class Question extends Component {
             'image': global.screenshot,
         },
             (results) => {
-                if(results == "not_available") {
+                if (results == "not_available") {
                     Linking.openURL('itms-apps://itunes.apple.com/ca/app/twitter/id333903271?mt=8')
                 }
-                else if(results == "cancelled") {
+                else if (results == "cancelled") {
+
+                }
+                else if (results == "success") {
+                    this.props.successTweet();
+                }
+            }
+        );
+    }
+
+    facebookShare() {
+        shareOnFacebook({
+            'text': " #poptag",
+            //'link':'https://artboost.com/',
+            //'imagelink':'https://artboost.com/apple-touch-icon-144x144.png',
+            //or use image
+            'image': global.screenshot,
+        },
+            (results) => {
+                if (results == "not_available") {
+                    Linking.openURL('itms-apps://itunes.apple.com/ca/app/facebook/id284882215?mt=8')
+                }
+                else if (results == "cancelled") {
 
                 }
                 else if (results == "success") {
@@ -100,14 +138,36 @@ export default class Question extends Component {
                 <Text style={[styles.summaryText]} numberOfLines={4}>{this.state.text}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.blue2} activeOpacity={1} onPress={() => this.tweet()}>
-                <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-            </TouchableOpacity>
+            <View style={styles.blue2}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
+                    <Image source={{ uri: 'blank' }} style={styles.instablock} />
+                </TouchableOpacity>
+
+                <TouchableOpacity activeOpacity={1} onPress={() => this.insta()}>
+                    <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
+                </TouchableOpacity>
+
+                <TouchableOpacity activeOpacity={1} onPress={() => this.facebookShare()}>
+                    <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => this.tweet()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                    <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => this.insta()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                    <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => this.facebookShare()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                    <Image source={{ uri: 'fb' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                </TouchableOpacity>
+            </View>
         </View>
     );
 
     _renderFooter = ({ item }) => (
-        <View style={{ width: Dimensions.get('window').width * 0.05 }}/>
+        <View style={{ width: Dimensions.get('window').width * 0.05 }} />
     );
 
     renderQuestion(animatedStyle) {
@@ -121,8 +181,8 @@ export default class Question extends Component {
                 onPressOut={this.handlePressOut.bind(this)}>
                 <Animated.View style={animatedStyle}>
                     <View style={this.state.text !== '' ? styles.container2 : styles.container}>
-                        <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.031 : question.length > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042}]}
-                         numberOfLines={5}>{question}</Text>
+                        <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.031 : question.length > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042 }]}
+                            numberOfLines={5}>{question}</Text>
 
                         <View style={styles.inputcontainer}>
                             <TextInput
@@ -164,11 +224,11 @@ export default class Question extends Component {
                 width: Dimensions.get('window').width, height: Dimensions.get('window').height * 0.7,
                 backgroundColor: 'transparent', paddingTop: Dimensions.get('window').height * 0.1
             }}>
-            <Spinner visible={this.state.spinner} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
+            <Spinner visible={this.state.spinner} textContent={"Loading..."} textStyle={{ color: '#FFF' }} />
 
             <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summaryquestion} activeOpacity={1}>
                 <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.031 : question.length > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042 }]}
-                 numberOfLines={4}>{question}</Text>
+                    numberOfLines={4}>{question}</Text>
             </TouchableOpacity>
 
             <View style={styles.summaryDivider} />
@@ -241,7 +301,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         alignContent: 'center',
-        alignSelf: 'center',
         justifyContent: 'center',
         padding: 20,
         marginRight: Dimensions.get('window').width * 0.05,
@@ -302,14 +361,10 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').width * 0.88 * 0.15,
         backgroundColor: '#4A90E2',
         alignItems: 'center',
-        alignContent: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         marginLeft: Dimensions.get('window').width * 0.1,
-        padding: 20,
-        // shadowColor: 'black',
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowOpacity: 0.05,
-        // shadowRadius: 4,
+        flexDirection: 'row',
+        overflow: 'hidden'
     },
     inputcontainer: {
         borderRadius: 7,
@@ -361,5 +416,9 @@ const styles = StyleSheet.create({
     },
     spacer: {
         width: Dimensions.get('window').width * 0.1,
+    },
+    instablock: {
+        width: Dimensions.get('window').width * 0.8 / 3,
+        height: Dimensions.get('window').width * 0.88 * 0.15,
     }
 });

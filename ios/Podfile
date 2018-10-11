@@ -12,6 +12,12 @@ target 'PopTag' do
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
   
 
+pod 'RNFS', :path => '../node_modules/react-native-fs'
+
+pod 'RNImageRotate', :path => '../node_modules/react-native-image-rotate'
+
+pod 'react-native-image-resizer', :path => '../node_modules/react-native-image-resizer'
+
 target 'PopTagTests' do
     inherit! :search_paths
     # Pods for testing

@@ -151,6 +151,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-resizer')
+    compile project(':react-native-image-rotate')
+    compile project(':react-native-fs')
     compile project(':react-native-instagram-story-share')
     compile project(':rn-fetch-blob')
     compile project(':react-native-video')

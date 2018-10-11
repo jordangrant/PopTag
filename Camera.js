@@ -85,6 +85,7 @@ export default class Camera extends Component {
             this.camera = ref;
           }}
           style={styles.preview}
+          forceUpOrientation={true}
           autoFocus={RNCamera.Constants.AutoFocus.on}
           captureAudio={true}
           onCameraReady={() => this.activate()}
