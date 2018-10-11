@@ -104,7 +104,11 @@ export default class Challenge extends Component {
                     deeplinkingUrl: 'instagram-stories://share'
                 })
                     .then(() => console.log('SUCCESS'))
-                    .catch(e => console.log('ERRORZZZZZZZZ', e))
+                    .catch(e => {
+                        if(e.userInfo.NSLocalizedFailureReason == 'Not installed') {
+                            Linking.openURL('itms-apps://itunes.apple.com/us/app/instagram/id389801252?mt=8')
+                        }
+                    })
             });
         }
         else {
@@ -117,7 +121,11 @@ export default class Challenge extends Component {
                             deeplinkingUrl: 'instagram-stories://share'
                         })
                             .then(() => console.log('SUCCESS'))
-                            .catch(e => console.log('ERRORZZZZZZZZ', e))
+                            .catch(e => {
+                                if(e.userInfo.NSLocalizedFailureReason == 'Not installed') {
+                                    Linking.openURL('itms-apps://itunes.apple.com/us/app/instagram/id389801252?mt=8')
+                                }
+                            })
                     })
                 })
         }
