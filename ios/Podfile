@@ -9,14 +9,8 @@ target 'PopTag' do
   pod 'RNInstagramStoryShare', :path => '../node_modules/react-native-instagram-story-share/ios'
 
   pod 'React', :path => '../node_modules/react-native'
-  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
-  
 
-pod 'RNFS', :path => '../node_modules/react-native-fs'
-
-pod 'RNImageRotate', :path => '../node_modules/react-native-image-rotate'
-
-pod 'react-native-image-resizer', :path => '../node_modules/react-native-image-resizer'
+pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
 
 target 'PopTagTests' do
     inherit! :search_paths
@@ -43,5 +37,7 @@ post_install do |installer|
     if target.name == "React"
       target.remove_from_project
     end
+
+
   end
 end

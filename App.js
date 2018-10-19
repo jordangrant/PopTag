@@ -17,6 +17,7 @@ import Contacts from 'react-native-contacts';
 import Sound from 'react-native-sound';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { COMPANIES } from './xcompanies';
+import { colors } from './colors';
 
 //const width = Dimensions.get('window').width * 0.264;
 const width = Dimensions.get('window').width * 0.43733;
@@ -86,7 +87,8 @@ export default class PopTag extends Component {
             message: 'testestestest',
             custom: 0,
             loading: true,
-            camera: false
+            camera: false,
+            color: '#F4FA58'
         };
     }
 
@@ -122,15 +124,21 @@ export default class PopTag extends Component {
             }
         });
 
-        AsyncStorage.getItem('palette').then(list => {
-            if (list !== null) {
-                global.palette = JSON.parse(list);
-            } else {
-                var freshList = JSON.stringify([])
-                AsyncStorage.setItem('palette', freshList);
-                global.palette = [];
+        AsyncStorage.getItem('color').then(b => {
+            if (b !== null) {
+                this.setState({ color: b });
             }
-        });
+        })
+
+        // AsyncStorage.getItem('palette').then(list => {
+        //     if (list !== null) {
+        //         global.palette = JSON.parse(list);
+        //     } else {
+        //         var freshList = JSON.stringify([])
+        //         AsyncStorage.setItem('palette', freshList);
+        //         global.palette = [];
+        //     }
+        // });
 
         this.animatedValue = new Animated.Value(1);
 
@@ -162,7 +170,7 @@ export default class PopTag extends Component {
         await AsyncStorage.setItem('balloons', JSON.stringify(this.state.balloons));
         await AsyncStorage.setItem('gif', JSON.stringify(this.state.gif));
         await AsyncStorage.setItem('custom', JSON.stringify(this.state.custom));
-        //await AsyncStorage.setItem('bgColor', JSON.stringify(this.state.bgColor));
+        await AsyncStorage.setItem('color', this.state.color);
         console.log('balloons:' + JSON.stringify(this.state.balloons));
     }
 
@@ -223,16 +231,16 @@ export default class PopTag extends Component {
     navigateToInstagram() {
         if (Platform.OS === 'ios') {
             Linking.openURL('instagram://user?username=poptagtv');
-            setTimeout(() => Linking.openURL('https://instagram.com/poptagtv'), 10);
+            setTimeout(() => Linking.openURL('https://www.instagram.com/poptagtv'), 10);
         }
         else {
-            Linking.openURL('https://instagram.com/poptagtv')
+            Linking.openURL('https://www.instagram.com/poptagtv')
         }
     }
 
     changeCustom(custom) {
         global.custom = custom;
-        this.setState({ custom: custom });
+        this.setState({ custom: custom, color: colors[Math.floor(Math.random() * colors.length)] });
         this.toggleDialogue();
         this.save();
     }
@@ -437,12 +445,14 @@ export default class PopTag extends Component {
             transform: [{ scale: this.animatedValue }]
         }
 
+        var company = COMPANIES.find(item => item.id === this.state.custom);
+
         return (
             <View style={styles.base}>
                 {this.state.loading == true ?
                     <View />
                     :
-                    <View style={[styles.container, { backgroundColor: COMPANIES.find(item => item.id === this.state.custom).bgcolor }]}>
+                    <View style={[styles.container, { backgroundColor: company.bgcolor !== 'random' ? company.bgcolor : this.state.color }]}>
 
                         <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
                             onPressIn={this.handlePressIn.bind(this)}
@@ -450,8 +460,8 @@ export default class PopTag extends Component {
                                  this.state.dialogue ? () => this.toggleDialogue() : this.state.displayGif ? () => this.dismissGif() : null}
                             onPressOut={this.handlePressOut.bind(this)}>
                             <Animated.View style={[animatedStyle, { width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462 }]}>
-                                <Image style={[styles.header, { tintColor: COMPANIES.find(item => item.id === this.state.custom).wordmarkoverlay !== 'null' ? COMPANIES.find(item => item.id === this.state.custom).wordmarkoverlay : null }]} resizeMode={'contain'}
-                                    source={{ uri: COMPANIES.find(item => item.id === this.state.custom).wordmark !== 'null' ? COMPANIES.find(item => item.id === this.state.custom).wordmark : 'ptlogored' }} />
+                                <Image style={[styles.header, { tintColor: company.wordmarkoverlay !== 'null' ? company.wordmarkoverlay : null }]} resizeMode={'contain'}
+                                    source={{ uri: company.wordmark !== 'null' ? company.wordmark : 'ptlogored' }} />
                             </Animated.View>
                         </TouchableOpacity>
 

@@ -18,10 +18,12 @@ class MyListItem extends Component {
     }
 
     render() {
+        var type = COMPANIES.find(item => item.id === this.props.data.id).type;
+        var active = this.props.data.id == global.custom;
 
         return (
             <TouchableOpacity activeOpacity={1} onPress={() => this.props.changeCustom(this.props.data.id)}
-                style={styles.summarycontainerbottom}>
+                style={active ? styles.activecontainer : styles.summarycontainerbottom}>
                 <ImageBackground source={{ uri: COMPANIES.find(item => item.id === this.props.data.id).cover }} style={styles.cell}>
                     <LinearGradient
                         colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.5)']}
@@ -29,7 +31,7 @@ class MyListItem extends Component {
                         style={styles.linearGradient}>
                         <View style={styles.aligner}>
                             <Text style={styles.summaryText} numberOfLines={1}>{COMPANIES.find(item => item.id === this.props.data.id).name}</Text>
-                            <Image style={styles.trophy} source={{ uri: COMPANIES.find(item => item.id === this.props.data.id).type == 'challenges' ? 'trophy' : 'chatbubble' }} />
+                            <Image style={type == 'challenges' ? styles.trophy : styles.chatbubble} source={{ uri: type == 'challenges' ? 'trophy' : 'chatbubble' }} />
                         </View>
                     </LinearGradient>
 
@@ -165,10 +167,17 @@ const styles = StyleSheet.create({
         marginVertical: 6,
         marginHorizontal: 6,
         backgroundColor: 'white',
-        // shadowColor: 'black',
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowOpacity: 0.25,
-        // shadowRadius: 4,
+        overflow: 'hidden'
+    },
+    activecontainer: {
+        borderRadius: 13,
+        borderWidth: 3,
+        borderColor: '#FFD700',
+        width: Dimensions.get('window').width * 0.43733,
+        height: Dimensions.get('window').width * 0.43733 * 0.829268,
+        marginVertical: 6,
+        marginHorizontal: 6,
+        backgroundColor: 'white',
         overflow: 'hidden'
     },
     inputcontainer: {
@@ -215,6 +224,11 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         tintColor: '#FFD700'
+    },
+    chatbubble: {
+        width: 20,
+        height: 20,
+        tintColor: 'white'
     },
     aligner: {
         flexDirection: 'row',

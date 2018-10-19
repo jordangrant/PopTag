@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet, View, Image, Dimensions, TouchableOpacity,
     Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList,
-    Linking, NativeModules
+    Linking, NativeModules, ImageEditor, ImageStore
 } from 'react-native';
 import { COMPANIES } from './xcompanies';
 import { DEFAULT } from './xquestions';
@@ -10,8 +10,7 @@ import { shareOnFacebook, shareOnTwitter } from 'react-native-social-share';
 import RNInstagramStoryShare from 'react-native-instagram-story-share';
 import Spinner from 'react-native-loading-spinner-overlay';
 import RNFS from 'react-native-fs';
-
-var ReadImageData = NativeModules.ReadImageData;
+import ImageResizer from 'react-native-image-resizer';
 
 export default class Question extends Component {
     constructor(props) {
@@ -78,27 +77,62 @@ export default class Question extends Component {
     }
 
     async insta() {
-        const imageBase64 = await RNFS.readFile(global.screenshot, 'base64');
+        if (Platform.OS == 'ios') {
+            var uri = global.screenshot;
 
-        RNInstagramStoryShare.share({
-            backgroundImage: `data:image/png;base64,${imageBase64}`,
-            deeplinkingUrl: 'instagram-stories://share'
-        })
-        .then(() => console.log('SUCCESS'))
-        .catch(e => {
-            if(e.userInfo.NSLocalizedFailureReason == 'Not installed') {
-                Linking.openURL('itms-apps://itunes.apple.com/us/app/instagram/id389801252?mt=8')
-            }
-        })
+            let resizedUri = await new Promise((resolve, reject) => {
+                ImageEditor.cropImage(uri,
+                    {
+                        offset: { x: 0, y: 0 },
+                        size: { width: 1080, height: 1920 },
+                        //displaySize: { width: 1920, height: 1080 },
+                        resizeMode: 'cover',
+                    },
+                    (uri) => resolve(uri),
+                    () => reject(),
+                );
+            });
+
+            ImageResizer.createResizedImage(resizedUri, 1920, 1080, 'JPEG', 100,
+                0, `${RNFS.DocumentDirectoryPath}`)
+                .then((success) => {
+                    RNFS.readFile(success.path, 'base64').then((imageBase64) => {
+                        RNInstagramStoryShare.share({
+                            backgroundImage: `data:image/png;base64,${imageBase64}`,
+                            deeplinkingUrl: 'instagram-stories://share'
+                        })
+                            .then(() => console.log('SUCCESS'))
+                            .catch(e => {
+                                if (e.userInfo.NSLocalizedFailureReason == 'Not installed') {
+                                    Linking.openURL('itms-apps://itunes.apple.com/us/app/instagram/id389801252?mt=8');
+                                }
+                            })
+                    })
+                })
+        }
+        else {
+            global.screenshot = global.screenshot.replace("file:", "")
+            const imageBase64 = await RNFS.readFile(global.screenshot, 'base64');
+
+            RNInstagramStoryShare.shareToInstagramStory({
+                backgroundImage: `data:image/png;base64,${imageBase64}`,
+                deeplinkingUrl: 'instagram-stories://share'
+            })
+                .then(() => console.log('SUCCESS'))
+                .catch(() => Linking.openURL('https://play.google.com/store/apps/details?id=com.instagram.android'))
+        }
     }
 
     tweet() {
+        if (Platform.OS == 'android') {
+            global.screenshot = global.screenshot.replace("file://", "")
+        }
         shareOnTwitter({
             'text': COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question + " @poptagtv #poptag 🎈",
             //'link': 'https://artboost.com/',
             //'imagelink': global.screenshot,
             //or use image
-            'image': global.screenshot,
+            'image': global.screenshot, //doesnt render on android
         },
             (results) => {
                 if (results == "not_available") {
@@ -110,13 +144,19 @@ export default class Question extends Component {
                 else if (results == "success") {
                     this.props.successTweet();
                 }
+                else {
+                    Linking.openURL('https://play.google.com/store/apps/details?id=com.twitter.android')
+                }
             }
         );
     }
 
     facebookShare() {
+        if (Platform.OS == 'android') {
+            global.screenshot = global.screenshot.replace("file://", "")
+        }
         shareOnFacebook({
-            'text': " #poptag",
+            'text': "#poptag",
             //'link':'https://artboost.com/',
             //'imagelink':'https://artboost.com/apple-touch-icon-144x144.png',
             //or use image
@@ -132,6 +172,10 @@ export default class Question extends Component {
                 else if (results == "success") {
                     this.props.successTweet();
                 }
+                else {
+                    //android with no app installed
+                    Linking.openURL('https://play.google.com/store/apps/details?id=com.facebook.katana')
+                }
             }
         );
     }
@@ -139,7 +183,7 @@ export default class Question extends Component {
     _renderHeader = ({ item }) => (
         <View>
             <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summarycontainertop} activeOpacity={1}>
-                <Text style={[styles.summaryText]} numberOfLines={4}>{this.state.text}</Text>
+                <Text style={[styles.summaryText]} numberOfLines={5}>{this.state.text}</Text>
             </TouchableOpacity>
 
             <View style={styles.blue2}>
@@ -232,7 +276,7 @@ export default class Question extends Component {
 
             <TouchableOpacity onPress={() => this.props.endQuestion()} style={styles.summaryquestion} activeOpacity={1}>
                 <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.031 : question.length > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042 }]}
-                    numberOfLines={4}>{question}</Text>
+                    numberOfLines={5}>{question}</Text>
             </TouchableOpacity>
 
             <View style={styles.summaryDivider} />
@@ -287,14 +331,15 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 13,
         borderTopRightRadius: 13,
         width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').width * 0.35,
+        height: Dimensions.get('window').width * 0.38,
         // backgroundColor: '#4A90E2',
         backgroundColor: 'white',
         alignItems: 'center',
         alignContent: 'center',
         alignSelf: 'center',
         justifyContent: 'center',
-        padding: 20,
+        paddingHorizontal: 20,
+        paddingVertical: 5,
         marginLeft: Dimensions.get('window').width * 0.1,
         marginRight: Dimensions.get('window').width * 0.05,
     },
@@ -306,7 +351,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
-        padding: 20,
+        paddingHorizontal: 20,
+        paddingVertical: 5,
         marginRight: Dimensions.get('window').width * 0.05,
     },
     container: {

@@ -514,6 +514,9 @@
 		D63D9201EA99F14A9BFA901B /* libPods-PopTag.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PopTag.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D67D2CFE032676A8D622C027 /* libPods-PopTagTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PopTagTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF94E2FE8BC8470E9492F5BA /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
+		F360F7222174160A008D9B48 /* libRNImageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNImageCropPicker.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F360F76B217417DF008D9B48 /* libRNImageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNImageCropPicker.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F360F76D217417DF008D9B48 /* libRSKImageCropper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRSKImageCropper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3728D65216F17EE00AB18DD /* RCTImageResizer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImageResizer.xcodeproj; path = "../node_modules/react-native-image-resizer/ios/RCTImageResizer.xcodeproj"; sourceTree = "<group>"; };
 		F393DE8A216EFC2B00780486 /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		F393DEC6216F164700780486 /* RNImageRotate.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImageRotate.xcodeproj; path = "../node_modules/react-native-image-rotate/RNImageRotate.xcodeproj"; sourceTree = "<group>"; };
@@ -868,6 +871,9 @@
 		96CEC625216A7359001C64C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F360F76B217417DF008D9B48 /* libRNImageCropPicker.a */,
+				F360F76D217417DF008D9B48 /* libRSKImageCropper.a */,
+				F360F7222174160A008D9B48 /* libRNImageCropPicker.a */,
 				96CEC626216A7359001C64C4 /* Social.framework */,
 				D63D9201EA99F14A9BFA901B /* libPods-PopTag.a */,
 				17382A742BDB8ADD37568FE0 /* libPods-PopTag-tvOS.a */,

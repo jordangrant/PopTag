@@ -21,7 +21,7 @@ export default class Camera extends Component {
       showGallery: false,
       num: 0,
       selected: [],
-      active: false
+      active: false,
     };
   }
 
@@ -74,6 +74,8 @@ export default class Camera extends Component {
 
 
   render() {
+    var stabilize = (Platform.OS === 'ios') ? RNCamera.Constants.VideoStabilization['auto'] : null;
+
     return (
       <View style={styles.container}>
         <StatusBar
@@ -87,9 +89,9 @@ export default class Camera extends Component {
           style={styles.preview}
           forceUpOrientation={true}
           autoFocus={RNCamera.Constants.AutoFocus.on}
+          videoStabilizationMode={stabilize}
           captureAudio={true}
           onCameraReady={() => this.activate()}
-          videoStabilizationMode={Platform.OS === 'android' ? null : RNCamera.Constants.VideoStabilization['auto']}
           type={this.state.type}
           flashMode={this.state.flashMode}
           permissionDialogTitle={'Permission to use camera'}
@@ -172,7 +174,8 @@ export default class Camera extends Component {
   takeVideo = async function () {
     if (this.camera) {
       try {
-        const options = { maxDuration: 60 };
+        const options = Platform.OS === 'ios' ? { maxDuration: 59, quality:  RNCamera.Constants.VideoQuality["2160p"]}
+                                              : { maxDuration: 59 }
         const promise = this.camera.recordAsync(options);
 
         if (promise) {
