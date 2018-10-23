@@ -4,8 +4,6 @@ import {
     Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList,
     Linking, NativeModules, ImageEditor, ImageStore
 } from 'react-native';
-import { COMPANIES } from './xcompanies';
-import { DEFAULT } from './xquestions';
 import { shareOnFacebook, shareOnTwitter } from 'react-native-social-share';
 import RNInstagramStoryShare from 'react-native-instagram-story-share';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -25,7 +23,7 @@ export default class Question extends Component {
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
-        this.state.rand = Math.floor(Math.random() * COMPANIES.find(item => item.id === global.custom).questions.length);
+        this.state.rand = Math.floor(Math.random() * this.props.challenges.length);
     }
 
     handlePressIn() {
@@ -128,7 +126,7 @@ export default class Question extends Component {
             global.screenshot = global.screenshot.replace("file://", "")
         }
         shareOnTwitter({
-            'text': COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question + " @poptagtv #poptag 🎈",
+            'text': this.props.challenges.find(item => item.id === this.state.rand).description + " @poptagtv #poptag 🎈",
             //'link': 'https://artboost.com/',
             //'imagelink': global.screenshot,
             //or use image
@@ -219,7 +217,7 @@ export default class Question extends Component {
     );
 
     renderQuestion(animatedStyle) {
-        var question = COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question;
+        var question = this.props.challenges[this.state.rand].description;
 
         return (
             <TouchableOpacity activeOpacity={1}
@@ -265,8 +263,8 @@ export default class Question extends Component {
     }
 
     renderSummary() {
-        var question = COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question;
-
+        var question = this.props.challenges[this.state.rand].description;
+        
         return <View
             style={{
                 width: Dimensions.get('window').width, height: Dimensions.get('window').height * 0.7,
@@ -282,7 +280,7 @@ export default class Question extends Component {
             <View style={styles.summaryDivider} />
 
             <FlatList
-                data={typeof COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).responses !== 'undefined' ? this.shuffle(COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).responses) : []}
+                data={typeof this.props.challenges[this.state.rand].responses !== 'undefined' ? this.shuffle(this.props.challenges[this.state.rand].responses) : []}
                 renderItem={({ item }) =>
                     <View style={styles.summarycontainerbottom}>
                         <Text style={styles.summaryText} numberOfLines={4}>{item}</Text>
@@ -291,7 +289,7 @@ export default class Question extends Component {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 ListHeaderComponent={this._renderHeader}
-                ListFooterComponent={typeof COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).responses !== 'undefined' ? this._renderFooter : null}
+                ListFooterComponent={typeof this.props.challenges[this.state.rand].responses !== 'undefined' ? this._renderFooter : null}
             />
 
         </View>

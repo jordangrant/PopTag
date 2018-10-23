@@ -16,7 +16,6 @@ import Dialogue from './Dialogue2';
 import Contacts from 'react-native-contacts';
 import Sound from 'react-native-sound';
 import Toast, { DURATION } from 'react-native-easy-toast';
-import { COMPANIES } from './xcompanies';
 import { colors } from './colors';
 
 //const width = Dimensions.get('window').width * 0.264;
@@ -24,7 +23,8 @@ const width = Dimensions.get('window').width * 0.43733;
 //const height = width * 0.5656;
 const height = width * 0.34146;
 
-const topR1 = (Platform.OS === 'ios' && Dimensions.get('window').height > 800) ? Dimensions.get('window').height * 0.24 : Dimensions.get('window').height * 0.211;
+const logoHeight = (Platform.OS === 'ios' && Dimensions.get('window').height > 800) ? 50 : 40;
+const topR1 = (Platform.OS === 'ios' && Dimensions.get('window').height > 800) ? Dimensions.get('window').height * 0.25 : Dimensions.get('window').height * 0.211;
 const topR2 = topR1 + 62;
 const topR3 = topR1 + 138;
 const topR4 = topR1 + 206;
@@ -78,32 +78,39 @@ export default class PopTag extends Component {
             displayQuestion: false,
             displayChallenge: false,
             displayGif: false,
-            //background: ['#F4FA58', '#3A82D6', '#B8E986', '#50E3C2', 'pink'],
             background: '',
-            bgColor: 0,
             gif: 0,
             dialogue: false,
             bottomHeight: 25,
             message: 'testestestest',
-            custom: 0,
+            custom: 68,
             loading: true,
             camera: false,
-            color: '#F4FA58'
+            filter: 'none',
+            token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDAyNTUwODUsImV4cCI6MTU0Mjg0NzA4NSwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.nwsWFHin4HC_SsvNN3wtK9vgd3Z-QCeRjcE_G_dm47Y_sFKx4HiHVOnfl-2mUHTHv2Z1oZrhVvbmxuezwNjdyqZhjc1nnChNd2eXgWrtps8fq8tJ4C7_XNFhfyzBXTAVib3Y5skJaLw-7i7gFDbs8oBap-bpW1btvx539Cqm5vrPEp2JWHb6nMwgC1UKfsGOK0NLaQDeb8W8b-qln0v8kq7v2pDO7gYIt1KN4H16oTFSbbcaduAdMtF2aP0UCjzWRsuk-F6NxRhMnWDPyAEivWbNkqdSmcehiNsgl7juzpb8RN-1cvo-emEjkLDUlmYO6jRLM-u-Qai7eMYrUADANA',
+            groups: [
+                { id: 68, name: 'PopTag', description: "[\"questions\", \"blue\", \"null\", \"null\", \"null\"]", image: {}, challenges: [] },
+            ],
+            challenges: []
         };
     }
 
     componentWillMount() {
+        AsyncStorage.getItem('token').then(b => {
+            if (b !== null) {
+                global.token = b;
+                this.setState({ token: b });
+            }
+            else {
+                global.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDAyNTUwODUsImV4cCI6MTU0Mjg0NzA4NSwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.nwsWFHin4HC_SsvNN3wtK9vgd3Z-QCeRjcE_G_dm47Y_sFKx4HiHVOnfl-2mUHTHv2Z1oZrhVvbmxuezwNjdyqZhjc1nnChNd2eXgWrtps8fq8tJ4C7_XNFhfyzBXTAVib3Y5skJaLw-7i7gFDbs8oBap-bpW1btvx539Cqm5vrPEp2JWHb6nMwgC1UKfsGOK0NLaQDeb8W8b-qln0v8kq7v2pDO7gYIt1KN4H16oTFSbbcaduAdMtF2aP0UCjzWRsuk-F6NxRhMnWDPyAEivWbNkqdSmcehiNsgl7juzpb8RN-1cvo-emEjkLDUlmYO6jRLM-u-Qai7eMYrUADANA';
+            }
+        })
+
         AsyncStorage.getItem('balloons').then(b => {
             if (b !== null) {
                 this.setState({ balloons: JSON.parse(b) });
             }
         })
-
-        // AsyncStorage.getItem('bgColor').then(b => {
-        //     if (b !== null) {
-        //         this.setState({ bgColor: parseInt(b) });
-        //     }
-        // })
 
         AsyncStorage.getItem('gif').then(b => {
             if (b !== null) {
@@ -113,32 +120,59 @@ export default class PopTag extends Component {
 
         AsyncStorage.getItem('custom').then(custom => {
             if (custom !== null) {
-                global.custom = JSON.parse(custom);
-                this.setState({ custom: JSON.parse(custom) });
-                this.setState({ loading: false });
+                global.custom = parseInt(custom);
+                this.setState({ custom: parseInt(custom) });
+
+                AsyncStorage.getItem('challenges').then(b => {
+                    if (b !== null) {
+                        this.setState({ challenges: JSON.parse(b) });
+                    }
+                    else {
+                        this.updateChallenges(parseInt(custom));
+                    }
+                })
             } else {
-                AsyncStorage.setItem('custom', '0');
-                global.custom = 0;
-                this.setState({ custom: 0 });
-                this.setState({ loading: false });
+                AsyncStorage.setItem('custom', '68');
+                global.custom = 68;
+                this.setState({ custom: 68 });
+
+                AsyncStorage.getItem('challenges').then(b => {
+                    if (b !== null) {
+                        this.setState({ challenges: JSON.parse(b) });
+                    }
+                    else {
+                        this.updateChallenges(68);
+                    }
+                })
             }
         });
 
-        AsyncStorage.getItem('color').then(b => {
+        AsyncStorage.getItem('filter').then(b => {
             if (b !== null) {
-                this.setState({ color: b });
+                global.filter = b;
+                this.setState({ filter: b });
+            }
+            else {
+                global.filter = 'none'
             }
         })
 
-        // AsyncStorage.getItem('palette').then(list => {
-        //     if (list !== null) {
-        //         global.palette = JSON.parse(list);
-        //     } else {
-        //         var freshList = JSON.stringify([])
-        //         AsyncStorage.setItem('palette', freshList);
-        //         global.palette = [];
-        //     }
-        // });
+        AsyncStorage.getItem('groups').then(b => {
+            if (b !== null) {
+                this.setState({ groups: JSON.parse(b) });
+                this.setState({ loading: false });
+            }
+            else {
+                if (global.token == 'undefined') {
+                    global.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDAyNTUwODUsImV4cCI6MTU0Mjg0NzA4NSwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.nwsWFHin4HC_SsvNN3wtK9vgd3Z-QCeRjcE_G_dm47Y_sFKx4HiHVOnfl-2mUHTHv2Z1oZrhVvbmxuezwNjdyqZhjc1nnChNd2eXgWrtps8fq8tJ4C7_XNFhfyzBXTAVib3Y5skJaLw-7i7gFDbs8oBap-bpW1btvx539Cqm5vrPEp2JWHb6nMwgC1UKfsGOK0NLaQDeb8W8b-qln0v8kq7v2pDO7gYIt1KN4H16oTFSbbcaduAdMtF2aP0UCjzWRsuk-F6NxRhMnWDPyAEivWbNkqdSmcehiNsgl7juzpb8RN-1cvo-emEjkLDUlmYO6jRLM-u-Qai7eMYrUADANA';
+                }
+                this.getGroups().then((groups) => {
+                    AsyncStorage.setItem('groups', JSON.stringify(groups));
+                    this.setState({ groups: groups });
+                    this.setState({ loading: false });
+                })
+            }
+        })
 
         this.animatedValue = new Animated.Value(1);
 
@@ -159,7 +193,10 @@ export default class PopTag extends Component {
     }
 
     componentDidMount() {
-        
+        this.refreshToken().then((response) => {
+            global.token = response.token;
+            this.setState({ token: response.token });
+        })
     }
 
     componentWillUnmount() {
@@ -170,8 +207,93 @@ export default class PopTag extends Component {
         await AsyncStorage.setItem('balloons', JSON.stringify(this.state.balloons));
         await AsyncStorage.setItem('gif', JSON.stringify(this.state.gif));
         await AsyncStorage.setItem('custom', JSON.stringify(this.state.custom));
-        await AsyncStorage.setItem('color', this.state.color);
+        await AsyncStorage.setItem('groups', JSON.stringify(this.state.groups));
+        await AsyncStorage.setItem('filter', JSON.stringify(this.state.filter));
+        await AsyncStorage.setItem('token', JSON.stringify(this.state.token));
         console.log('balloons:' + JSON.stringify(this.state.balloons));
+    }
+
+    async getGroups() {
+        return fetch('https://api.chaletapp.de/groups', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${global.token}`,
+            }
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                return responseJson
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    async refreshToken() {
+        return fetch('https://s3.us-east-2.amazonaws.com/chalet2/poptag/token.json')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log('Latest token fetched.')
+                return responseJson
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    async getChallenges(custom) {
+        return fetch(`https://api.chaletapp.de/groups/${custom}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${global.token}`,
+            }
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                return responseJson[0].challenges
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    // updateChallenges(custom) {
+
+    //     this.getChallenges(custom).then((challenges) => {
+    //         AsyncStorage.setItem('challenges', JSON.stringify(challenges));
+    //         this.setState({ challenges: challenges });
+    //     })
+    //         .then(() => console.log('Challenges fetched and loaded.'))
+    // }
+
+    updateChallenges(custom) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                this.getChallenges(custom).then((challenges) => {
+                    AsyncStorage.setItem('challenges', JSON.stringify(challenges));
+                    this.setState({ challenges: challenges });
+                    console.log('Challenges fetched and loaded.')
+                    resolve(true);
+                })
+            } catch (ex) {
+                reject();
+            }
+        });
+    }
+
+    update() {
+        this.getGroups().then((groups) => {
+            AsyncStorage.setItem('groups', JSON.stringify(groups));
+            this.setState({ groups: groups });
+        })
+            .then(() => console.log('Groups re-retrieved from DB and saved.'))
+
+        this.getChallenges(this.state.custom).then((challenges) => {
+            AsyncStorage.setItem('challenges', JSON.stringify(challenges));
+            this.setState({ challenges: challenges });
+        })
+            .then(() => console.log('Challenges fetched and loaded.'))
+
     }
 
     handlePressIn() {
@@ -239,10 +361,32 @@ export default class PopTag extends Component {
     }
 
     changeCustom(custom) {
-        global.custom = custom;
-        this.setState({ custom: custom, color: colors[Math.floor(Math.random() * colors.length)] });
-        this.toggleDialogue();
-        this.save();
+        this.updateChallenges(custom).then((res) => {
+            if (res == true) {
+                global.custom = custom;
+                this.setState({ custom: custom });
+                console.log('Custom successfully changed.');
+                this.toggleDialogue();
+                this.save();
+            }
+            else {
+                alert('Failed to retrieve new content. Please check your network settings and try again.')
+            }
+        })
+    }
+
+    changeFilter(filter) {
+        if (global.filter !== filter) {
+            global.filter = filter;
+            this.setState({ filter: filter });
+            this.save();
+        }
+        else {
+            global.filter = 'none';
+            this.setState({ filter: 'none' });
+            this.save();
+        }
+        console.log('Filter changed to ' + filter);
     }
 
     popBalloon(id) {
@@ -257,7 +401,10 @@ export default class PopTag extends Component {
             this.resetBalloons();
         }
 
-        if (COMPANIES.find(item => item.id === this.state.custom).type == 'questions') {
+        var companysettings = this.state.groups.find(item => item.id === this.state.custom).description;
+        companysettings = JSON.parse(companysettings)
+
+        if (companysettings[0].replace('verified', '') == 'questions') {
             this.setState({ displayQuestion: true });
         }
         else {
@@ -395,7 +542,7 @@ export default class PopTag extends Component {
             this.dismissGif();
         }
         else {
-            this.setState({ dialogue: !this.state.dialogue})
+            this.setState({ dialogue: !this.state.dialogue })
         }
     }
 
@@ -408,27 +555,34 @@ export default class PopTag extends Component {
     }
 
     renderBalloons() {
-        return this.state.balloons.map(b =>
-            <Balloon key={b.id} top={b.top} left={b.left} id={b.id} popped={b.popped} pop={this.popBalloon.bind(this)}
-                playPop={() => this.playPop()} playWoosh={() => this.playWoosh()} custom={this.state.custom} />
-        );
+        if (this.state.challenges.length > 0) {
+            return this.state.balloons.map(b =>
+                <Balloon key={b.id} top={b.top} left={b.left} id={b.id} popped={b.popped} pop={this.popBalloon.bind(this)}
+                    playPop={() => this.playPop()} playWoosh={() => this.playWoosh()} custom={this.state.custom}
+                    groups={this.state.groups} />
+            );
+        }
+        else {
+            return <Text>No content yet.</Text>
+        }
     }
 
     renderQuestion() {
         return <Question submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
-            toggleLoading={() => this.toggleLoading()} successTweet={() => this.successTweet()} />
+            toggleLoading={() => this.toggleLoading()} successTweet={() => this.successTweet()}
+            groups={this.state.groups} challenges={this.state.challenges} />
     }
 
     renderChallenge() {
         return <Challenge submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
             toggleLoading={() => this.toggleLoading()} successTweet={() => this.successTweet()}
-            successCameraRoll={() => this.successCameraRoll()}
-            camera={() => this.setState({ camera: !this.state.camera })} />
+            successCameraRoll={() => this.successCameraRoll()} groups={this.state.groups}
+            camera={() => this.setState({ camera: !this.state.camera })} challenges={this.state.challenges} />
     }
 
     renderDialogue() {
-        return <Dialogue changeCustom={(b) => this.changeCustom(b)}
-            toggleDialogue={this.toggleDialogue.bind(this)} />
+        return <Dialogue changeCustom={(b) => this.changeCustom(b)} changeFilter={(b) => this.changeFilter(b)}
+            toggleDialogue={this.toggleDialogue.bind(this)} groups={this.state.groups} />
     }
 
     renderGif() {
@@ -445,23 +599,28 @@ export default class PopTag extends Component {
             transform: [{ scale: this.animatedValue }]
         }
 
-        var company = COMPANIES.find(item => item.id === this.state.custom);
+        var companysettings = this.state.groups.find(item => item.id === this.state.custom);
+        if (typeof companysettings !== 'undefined') {
+            companysettings = JSON.parse(companysettings.description)
+        }
+
+        // questions, bgcolor, wordmark, primaryicon, secondaryicon
 
         return (
             <View style={styles.base}>
                 {this.state.loading == true ?
                     <View />
                     :
-                    <View style={[styles.container, { backgroundColor: company.bgcolor !== 'random' ? company.bgcolor : this.state.color }]}>
+                    <View style={[styles.container, { backgroundColor: companysettings[1] }]}>
 
                         <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
                             onPressIn={this.handlePressIn.bind(this)}
                             onPress={this.state.displayQuestion ? () => this.endQuestion() : this.state.displayChallenge ? () => this.endQuestion() :
-                                 this.state.dialogue ? () => this.toggleDialogue() : this.state.displayGif ? () => this.dismissGif() : null}
+                                this.state.dialogue ? () => this.toggleDialogue() : this.state.displayGif ? () => this.dismissGif() : () => this.update()}
                             onPressOut={this.handlePressOut.bind(this)}>
                             <Animated.View style={[animatedStyle, { width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462 }]}>
-                                <Image style={[styles.header, { tintColor: company.wordmarkoverlay !== 'null' ? company.wordmarkoverlay : null }]} resizeMode={'contain'}
-                                    source={{ uri: company.wordmark !== 'null' ? company.wordmark : 'ptlogored' }} />
+                                <Image style={styles.header} resizeMode={'contain'}
+                                    source={{ uri: companysettings[2] == 'null' ? 'ptlogored' : companysettings[2], cache: 'force-cache' }} />
                             </Animated.View>
                         </TouchableOpacity>
 
@@ -568,7 +727,7 @@ const styles = StyleSheet.create({
     headerBounding: {
         position: 'absolute',
         alignSelf: 'center',
-        top: 40,
+        top: logoHeight,
     },
     boundingbox: {
         height: Dimensions.get('window').height * 0.68,

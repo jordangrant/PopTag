@@ -55,6 +55,10 @@ export default class Balloon extends Component {
             transform: [{ scale: this.animatedValue }]
         }
 
+        var companysettings = this.props.groups.find(item => item.id === this.props.custom).description;
+        companysettings = JSON.parse(companysettings)
+        // questions, bgcolor, wordmark, primaryicon, secondaryicon
+
         return (
             <TouchableOpacity activeOpacity={1} style={{ position: 'absolute', top: this.props.top, left: this.props.left }}
                 onPressIn={this.handlePressIn.bind(this)}
@@ -64,13 +68,11 @@ export default class Balloon extends Component {
                 <Animated.View style={[animatedStyle, { height: 125, width: 125, 
                     alignContent: 'center', justifyContent: 'center' }]}>
                     {!this.props.popped ?
-                        <Image style={[COMPANIES.find(item => item.id === this.props.custom).shrinkicon ? styles.balloonshrunk : styles.balloon, 
-                            { tintColor: COMPANIES.find(item => item.id === this.props.custom).iconoverlay !== 'null' ? COMPANIES.find(item => item.id === this.props.custom).iconoverlay : null }]}
-                            source={{ uri: COMPANIES.find(item => item.id === this.props.custom).icon }} />
+                        <Image style={styles.balloon}
+                            source={{ uri: companysettings[3] == 'null' ? 'balloon' : companysettings[3] }} />
                         :
-                        <Image resizeMode={'contain'} style={[ COMPANIES.find(item => item.id === this.props.custom).shrinkiconalternate ? styles.poppedshrunk : styles.popped, {
-                            tintColor: COMPANIES.find(item => item.id === this.props.custom).iconalternateoverlay !== 'null' ? COMPANIES.find(item => item.id === this.props.custom).iconalternateoverlay : null }]}
-                            source={{ uri: COMPANIES.find(item => item.id === this.props.custom).iconalternate !== 'null' ? COMPANIES.find(item => item.id === this.props.custom).iconalternate : 'pop' }} />
+                        <Image resizeMode={'contain'} style={styles.poppedshrunk}
+                            source={{ uri: companysettings[4] == 'null' ? 'pop' : companysettings[4] }} />
                     }
                 </Animated.View>
             </TouchableOpacity>

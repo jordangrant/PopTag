@@ -4,8 +4,6 @@ import {
     Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList,
     Linking, CameraRoll, ImageBackground, NativeModules, PermissionsAndroid
 } from 'react-native';
-import { COMPANIES } from './xcompanies';
-import { DEFAULT } from './xquestions';
 import { shareOnFacebook, shareOnTwitter } from 'react-native-social-share';
 import RNInstagramStoryShare from 'react-native-instagram-story-share';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -34,7 +32,7 @@ export default class Challenge extends Component {
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
-        this.state.rand = Math.floor(Math.random() * COMPANIES.find(item => item.id === global.custom).questions.length);
+        this.state.rand = Math.floor(Math.random() * this.props.challenges.length);
     }
 
     handlePressIn() {
@@ -248,7 +246,7 @@ export default class Challenge extends Component {
 
     SOT(uri) {
         shareOnTwitter({
-            'text': COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question + " @poptagtv #PopTagChallenge #poptag 🎈",
+            'text': this.props.challenges[this.state.rand].description + " @poptagtv #PopTagChallenge #poptag 🎈",
             'image': uri,
         },
             (results) => {
@@ -324,7 +322,7 @@ export default class Challenge extends Component {
 
 
 shareVideoController(type){
-    var question = COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question;
+    var question = this.props.challenges[this.state.rand].description;
 
     if (type == 'twitter') {
         var url = `twitter://post?message=${question + " @poptagtv #PopTagChallenge #poptag 🎈"}`;
@@ -357,7 +355,7 @@ shareVideoController(type){
 }
 
 renderChallenge(animatedStyle) {
-    var question = COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question;
+    var question = this.props.challenges[this.state.rand].description;
 
     return (
         <TouchableOpacity activeOpacity={1}
@@ -389,7 +387,7 @@ renderCamera() {
 renderPreview(animatedStyle) {
 
     var twee = this.state.uri.indexOf('mov') == -1 && this.state.uri.indexOf('MOV') == -1 && this.state.uri.indexOf('mp4') == -1
-    var question = COMPANIES.find(item => item.id === global.custom).questions.find(item => item.id === this.state.rand).question;
+    var question = this.props.challenges[this.state.rand].description;
 
     return (
         twee ?
