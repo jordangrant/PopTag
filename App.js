@@ -12,11 +12,13 @@ import RNShakeEvent from 'react-native-shake-event';
 import Balloon from './Balloon';
 import Question from './Question';
 import Challenge from './Challenge';
-import Dialogue from './Dialogue2';
+import Dialogue from './Dialogue';
 import Contacts from 'react-native-contacts';
 import Sound from 'react-native-sound';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { colors } from './colors';
+import AB from './AB';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 //const width = Dimensions.get('window').width * 0.264;
 const width = Dimensions.get('window').width * 0.43733;
@@ -77,6 +79,7 @@ export default class PopTag extends Component {
             ],
             displayQuestion: false,
             displayChallenge: false,
+            displayAB: false,
             displayGif: false,
             background: '',
             gif: 0,
@@ -96,6 +99,37 @@ export default class PopTag extends Component {
     }
 
     componentWillMount() {
+        AsyncStorage.getItem('custom').then(custom => {
+            if (custom !== null) {
+                global.custom = parseInt(custom);
+                this.setState({ custom: parseInt(custom) });
+
+                AsyncStorage.getItem('challenges').then(b => {
+                    if (b !== null) {
+                        this.setState({ challenges: JSON.parse(b), loading: false });
+                    }
+                    else {
+                        this.updateChallenges(parseInt(custom));
+                        this.setState({ loading: false })
+                    }
+                })
+            } else {
+                AsyncStorage.setItem('custom', '68');
+                global.custom = 68;
+                this.setState({ custom: 68 });
+
+                AsyncStorage.getItem('challenges').then(b => {
+                    if (b !== null) {
+                        this.setState({ challenges: JSON.parse(b), loading: false });
+                    }
+                    else {
+                        this.updateChallenges(68);
+                        this.setState({ loading: false })
+                    }
+                })
+            }
+        });
+
         AsyncStorage.getItem('token').then(b => {
             if (b !== null) {
                 global.token = b;
@@ -118,35 +152,6 @@ export default class PopTag extends Component {
             }
         })
 
-        AsyncStorage.getItem('custom').then(custom => {
-            if (custom !== null) {
-                global.custom = parseInt(custom);
-                this.setState({ custom: parseInt(custom) });
-
-                AsyncStorage.getItem('challenges').then(b => {
-                    if (b !== null) {
-                        this.setState({ challenges: JSON.parse(b) });
-                    }
-                    else {
-                        this.updateChallenges(parseInt(custom));
-                    }
-                })
-            } else {
-                AsyncStorage.setItem('custom', '68');
-                global.custom = 68;
-                this.setState({ custom: 68 });
-
-                AsyncStorage.getItem('challenges').then(b => {
-                    if (b !== null) {
-                        this.setState({ challenges: JSON.parse(b) });
-                    }
-                    else {
-                        this.updateChallenges(68);
-                    }
-                })
-            }
-        });
-
         AsyncStorage.getItem('filter').then(b => {
             if (b !== null) {
                 global.filter = b;
@@ -160,7 +165,7 @@ export default class PopTag extends Component {
         AsyncStorage.getItem('groups').then(b => {
             if (b !== null) {
                 this.setState({ groups: JSON.parse(b) });
-                this.setState({ loading: false });
+                
             }
             else {
                 if (global.token == 'undefined') {
@@ -169,7 +174,6 @@ export default class PopTag extends Component {
                 this.getGroups().then((groups) => {
                     AsyncStorage.setItem('groups', JSON.stringify(groups));
                     this.setState({ groups: groups });
-                    this.setState({ loading: false });
                 })
             }
         })
@@ -293,7 +297,8 @@ export default class PopTag extends Component {
             this.setState({ challenges: challenges });
         })
             .then(() => console.log('Challenges fetched and loaded.'))
-
+        
+            this.refs.toast.show('Latest content successfully retrieved! ✅');
     }
 
     handlePressIn() {
@@ -404,11 +409,17 @@ export default class PopTag extends Component {
         var companysettings = this.state.groups.find(item => item.id === this.state.custom).description;
         companysettings = JSON.parse(companysettings)
 
-        if (companysettings[0].replace('verified', '') == 'questions') {
+        if (companysettings[0].replace('verified', '').toLowerCase() == 'questions') {
             this.setState({ displayQuestion: true });
         }
-        else {
+        else if(companysettings[0].replace('verified', '').toLowerCase() == 'challenges') {
             this.setState({ displayChallenge: true });
+        }
+        else if(companysettings[0].replace('verified', '').toLowerCase() == 'ab') {
+            this.setState({ displayAB: true });
+        }
+        else {
+            alert(companysettings[0])
         }
 
         this.save();
@@ -481,7 +492,7 @@ export default class PopTag extends Component {
 
 
     endQuestion() {
-        this.setState({ displayQuestion: false, displayChallenge: false })
+        this.setState({ displayQuestion: false, displayChallenge: false, displayAB: false })
     }
 
     successTweet() {
@@ -535,7 +546,7 @@ export default class PopTag extends Component {
     }
 
     toggleDialogue() {
-        if (this.state.displayQuestion || this.state.displayChallenge) {
+        if (this.state.displayQuestion || this.state.displayChallenge || this.state.displayAB) {
             this.endQuestion();
         }
         else if (this.state.displayGif) {
@@ -580,6 +591,13 @@ export default class PopTag extends Component {
             camera={() => this.setState({ camera: !this.state.camera })} challenges={this.state.challenges} />
     }
 
+    renderAB() {
+        return <AB submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
+            toggleLoading={() => this.toggleLoading()} successTweet={() => this.successTweet()}
+            successCameraRoll={() => this.successCameraRoll()} groups={this.state.groups}
+            camera={() => this.setState({ camera: !this.state.camera })} challenges={this.state.challenges} />
+    }
+
     renderDialogue() {
         return <Dialogue changeCustom={(b) => this.changeCustom(b)} changeFilter={(b) => this.changeFilter(b)}
             toggleDialogue={this.toggleDialogue.bind(this)} groups={this.state.groups} />
@@ -609,13 +627,13 @@ export default class PopTag extends Component {
         return (
             <View style={styles.base}>
                 {this.state.loading == true ?
-                    <View />
+                    <Spinner visible={this.state.loading} textContent={"Loading..."} textStyle={{ color: '#FFF' }} />
                     :
                     <View style={[styles.container, { backgroundColor: companysettings[1] }]}>
 
                         <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
                             onPressIn={this.handlePressIn.bind(this)}
-                            onPress={this.state.displayQuestion ? () => this.endQuestion() : this.state.displayChallenge ? () => this.endQuestion() :
+                            onPress={this.state.displayQuestion || this.state.displayChallenge || this.state.displayAB ? () => this.endQuestion() :
                                 this.state.dialogue ? () => this.toggleDialogue() : this.state.displayGif ? () => this.dismissGif() : () => this.update()}
                             onPressOut={this.handlePressOut.bind(this)}>
                             <Animated.View style={[animatedStyle, { width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462 }]}>
@@ -625,7 +643,7 @@ export default class PopTag extends Component {
                         </TouchableOpacity>
 
                         {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() : this.state.displayChallenge ? this.renderChallenge() :
-                            this.state.displayGif ? this.renderGif() : this.renderBalloons()}
+                            this.state.displayAB ? this.renderAB() : this.state.displayGif ? this.renderGif() : this.renderBalloons()}
 
                         {/* {this.state.dialogue == false ?
                         <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
@@ -635,7 +653,7 @@ export default class PopTag extends Component {
 
                         {!this.state.dialogue && !this.state.camera ?
                             <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
-                                <Image style={styles.ibutton} source={{ uri: this.state.displayQuestion || this.state.displayGif || this.state.displayChallenge ? 'home' : 'palette' }} />
+                                <Image style={styles.ibutton} source={{ uri: this.state.displayQuestion || this.state.displayGif || this.state.displayChallenge || this.state.displayAB ? 'home' : 'palette' }} />
                             </TouchableOpacity>
                             : null}
 
