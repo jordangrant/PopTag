@@ -12,6 +12,8 @@ target 'PopTag' do
 
 pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
 
+pod 'RNShare', :path => '../node_modules/react-native-share'
+
 target 'PopTagTests' do
     inherit! :search_paths
     # Pods for testing

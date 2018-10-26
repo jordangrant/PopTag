@@ -366,6 +366,7 @@ export default class PopTag extends Component {
     }
 
     changeCustom(custom) {
+        this.refs.toast.show('Loading...')
         this.updateChallenges(custom).then((res) => {
             if (res == true) {
                 global.custom = custom;
@@ -419,7 +420,7 @@ export default class PopTag extends Component {
             this.setState({ displayAB: true });
         }
         else {
-            alert(companysettings[0])
+            
         }
 
         this.save();
@@ -638,7 +639,7 @@ export default class PopTag extends Component {
                             onPressOut={this.handlePressOut.bind(this)}>
                             <Animated.View style={[animatedStyle, { width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462 }]}>
                                 <Image style={styles.header} resizeMode={'contain'}
-                                    source={{ uri: companysettings[2] == 'null' ? 'ptlogored' : companysettings[2], cache: 'force-cache' }} />
+                                    source={{ uri: companysettings[2] == 'null' ? 'ptlogored' : companysettings[2] }} />
                             </Animated.View>
                         </TouchableOpacity>
 
@@ -741,6 +742,10 @@ const styles = StyleSheet.create({
     header: {
         //width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462
         flex: 1, width: undefined, height: undefined,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: Platform.OS === 'ios' ? 0.2 : 0,
+        shadowRadius: 2,
     },
     headerBounding: {
         position: 'absolute',

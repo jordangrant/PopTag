@@ -12,6 +12,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
 import ImageResizer from 'react-native-image-resizer';
+import Share from 'react-native-share';
 
 var ReadImageData = NativeModules.ReadImageData;
 
@@ -122,15 +123,13 @@ export default class AB extends Component {
                 })
         }
         else {
-            global.screenshot = global.screenshot.replace("file:", "")
-            const imageBase64 = await RNFS.readFile(global.screenshot, 'base64');
-
-            RNInstagramStoryShare.shareToInstagramStory({
-                backgroundImage: `data:image/png;base64,${imageBase64}`,
-                deeplinkingUrl: 'instagram-stories://share'
-            })
-                .then(() => console.log('SUCCESS'))
-                .catch(() => Linking.openURL('https://play.google.com/store/apps/details?id=com.instagram.android'))
+            Linking.canOpenURL('instagram://story-camera').then(supported => {
+                if (!supported) {
+                    Linking.openURL('https://play.google.com/store/apps/details?id=com.instagram.android');
+                } else {
+                    return Linking.openURL('instagram://story-camera');
+                }
+            }).catch(err => console.error('An error occurred', err));
         }
     }
 
@@ -317,7 +316,11 @@ export default class AB extends Component {
                     <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
                 </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={1} onPress={() => this.facebookShare()}>
+                <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
+                    title: "PopTag",
+                    message: this.props.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
+                    url: global.screenshot,
+                    subject: "PopTag 🎈" })}>
                     <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
                 </TouchableOpacity>
 
@@ -329,8 +332,12 @@ export default class AB extends Component {
                     <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => this.facebookShare()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                    <Image source={{ uri: 'fb' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                <TouchableOpacity onPress={() => Share.open({
+                    title: "PopTag",
+                    message: this.props.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
+                    url: global.screenshot,
+                    subject: "PopTag 🎈" })} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                    <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                 </TouchableOpacity>
             </View>
 
@@ -372,7 +379,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 13,
         borderTopRightRadius: 13,
         width: Dimensions.get('window').width * 0.8,
-        height: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 : Dimensions.get('window').width * 0.8 * 1.15,
+        height: Dimensions.get('window').width * 0.8 * 1.15,
         // backgroundColor: '#4A90E2',
         backgroundColor: 'white',
         alignItems: 'center',
@@ -427,7 +434,7 @@ const styles = StyleSheet.create({
     },
     blue2: {
         position: 'absolute',
-        top: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 * 0.98 + Dimensions.get('window').height * 0.1 : Dimensions.get('window').height * 0.55,
+        top: Dimensions.get('window').height * 0.55,
         borderBottomLeftRadius: 13,
         borderBottomRightRadius: 13,
         width: Dimensions.get('window').width * 0.8,

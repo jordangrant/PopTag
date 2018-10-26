@@ -14,6 +14,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
 import ImageRotate from 'react-native-image-rotate';
 import ImageResizer from 'react-native-image-resizer';
+import Share from 'react-native-share';
 
 var ReadImageData = NativeModules.ReadImageData;
 
@@ -135,39 +136,50 @@ export default class Challenge extends Component {
     };
 
     async insta() {
-        var uri = this.state.uri;
+        if (Platform.OS == 'ios') {
+            var uri = this.state.uri;
 
-        if (uri.indexOf('assets-library') !== -1) {
-            ReadImageData.readImage(uri, (imageBase64) => {
-                RNInstagramStoryShare.share({
-                    backgroundImage: `data:image/png;base64,${imageBase64}`,
-                    deeplinkingUrl: 'instagram-stories://share'
-                })
-                    .then(() => console.log('SUCCESS'))
-                    .catch(e => {
-                        if (e.userInfo.NSLocalizedFailureReason == 'Not installed') {
-                            Linking.openURL('itms-apps://itunes.apple.com/us/app/instagram/id389801252?mt=8');
-                        }
+            if (uri.indexOf('assets-library') !== -1) {
+                ReadImageData.readImage(uri, (imageBase64) => {
+                    RNInstagramStoryShare.share({
+                        backgroundImage: `data:image/png;base64,${imageBase64}`,
+                        deeplinkingUrl: 'instagram-stories://share'
                     })
-            });
+                        .then(() => console.log('SUCCESS'))
+                        .catch(e => {
+                            if (e.userInfo.NSLocalizedFailureReason == 'Not installed') {
+                                Linking.openURL('itms-apps://itunes.apple.com/us/app/instagram/id389801252?mt=8');
+                            }
+                        })
+                });
+            }
+            else {
+                ImageResizer.createResizedImage(uri, 1920, 1080, 'JPEG', 100,
+                    90, `${RNFS.DocumentDirectoryPath}`)
+                    .then((success) => {
+                        RNFS.readFile(success.path, 'base64').then((imageBase64) => {
+                            RNInstagramStoryShare.share({
+                                backgroundImage: `data:image/png;base64,${imageBase64}`,
+                                deeplinkingUrl: 'instagram-stories://share'
+                            })
+                                .then(() => console.log('SUCCESS'))
+                                .catch(e => {
+                                    if (e.userInfo.NSLocalizedFailureReason == 'Not installed') {
+                                        Linking.openURL('itms-apps://itunes.apple.com/us/app/instagram/id389801252?mt=8');
+                                    }
+                                })
+                        })
+                    })
+            }
         }
         else {
-            ImageResizer.createResizedImage(uri, 1920, 1080, 'JPEG', 100,
-                90, `${RNFS.DocumentDirectoryPath}`)
-                .then((success) => {
-                    RNFS.readFile(success.path, 'base64').then((imageBase64) => {
-                        RNInstagramStoryShare.share({
-                            backgroundImage: `data:image/png;base64,${imageBase64}`,
-                            deeplinkingUrl: 'instagram-stories://share'
-                        })
-                            .then(() => console.log('SUCCESS'))
-                            .catch(e => {
-                                if (e.userInfo.NSLocalizedFailureReason == 'Not installed') {
-                                    Linking.openURL('itms-apps://itunes.apple.com/us/app/instagram/id389801252?mt=8');
-                                }
-                            })
-                    })
-                })
+            Linking.canOpenURL('instagram://story-camera').then(supported => {
+                if (!supported) {
+                    Linking.openURL('https://play.google.com/store/apps/details?id=com.instagram.android');
+                } else {
+                    return Linking.openURL('instagram://story-camera');
+                }
+            }).catch(err => console.error('An error occurred', err));
         }
     }
 
@@ -307,7 +319,7 @@ export default class Challenge extends Component {
         var uri = this.state.uri;
 
         if (uri.indexOf('assets-library') !== -1 || uri.indexOf('content') !== -1) {
-            
+
         }
         else if (uri.indexOf('file') !== -1) {
             uri = uri.replace("file://", "");
@@ -321,190 +333,243 @@ export default class Challenge extends Component {
     }
 
 
-shareVideoController(type){
-    var question = this.props.challenges[this.state.rand].description;
+    shareVideoController(type) {
+        var question = this.props.challenges[this.state.rand].description;
 
-    if (type == 'twitter') {
-        var url = `twitter://post?message=${question + " @poptagtv #PopTagChallenge #poptag 🎈"}`;
-        Linking.canOpenURL(url).then(supported => {
-            if (!supported) {
-                Linking.openURL(Platform.OS === 'ios' ? 'itms-apps://itunes.apple.com/ca/app/twitter/id333903271?mt=8' : 'https://play.google.com/store/apps/details?id=com.twitter.android');
-            } else {
-              return Linking.openURL(url);
-            }
-          }).catch(err => console.error('An error occurred', err));
+        if (type == 'twitter') {
+            var url = `twitter://post?message=${question + " @poptagtv #PopTagChallenge #poptag 🎈"}`;
+            Linking.canOpenURL(url).then(supported => {
+                if (!supported) {
+                    Linking.openURL(Platform.OS === 'ios' ? 'itms-apps://itunes.apple.com/ca/app/twitter/id333903271?mt=8' : 'https://play.google.com/store/apps/details?id=com.twitter.android');
+                } else {
+                    return Linking.openURL(url);
+                }
+            }).catch(err => console.error('An error occurred', err));
+        }
+        else if (type == 'instagram') {
+            Linking.canOpenURL('instagram://story-camera').then(supported => {
+                if (!supported) {
+                    Linking.openURL(Platform.OS === 'ios' ? 'itms-apps://itunes.apple.com/us/app/instagram/id389801252?mt=8' : 'https://play.google.com/store/apps/details?id=com.instagram.android');
+                } else {
+                    return Linking.openURL('instagram://story-camera');
+                }
+            }).catch(err => console.error('An error occurred', err));
+        }
+        else if (type == 'facebook') {
+            Linking.canOpenURL('fb://post').then(supported => {
+                if (!supported) {
+                    Linking.openURL(Platform.OS === 'ios' ? 'itms-apps://itunes.apple.com/ca/app/facebook/id284882215?mt=8' : 'https://play.google.com/store/apps/details?id=com.facebook.katana');
+                } else {
+                    return Linking.openURL('fb://post');
+                }
+            }).catch(err => console.error('An error occurred', err));
+        }
     }
-    else if (type == 'instagram') {
-        Linking.canOpenURL('instagram://story-camera').then(supported => {
-            if (!supported) {
-                Linking.openURL(Platform.OS === 'ios' ? 'itms-apps://itunes.apple.com/us/app/instagram/id389801252?mt=8' : 'https://play.google.com/store/apps/details?id=com.instagram.android');
-            } else {
-              return Linking.openURL('instagram://story-camera');
+
+    shareOpenController(photo) {
+        var question = this.props.challenges[this.state.rand].description;
+
+        if (Platform.OS === 'ios') {
+            Share.open({
+                title: "PopTag",
+                message: question + " @poptagtv #poptag 🎈",
+                url: this.state.uri,
+                subject: "PopTag 🎈"
+            })
+        }
+        else {
+            if (photo) {
+                var uri = this.state.uri.replace("file://", "");
+
+                if (uri.indexOf('assets-library') !== -1) {
+                    ReadImageData.readImage(uri, (imageBase64) => {
+                        Share.open({
+                            title: "PopTag",
+                            message: question + " @poptagtv #poptag 🎈",
+                            url: `data:image/png;base64,${imageBase64}`,
+                            subject: "PopTag 🎈"
+                        })
+                    });
+                }
+                else {
+                    ImageResizer.createResizedImage(uri, 1920, 1080, 'JPEG', 100,
+                        90, `${RNFS.DocumentDirectoryPath}`)
+                        .then((success) => {
+                            RNFS.readFile(success.path, 'base64').then((imageBase64) => {
+                                Share.open({
+                                    title: "PopTag",
+                                    message: question + " @poptagtv #poptag 🎈",
+                                    url: `data:image/png;base64,${imageBase64}`,
+                                    subject: "PopTag 🎈"
+                                })
+                            })
+                        })
+                }
             }
-          }).catch(err => console.error('An error occurred', err));
+        }
     }
-    else if (type == 'facebook') {
-        Linking.canOpenURL('fb://post').then(supported => {
-            if (!supported) {
-                Linking.openURL(Platform.OS === 'ios' ? 'itms-apps://itunes.apple.com/ca/app/facebook/id284882215?mt=8' : 'https://play.google.com/store/apps/details?id=com.facebook.katana');
-            } else {
-              return Linking.openURL('fb://post');
-            }
-          }).catch(err => console.error('An error occurred', err));
-    }
-}
 
-renderChallenge(animatedStyle) {
-    var question = this.props.challenges[this.state.rand].description;
+    renderChallenge(animatedStyle) {
+        var question = this.props.challenges[this.state.rand].description;
 
-    return (
-        <TouchableOpacity activeOpacity={1}
-            onPressIn={this.handlePressIn.bind(this)}
-            onLongPress={() => this.props.endQuestion()}
-            onPressOut={this.handlePressOut.bind(this)}>
-            <Animated.View style={animatedStyle}>
-                <View style={styles.container}>
-                    <Image source={{ uri: 'trophy' }} style={styles.trophy} />
-                    <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.031 : question.length > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042 }]}
-                        numberOfLines={4}>{question}</Text>
-                </View>
-
-                <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.toggleCamera()}>
-                    <Text style={styles.send}>Let's do it!</Text>
-                </TouchableOpacity>
-
-            </Animated.View>
-        </TouchableOpacity>
-    )
-}
-
-renderCamera() {
-    return (
-        <Camera toggleCamera={() => this.toggleCamera()} previewTime={(b) => this.previewTime(b)} />
-    )
-}
-
-renderPreview(animatedStyle) {
-
-    var twee = this.state.uri.indexOf('mov') == -1 && this.state.uri.indexOf('MOV') == -1 && this.state.uri.indexOf('mp4') == -1
-    var question = this.props.challenges[this.state.rand].description;
-
-    return (
-        twee ?
+        return (
             <TouchableOpacity activeOpacity={1}
                 onPressIn={this.handlePressIn.bind(this)}
+                onLongPress={() => this.props.endQuestion()}
                 onPressOut={this.handlePressOut.bind(this)}>
-                <Animated.View style={[animatedStyle, {
+                <Animated.View style={animatedStyle}>
+                    <View style={styles.container}>
+                        <Image source={{ uri: 'trophy' }} style={styles.trophy} />
+                        <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.031 : question.length > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042 }]}
+                            numberOfLines={4}>{question}</Text>
+                    </View>
+
+                    <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.toggleCamera()}>
+                        <Text style={styles.send}>Let's do it!</Text>
+                    </TouchableOpacity>
+
+                </Animated.View>
+            </TouchableOpacity>
+        )
+    }
+
+    renderCamera() {
+        return (
+            <Camera toggleCamera={() => this.toggleCamera()} previewTime={(b) => this.previewTime(b)} />
+        )
+    }
+
+    renderPreview(animatedStyle) {
+
+        var twee = this.state.uri.indexOf('mov') == -1 && this.state.uri.indexOf('MOV') == -1 && this.state.uri.indexOf('mp4') == -1
+        var question = this.props.challenges[this.state.rand].description;
+
+        return (
+            twee ?
+                <TouchableOpacity activeOpacity={1}
+                    onPressIn={this.handlePressIn.bind(this)}
+                    onPressOut={this.handlePressOut.bind(this)}>
+                    <Animated.View style={[animatedStyle, {
+                        width: Dimensions.get('window').width,
+                        height: Dimensions.get('window').height * 0.7, paddingTop: Dimensions.get('window').height * 0.1
+                    }]}>
+
+                        <View style={styles.summarycontainertop}>
+                            <ImageBackground source={{ uri: this.state.uri }} style={styles.cell}>
+                                <LinearGradient
+                                    colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.6)']}
+                                    locations={[0, 0.5, 0.7, 1]}
+                                    style={styles.linearGradient}>
+                                    <View style={styles.aligner}>
+                                        <Text style={styles.summaryText} numberOfLines={2}>{question}</Text>
+                                    </View>
+                                </LinearGradient>
+                            </ImageBackground>
+                        </View>
+
+                        <View style={styles.blue2}>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
+                                <Image source={{ uri: 'blank' }} style={styles.instablock} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.insta()}>
+                                <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.shareOpenController(twee)}>
+                                <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => this.tweet()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                                <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => this.insta()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                                <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => this.shareOpenController(twee)} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                                <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                            </TouchableOpacity>
+                        </View>
+
+                    </Animated.View>
+                </TouchableOpacity>
+                :
+                <View style={{
                     width: Dimensions.get('window').width,
                     height: Dimensions.get('window').height * 0.7, paddingTop: Dimensions.get('window').height * 0.1
-                }]}>
+                }}>
 
                     <View style={styles.summarycontainertop}>
-                        <ImageBackground source={{ uri: this.state.uri }} style={styles.cell}>
+                        <Video source={{ uri: this.state.uri }} style={styles.backgroundVideo}
+                            repeat
+                            resizeMode={'cover'}
+                            ignoreSilentSwitch={"obey"}
+                            controls={false}
+                        >
                             <LinearGradient
-                                colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.6)']}
+                                colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.7)']}
                                 locations={[0, 0.5, 0.7, 1]}
                                 style={styles.linearGradient}>
                                 <View style={styles.aligner}>
                                     <Text style={styles.summaryText} numberOfLines={2}>{question}</Text>
                                 </View>
                             </LinearGradient>
-                        </ImageBackground>
+                        </Video>
                     </View>
 
                     <View style={styles.blue2}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.shareVideoController('twitter')}>
                             <Image source={{ uri: 'blank' }} style={styles.instablock} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.insta()}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.shareVideoController('instagram')}>
                             <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.facebookShare()}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
+                            title: "PopTag",
+                            message: question + " @poptagtv #poptag 🎈",
+                            url: this.state.uri,
+                            subject: "PopTag 🎈"
+                        })}>
                             <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => this.tweet()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                        <TouchableOpacity onPress={() => this.shareVideoController('twitter')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
                             <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => this.insta()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                        <TouchableOpacity onPress={() => this.shareVideoController('instagram')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
                             <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => this.facebookShare()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                            <Image source={{ uri: 'fb' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                        <TouchableOpacity onPress={() => Share.open({
+                            title: "PopTag",
+                            message: question + " @poptagtv #poptag 🎈",
+                            url: this.state.uri,
+                            subject: "PopTag 🎈"
+                        })} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                            <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                         </TouchableOpacity>
                     </View>
 
-                </Animated.View>
-            </TouchableOpacity>
-            :
-            <View style={{
-                width: Dimensions.get('window').width,
-                height: Dimensions.get('window').height * 0.7, paddingTop: Dimensions.get('window').height * 0.1
-            }}>
-
-                <View style={styles.summarycontainertop}>
-                    <Video source={{ uri: this.state.uri }} style={styles.backgroundVideo}
-                        repeat
-                        resizeMode={'cover'}
-                        ignoreSilentSwitch={"obey"}
-                        controls={false}
-                    >
-                        <LinearGradient
-                            colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.7)']}
-                            locations={[0, 0.5, 0.7, 1]}
-                            style={styles.linearGradient}>
-                            <View style={styles.aligner}>
-                                <Text style={styles.summaryText} numberOfLines={2}>{question}</Text>
-                            </View>
-                        </LinearGradient>
-                    </Video>
                 </View>
 
-                <View style={styles.blue2}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.shareVideoController('twitter')}>
-                        <Image source={{ uri: 'blank' }} style={styles.instablock} />
-                    </TouchableOpacity>
+        )
+    }
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.shareVideoController('instagram')}>
-                        <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
-                    </TouchableOpacity>
+    render() {
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.shareVideoController('facebook')}>
-                        <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
-                    </TouchableOpacity>
+        const animatedStyle = {
+            transform: [{ scale: this.animatedValue }],
+        };
 
-                    <TouchableOpacity onPress={() => this.shareVideoController('twitter')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                        <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => this.shareVideoController('instagram')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                        <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => this.shareVideoController('facebook')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                        <Image source={{ uri: 'fb' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                    </TouchableOpacity>
-                </View>
-
-            </View>
-
-    )
-}
-
-render() {
-
-    const animatedStyle = {
-        transform: [{ scale: this.animatedValue }],
-    };
-
-    return (
-        this.state.camera ? this.renderCamera() : !this.state.preview ? this.renderChallenge(animatedStyle) : this.renderPreview(animatedStyle)
-    );
-}
+        return (
+            this.state.camera ? this.renderCamera() : !this.state.preview ? this.renderChallenge(animatedStyle) : this.renderPreview(animatedStyle)
+        );
+    }
 }
 
 

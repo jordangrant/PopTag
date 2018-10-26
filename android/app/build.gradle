@@ -101,8 +101,8 @@ android {
         applicationId "com.poptag"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 11
-        versionName "7.4"
+        versionCode 13
+        versionName "8.5"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
         ndk {
@@ -153,6 +153,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-share')
     compile project(':react-native-image-resizer')
     compile project(':react-native-image-rotate')
     compile project(':react-native-fs')
@@ -167,7 +168,7 @@ dependencies {
     compile project(':react-native-view-shot')
     compile project(':react-native-shake-event')
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:26+"
+    implementation "com.android.support:support-v4:27.1.0"
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile 'com.facebook.fresco:animated-gif:1.0.1'
 }
@@ -181,6 +182,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
 
 configurations.all {
     resolutionStrategy {
-        force 'com.android.support:support-v4:27.1.0'
+        force 'com.android.support:appcompat-v7:27.1.0'
     }
 }

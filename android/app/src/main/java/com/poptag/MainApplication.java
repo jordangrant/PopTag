@@ -3,6 +3,8 @@ package com.poptag;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import cl.json.RNSharePackage;
+import cl.json.ShareApplication;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import io.codebakery.imagerotate.ImageRotatePackage;
 import com.rnfs.RNFSPackage;
@@ -24,9 +26,10 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends Application implements ShareApplication, ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
@@ -36,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSharePackage(),
             new ImageResizerPackage(),
             new ImageRotatePackage(),
             new RNFSPackage(),
@@ -68,4 +72,9 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
   }
+
+   @Override
+     public String getFileProviderAuthority() {
+            return "com.poptag.provider";
+     }
 }

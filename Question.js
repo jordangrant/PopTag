@@ -9,6 +9,8 @@ import RNInstagramStoryShare from 'react-native-instagram-story-share';
 import Spinner from 'react-native-loading-spinner-overlay';
 import RNFS from 'react-native-fs';
 import ImageResizer from 'react-native-image-resizer';
+import DEFAULT from './groups.json';
+import Share from 'react-native-share';
 
 export default class Question extends Component {
     constructor(props) {
@@ -17,13 +19,30 @@ export default class Question extends Component {
             text: '',
             rand: 0,
             summary: false,
-            spinner: false
+            spinner: false,
+            challenges: DEFAULT[0].challenges,
+            share: false
         };
     }
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
-        this.state.rand = Math.floor(Math.random() * this.props.challenges.length);
+
+        if (global.custom !== 68) {
+            this.state.rand = Math.floor(Math.random() * this.props.challenges.length);
+        } else {
+            //Using preloaded questions because they have responses
+            this.state.rand = Math.floor(Math.random() * DEFAULT[0].challenges.length);
+        }
+    }
+
+    componentDidMount() {
+        if (global.custom !== 68) {
+            this.setState({ challenges: this.props.challenges });
+        }
+        else {
+            this.setState({ challenges: DEFAULT[0].challenges });
+        }
     }
 
     handlePressIn() {
@@ -109,15 +128,13 @@ export default class Question extends Component {
                 })
         }
         else {
-            global.screenshot = global.screenshot.replace("file:", "")
-            const imageBase64 = await RNFS.readFile(global.screenshot, 'base64');
-
-            RNInstagramStoryShare.shareToInstagramStory({
-                backgroundImage: `data:image/png;base64,${imageBase64}`,
-                deeplinkingUrl: 'instagram-stories://share'
-            })
-                .then(() => console.log('SUCCESS'))
-                .catch(() => Linking.openURL('https://play.google.com/store/apps/details?id=com.instagram.android'))
+            Linking.canOpenURL('instagram://story-camera').then(supported => {
+                if (!supported) {
+                    Linking.openURL('https://play.google.com/store/apps/details?id=com.instagram.android');
+                } else {
+                    return Linking.openURL('instagram://story-camera');
+                }
+            }).catch(err => console.error('An error occurred', err));
         }
     }
 
@@ -126,7 +143,7 @@ export default class Question extends Component {
             global.screenshot = global.screenshot.replace("file://", "")
         }
         shareOnTwitter({
-            'text': this.props.challenges.find(item => item.id === this.state.rand).description + " @poptagtv #poptag 🎈",
+            'text': this.state.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
             //'link': 'https://artboost.com/',
             //'imagelink': global.screenshot,
             //or use image
@@ -193,7 +210,11 @@ export default class Question extends Component {
                     <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
                 </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={1} onPress={() => this.facebookShare()}>
+                <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
+                    title: "PopTag",
+                    message: this.state.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
+                    url: global.screenshot,
+                    subject: "PopTag 🎈" })}>
                     <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
                 </TouchableOpacity>
 
@@ -205,8 +226,13 @@ export default class Question extends Component {
                     <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => this.facebookShare()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                    <Image source={{ uri: 'fb' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                <TouchableOpacity onPress={() => Share.open({
+                    title: "PopTag",
+                    message: this.state.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
+                    url: global.screenshot,
+                    subject: "PopTag 🎈" })}
+                    style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                    <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -217,7 +243,7 @@ export default class Question extends Component {
     );
 
     renderQuestion(animatedStyle) {
-        var question = this.props.challenges[this.state.rand].description;
+        var question = this.state.challenges[this.state.rand].description;
 
         return (
             <TouchableOpacity activeOpacity={1}
@@ -263,8 +289,8 @@ export default class Question extends Component {
     }
 
     renderSummary() {
-        var question = this.props.challenges[this.state.rand].description;
-        
+        var question = this.state.challenges[this.state.rand].description;
+
         return <View
             style={{
                 width: Dimensions.get('window').width, height: Dimensions.get('window').height * 0.7,
@@ -280,7 +306,7 @@ export default class Question extends Component {
             <View style={styles.summaryDivider} />
 
             <FlatList
-                data={typeof this.props.challenges[this.state.rand].responses !== 'undefined' ? this.shuffle(this.props.challenges[this.state.rand].responses) : []}
+                data={typeof this.state.challenges[this.state.rand].responses !== 'undefined' ? this.shuffle(this.state.challenges[this.state.rand].responses) : []}
                 renderItem={({ item }) =>
                     <View style={styles.summarycontainerbottom}>
                         <Text style={styles.summaryText} numberOfLines={4}>{item}</Text>
@@ -289,7 +315,7 @@ export default class Question extends Component {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 ListHeaderComponent={this._renderHeader}
-                ListFooterComponent={typeof this.props.challenges[this.state.rand].responses !== 'undefined' ? this._renderFooter : null}
+                ListFooterComponent={typeof this.state.challenges[this.state.rand].responses !== 'undefined' ? this._renderFooter : null}
             />
 
         </View>

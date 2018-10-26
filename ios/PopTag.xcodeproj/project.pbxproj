@@ -53,6 +53,8 @@
 		C492618C8FEB6DAD3A4D517A /* libPods-PopTagTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D67D2CFE032676A8D622C027 /* libPods-PopTagTests.a */; };
 		EED9A43D83554DE1A4100F7D /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A67AF25BF44D5F912166B3 /* libBVLinearGradient.a */; };
 		F22BA77FAB3E4D44A6911420 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49E31520ED6342BEBA343360 /* libRCTVideo.a */; };
+		F30ACE28218289480084B204 /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F30ACE27218289330084B204 /* libRNShare.a */; };
+		F30ACE2A218289710084B204 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30ACE29218289710084B204 /* MessageUI.framework */; };
 		F3728DA0216F17F600AB18DD /* libRCTImageResizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3728D76216F17EE00AB18DD /* libRCTImageResizer.a */; };
 		F393DEC5216EFCB600780486 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F393DEBF216EFC2B00780486 /* libRNFS.a */; };
 		F393DECC216F166000780486 /* libRNImageRotate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F393DECB216F164700780486 /* libRNImageRotate.a */; };
@@ -397,6 +399,13 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		F30ACE26218289330084B204 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F30ACE22218289330084B204 /* RNShare.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNShare;
+		};
 		F3728D75216F17EE00AB18DD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F3728D65216F17EE00AB18DD /* RCTImageResizer.xcodeproj */;
@@ -514,6 +523,8 @@
 		D63D9201EA99F14A9BFA901B /* libPods-PopTag.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PopTag.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D67D2CFE032676A8D622C027 /* libPods-PopTagTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PopTagTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF94E2FE8BC8470E9492F5BA /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
+		F30ACE22218289330084B204 /* RNShare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
+		F30ACE29218289710084B204 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		F360F7222174160A008D9B48 /* libRNImageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNImageCropPicker.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F360F76B217417DF008D9B48 /* libRNImageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNImageCropPicker.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F360F76D217417DF008D9B48 /* libRSKImageCropper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRSKImageCropper.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -539,6 +550,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30ACE2A218289710084B204 /* MessageUI.framework in Frameworks */,
+				F30ACE28218289480084B204 /* libRNShare.a in Frameworks */,
 				F3728DA0216F17F600AB18DD /* libRCTImageResizer.a in Frameworks */,
 				F393DECC216F166000780486 /* libRNImageRotate.a in Frameworks */,
 				F393DEC5216EFCB600780486 /* libRNFS.a in Frameworks */,
@@ -771,6 +784,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				F30ACE22218289330084B204 /* RNShare.xcodeproj */,
 				F3728D65216F17EE00AB18DD /* RCTImageResizer.xcodeproj */,
 				F393DEC6216F164700780486 /* RNImageRotate.xcodeproj */,
 				F393DE8A216EFC2B00780486 /* RNFS.xcodeproj */,
@@ -871,6 +885,7 @@
 		96CEC625216A7359001C64C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F30ACE29218289710084B204 /* MessageUI.framework */,
 				F360F76B217417DF008D9B48 /* libRNImageCropPicker.a */,
 				F360F76D217417DF008D9B48 /* libRSKImageCropper.a */,
 				F360F7222174160A008D9B48 /* libRNImageCropPicker.a */,
@@ -920,6 +935,14 @@
 			children = (
 				ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */,
 				2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F30ACE23218289330084B204 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F30ACE27218289330084B204 /* libRNShare.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1183,6 +1206,10 @@
 				{
 					ProductGroup = 96EE6026213B0F1200323758 /* Products */;
 					ProjectRef = 12DE30BF28024ECEB33E90FF /* RNShakeEvent.xcodeproj */;
+				},
+				{
+					ProductGroup = F30ACE23218289330084B204 /* Products */;
+					ProjectRef = F30ACE22218289330084B204 /* RNShare.xcodeproj */;
 				},
 				{
 					ProductGroup = 96FFACBC2140E035007B9A22 /* Products */;
@@ -1524,6 +1551,13 @@
 			fileType = archive.ar;
 			path = libRCTBlob.a;
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F30ACE27218289330084B204 /* libRNShare.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNShare.a;
+			remoteRef = F30ACE26218289330084B204 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F3728D76216F17EE00AB18DD /* libRCTImageResizer.a */ = {
