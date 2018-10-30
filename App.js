@@ -19,6 +19,7 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 import { colors } from './colors';
 import AB from './AB';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Scavenger from './Scavenger';
 
 //const width = Dimensions.get('window').width * 0.264;
 const width = Dimensions.get('window').width * 0.43733;
@@ -80,6 +81,7 @@ export default class PopTag extends Component {
             displayQuestion: false,
             displayChallenge: false,
             displayAB: false,
+            displayScavenger: false,
             displayGif: false,
             background: '',
             gif: 0,
@@ -165,7 +167,7 @@ export default class PopTag extends Component {
         AsyncStorage.getItem('groups').then(b => {
             if (b !== null) {
                 this.setState({ groups: JSON.parse(b) });
-                
+
             }
             else {
                 if (global.token == 'undefined') {
@@ -297,8 +299,8 @@ export default class PopTag extends Component {
             this.setState({ challenges: challenges });
         })
             .then(() => console.log('Challenges fetched and loaded.'))
-        
-            this.refs.toast.show('Latest content successfully retrieved! ✅');
+
+        this.refs.toast.show('Latest content successfully retrieved! ✅');
     }
 
     handlePressIn() {
@@ -413,14 +415,17 @@ export default class PopTag extends Component {
         if (companysettings[0].replace('verified', '').toLowerCase() == 'questions') {
             this.setState({ displayQuestion: true });
         }
-        else if(companysettings[0].replace('verified', '').toLowerCase() == 'challenges') {
+        else if (companysettings[0].replace('verified', '').toLowerCase() == 'challenges') {
             this.setState({ displayChallenge: true });
         }
-        else if(companysettings[0].replace('verified', '').toLowerCase() == 'ab') {
+        else if (companysettings[0].replace('verified', '').toLowerCase() == 'ab') {
             this.setState({ displayAB: true });
         }
+        else if (companysettings[0].replace('verified', '').toLowerCase() == 'scavenger') {
+            this.setState({ displayScavenger: true });
+        }
         else {
-            
+
         }
 
         this.save();
@@ -493,7 +498,7 @@ export default class PopTag extends Component {
 
 
     endQuestion() {
-        this.setState({ displayQuestion: false, displayChallenge: false, displayAB: false })
+        this.setState({ displayQuestion: false, displayChallenge: false, displayAB: false, displayScavenger: false })
     }
 
     successTweet() {
@@ -546,8 +551,12 @@ export default class PopTag extends Component {
 
     }
 
+    toggleDeepScavenger() {
+        this.setState({ displayScavenger: !this.state.displayScavenger })
+    }
+
     toggleDialogue() {
-        if (this.state.displayQuestion || this.state.displayChallenge || this.state.displayAB) {
+        if (this.state.displayQuestion || this.state.displayChallenge || this.state.displayAB || this.state.displayScavenger) {
             this.endQuestion();
         }
         else if (this.state.displayGif) {
@@ -567,7 +576,13 @@ export default class PopTag extends Component {
     }
 
     renderBalloons() {
-        if (this.state.challenges.length > 0) {
+        var companysettings = this.state.groups.find(item => item.id === this.state.custom).description;
+        companysettings = JSON.parse(companysettings)
+
+        if (companysettings[0].replace('verified', '').toLowerCase() == 'scavenger') {
+            return this.renderScavenger()
+        }
+        else if (this.state.challenges.length > 0) {
             return this.state.balloons.map(b =>
                 <Balloon key={b.id} top={b.top} left={b.left} id={b.id} popped={b.popped} pop={this.popBalloon.bind(this)}
                     playPop={() => this.playPop()} playWoosh={() => this.playWoosh()} custom={this.state.custom}
@@ -595,6 +610,14 @@ export default class PopTag extends Component {
     renderAB() {
         return <AB submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
             toggleLoading={() => this.toggleLoading()} successTweet={() => this.successTweet()}
+            successCameraRoll={() => this.successCameraRoll()} groups={this.state.groups}
+            camera={() => this.setState({ camera: !this.state.camera })} challenges={this.state.challenges} />
+    }
+
+    renderScavenger() {
+        return <Scavenger submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
+            toggleLoading={() => this.toggleLoading()} successTweet={() => this.successTweet()}
+            toggleDeepScavenger={() => this.toggleDeepScavenger()} deepScavenger={this.state.displayScavenger}
             successCameraRoll={() => this.successCameraRoll()} groups={this.state.groups}
             camera={() => this.setState({ camera: !this.state.camera })} challenges={this.state.challenges} />
     }
@@ -634,7 +657,7 @@ export default class PopTag extends Component {
 
                         <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
                             onPressIn={this.handlePressIn.bind(this)}
-                            onPress={this.state.displayQuestion || this.state.displayChallenge || this.state.displayAB ? () => this.endQuestion() :
+                            onPress={this.state.displayQuestion || this.state.displayChallenge || this.state.displayAB || this.state.displayScavenger ? () => this.endQuestion() :
                                 this.state.dialogue ? () => this.toggleDialogue() : this.state.displayGif ? () => this.dismissGif() : () => this.update()}
                             onPressOut={this.handlePressOut.bind(this)}>
                             <Animated.View style={[animatedStyle, { width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462 }]}>
@@ -643,8 +666,9 @@ export default class PopTag extends Component {
                             </Animated.View>
                         </TouchableOpacity>
 
-                        {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() : this.state.displayChallenge ? this.renderChallenge() :
-                            this.state.displayAB ? this.renderAB() : this.state.displayGif ? this.renderGif() : this.renderBalloons()}
+                        {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() :
+                            this.state.displayChallenge ? this.renderChallenge() : this.state.displayAB ? this.renderAB() :
+                            this.state.displayGif ? this.renderGif() : this.renderBalloons()}
 
                         {/* {this.state.dialogue == false ?
                         <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
@@ -654,7 +678,10 @@ export default class PopTag extends Component {
 
                         {!this.state.dialogue && !this.state.camera ?
                             <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
-                                <Image style={styles.ibutton} source={{ uri: this.state.displayQuestion || this.state.displayGif || this.state.displayChallenge || this.state.displayAB ? 'home' : 'palette' }} />
+                                <Image style={styles.ibutton} source={{
+                                    uri: this.state.displayQuestion || this.state.displayGif || this.state.displayScavenger ||
+                                        this.state.displayChallenge || this.state.displayAB ? 'home' : 'palette'
+                                }} />
                             </TouchableOpacity>
                             : null}
 

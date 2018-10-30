@@ -33,9 +33,9 @@ class MyListItem extends Component {
                         style={styles.linearGradient}>
                         <View style={styles.aligner}>
                             <Text style={styles.summaryText} numberOfLines={1}>{company.name}</Text>
-                            { global.filter !== 'challenges' && global.filter !== 'questions' && global.filter !== 'verified' && global.filter !== 'ab' ?
-                            <Image style={type == 'challenges' ? styles.trophy : type == 'questions' ? styles.chatbubble : type == 'ab' ? styles.ab :  styles.verified} 
-                            source={{ uri: type == 'challenges' ? 'trophy' : type == 'questions' ? 'chatbubble' : type == 'ab' ? 'abog' : 'verified'}} />
+                            { global.filter !== 'challenges' && global.filter !== 'questions' && global.filter !== 'verified' && global.filter !== 'ab' && global.filter !== 'scavenger' ?
+                            <Image style={type == 'challenges' ? styles.trophy : type == 'questions' ? styles.chatbubble : type == 'ab' ? styles.ab : type == 'scavenger' ? styles.scavenger :  styles.verified} 
+                            source={{ uri: type == 'challenges' ? 'trophy' : type == 'questions' ? 'chatbubble' : type == 'ab' ? 'abog' : type == 'scavenger' ? 'scavenger' : 'verified'}} />
                             :
                             null
                             }
@@ -108,7 +108,7 @@ export default class Dialogue2 extends Component {
 
         var companies = this.props.groups;
         var search = companies.filter(x => x.name.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1).sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase());
-        if (global.filter == "questions" || global.filter == "challenges" || global.filter == "verified" || global.filter == "ab") {
+        if (global.filter == "questions" || global.filter == "challenges" || global.filter == "verified" || global.filter == "ab" || global.filter == "scavenger") {
             search = search.filter(x => JSON.parse(x.description)[0].indexOf(global.filter) > -1)
         }
 
@@ -144,6 +144,11 @@ export default class Dialogue2 extends Component {
                     <TouchableOpacity style={global.filter == 'ab' ? styles.buttonactive : styles.button} activeOpacity={1}
                         onPress={() => this.props.changeFilter('ab')}>
                         <Image style={styles.ab} source={{ uri: 'abog' }} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={global.filter == 'scavenger' ? styles.buttonactive : styles.button} activeOpacity={1}
+                        onPress={() => this.props.changeFilter('scavenger')}>
+                        <Image style={styles.scavenger} source={{ uri: 'scavenger' }} />
                     </TouchableOpacity>
 
                     <TouchableOpacity style={global.filter == 'verified' ? styles.buttonactive : styles.button} activeOpacity={1}
@@ -270,6 +275,11 @@ const styles = StyleSheet.create({
         width: 26,
         height: 26,
     },
+    scavenger: {
+        width: 26,
+        height: 26,
+        tintColor: 'white'
+    },
     verified: {
         width: 22.25,
         height: 22,
@@ -290,7 +300,7 @@ const styles = StyleSheet.create({
     },
     button: {
         height: Dimensions.get('window').width * 0.904 * 0.12684,
-        width: Dimensions.get('window').width * 0.904 * 0.12684 * 1.8,
+        width: Dimensions.get('window').width * 0.904 * 0.12684 * 1.45,
         backgroundColor: 'rgba(0,0,0,0.54)',
         alignContent: 'center',
         alignItems: 'center',
@@ -299,7 +309,7 @@ const styles = StyleSheet.create({
     },
     buttonactive: {
         height: Dimensions.get('window').width * 0.904 * 0.12684,
-        width: Dimensions.get('window').width * 0.904 * 0.12684 * 1.8,
+        width: Dimensions.get('window').width * 0.904 * 0.12684 * 1.45,
         backgroundColor: 'rgba(0,0,0,0.54)',
         alignContent: 'center',
         alignItems: 'center',

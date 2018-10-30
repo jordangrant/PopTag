@@ -3,7 +3,6 @@ import {
     StyleSheet, View, Image, Dimensions, TouchableOpacity,
     Animated, Platform
 } from 'react-native';
-import { COMPANIES } from './xcompanies';
 
 export default class Balloon extends Component {
     constructor(props) {

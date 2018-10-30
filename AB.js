@@ -191,15 +191,44 @@ export default class AB extends Component {
     }
 
     abSelection(selection) {
+        if (!this.state.crown1 && !this.state.crown2) {
+            if (selection == 1) {
+                this.setState({ crown1: true });
+            }
+            else {
+                this.setState({ crown2: true });
+            }
+            //setTimeout(() => this.props.submit(), 100);
+            setTimeout(() => this.setState({ preview: true }), 500);
+        }
+
+    }
+
+    recycle(selection) {
+        var num = Math.floor(Math.random() * this.props.challenges.length);
+
         if (selection == 1) {
-            this.setState({ crown1: true });
+            this.setState({
+                crown1: false,
+                preview: false,
+                rand2: num
+            });
+
+            if (this.state.rand == num) {
+                this.setState({ rand2: Math.floor(Math.random() * this.props.challenges.length) });
+            }
         }
         else {
-            this.setState({ crown2: true });
-        }
-        setTimeout(() => this.props.submit(), 100);
-        setTimeout(() => this.setState({ preview: true }), 500);
+            this.setState({
+                crown2: false,
+                preview: false,
+                rand: num
+            });
 
+            if (this.state.rand2 == num) {
+                this.setState({ rand: Math.floor(Math.random() * this.props.challenges.length) });
+            }
+        }
     }
 
     renderAB(animatedStyle) {
@@ -268,6 +297,7 @@ export default class AB extends Component {
                         {this.state.crown1 ?
                             <TouchableOpacity activeOpacity={1}
                                 onPressIn={this.handlePressIn.bind(this)}
+                                onPress={() => this.recycle(1)}
                                 onPressOut={this.handlePressOut.bind(this)}>
                                 <Animated.View style={animatedStyle}>
                                     <ImageBackground style={styles.containerWide} source={{ uri: this.props.challenges[this.state.rand].image.url }}>
@@ -275,7 +305,7 @@ export default class AB extends Component {
                                         <LinearGradient
                                             colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.7)']}
                                             locations={[0, 0.5, 0.7, 1]}
-                                            style={styles.linearGradient}>
+                                            style={styles.linearGradient2}>
                                             <View style={styles.aligner}>
                                                 <Text style={styles.mainText} numberOfLines={1}>{this.props.challenges[this.state.rand].description}</Text>
                                             </View>
@@ -288,6 +318,7 @@ export default class AB extends Component {
                         {this.state.crown2 ?
                             <TouchableOpacity activeOpacity={1}
                                 onPressIn={this.handlePressIn.bind(this)}
+                                onPress={() => this.recycle(2)}
                                 onPressOut={this.handlePressOut.bind(this)}>
                                 <Animated.View style={animatedStyle}>
                                     <ImageBackground style={styles.containerWide} source={{ uri: image2 = this.props.challenges[this.state.rand2].image.url }}>
@@ -295,7 +326,7 @@ export default class AB extends Component {
                                         <LinearGradient
                                             colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.7)']}
                                             locations={[0, 0.5, 0.7, 1]}
-                                            style={styles.linearGradient}>
+                                            style={styles.linearGradient2}>
                                             <View style={styles.aligner}>
                                                 <Text style={styles.mainText} numberOfLines={1}>{this.props.challenges[this.state.rand2].description}</Text>
                                             </View>
@@ -308,38 +339,40 @@ export default class AB extends Component {
                 }
 
                 <View style={styles.blue2}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
-                    <Image source={{ uri: 'blank' }} style={styles.instablock} />
-                </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
+                        <Image source={{ uri: 'blank' }} style={styles.instablock} />
+                    </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={1} onPress={() => this.insta()}>
-                    <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
-                </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.insta()}>
+                        <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
+                    </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
-                    title: "PopTag",
-                    message: this.props.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
-                    url: global.screenshot,
-                    subject: "PopTag 🎈" })}>
-                    <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
-                </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
+                        title: "PopTag",
+                        message: this.props.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
+                        url: global.screenshot,
+                        subject: "PopTag 🎈"
+                    })}>
+                        <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
+                    </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => this.tweet()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                    <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.tweet()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                        <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                    </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => this.insta()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                    <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.insta()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                        <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                    </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => Share.open({
-                    title: "PopTag",
-                    message: this.props.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
-                    url: global.screenshot,
-                    subject: "PopTag 🎈" })} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                    <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                </TouchableOpacity>
-            </View>
+                    <TouchableOpacity onPress={() => Share.open({
+                        title: "PopTag",
+                        message: this.props.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
+                        url: global.screenshot,
+                        subject: "PopTag 🎈"
+                    })} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                        <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                    </TouchableOpacity>
+                </View>
 
             </View>
         )
@@ -517,7 +550,13 @@ const styles = StyleSheet.create({
     linearGradient: {
         height: Dimensions.get('window').height * 0.5742,
         paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
-        paddingBottom: Dimensions.get('window').width * 0.43733 * 0.08,
+        paddingBottom: 0,
+        justifyContent: 'flex-end',
+    },
+    linearGradient2: {
+        height: Dimensions.get('window').height * 0.5742,
+        paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
+        paddingBottom: Dimensions.get('window').width * 0.43733 * 0.085,
         justifyContent: 'flex-end',
     },
     aligner: {
