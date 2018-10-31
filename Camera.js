@@ -87,7 +87,6 @@ export default class Camera extends Component {
             this.camera = ref;
           }}
           style={styles.preview}
-          forceUpOrientation={true}
           autoFocus={RNCamera.Constants.AutoFocus.on}
           videoStabilizationMode={stabilize}
           captureAudio={true}
@@ -165,7 +164,8 @@ export default class Camera extends Component {
 
   takePicture = async function () {
     if (this.camera) {
-      const options = { quality: 1, base64: true };
+      const options = Platform.OS === 'ios' ? { quality: 1, base64: true, forceUpOrientation: true }
+                                              : { quality: 1, base64: true, fixOrientation: true }
       const data = await this.camera.takePictureAsync(options)
       this.props.previewTime(data.uri);
     }

@@ -155,7 +155,7 @@ export default class Challenge extends Component {
             }
             else {
                 ImageResizer.createResizedImage(uri, 1920, 1080, 'JPEG', 100,
-                    90, `${RNFS.DocumentDirectoryPath}`)
+                    0, `${RNFS.DocumentDirectoryPath}`)
                     .then((success) => {
                         RNFS.readFile(success.path, 'base64').then((imageBase64) => {
                             RNInstagramStoryShare.share({
@@ -520,12 +520,12 @@ export default class Challenge extends Component {
                     </View>
 
                     <View style={styles.blue2}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.shareVideoController('twitter')}>
+                        {/* <TouchableOpacity activeOpacity={1} onPress={() => this.shareVideoController('twitter')}>
                             <Image source={{ uri: 'blank' }} style={styles.instablock} />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
                         <TouchableOpacity activeOpacity={1} onPress={() => this.shareVideoController('instagram')}>
-                            <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
+                            <Image source={{ uri: 'instagramgradient' }} style={styles.instablock2} />
                         </TouchableOpacity>
 
                         <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
@@ -534,14 +534,14 @@ export default class Challenge extends Component {
                             url: this.state.uri,
                             subject: "PopTag 🎈"
                         })}>
-                            <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
+                            <View style={[styles.instablock2, { backgroundColor: '#3B5998' }]} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => this.shareVideoController('twitter')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                        {/* <TouchableOpacity onPress={() => this.shareVideoController('twitter')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
                             <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
-                        <TouchableOpacity onPress={() => this.shareVideoController('instagram')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                        <TouchableOpacity onPress={() => this.shareVideoController('instagram')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 4) - 14, height: 28, width: 28 }} activeOpacity={1}>
                             <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                         </TouchableOpacity>
 
@@ -550,7 +550,7 @@ export default class Challenge extends Component {
                             message: question + " @poptagtv #poptag 🎈",
                             url: this.state.uri,
                             subject: "PopTag 🎈"
-                        })} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                        })} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 4) - 14, height: 28, width: 28 }} activeOpacity={1}>
                             <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                         </TouchableOpacity>
                     </View>
@@ -749,6 +749,10 @@ const styles = StyleSheet.create({
     },
     instablock: {
         width: Dimensions.get('window').width * 0.8 / 3,
+        height: Dimensions.get('window').width * 0.88 * 0.15,
+    },
+    instablock2: {
+        width: Dimensions.get('window').width * 0.8 / 2,
         height: Dimensions.get('window').width * 0.88 * 0.15,
     }
 });

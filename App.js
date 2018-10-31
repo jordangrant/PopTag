@@ -111,8 +111,15 @@ export default class PopTag extends Component {
                         this.setState({ challenges: JSON.parse(b), loading: false });
                     }
                     else {
-                        this.updateChallenges(parseInt(custom));
-                        this.setState({ loading: false })
+                        this.updateChallenges(parseInt(custom)).then((res) => {
+                            if (res == true) {
+                                this.setState({ loading: false })
+                            }
+                            else {
+                                global.custom = 68;
+                                this.setState({ custom: 68, loading: false })
+                            }
+                        })
                     }
                 })
             } else {
@@ -167,7 +174,6 @@ export default class PopTag extends Component {
         AsyncStorage.getItem('groups').then(b => {
             if (b !== null) {
                 this.setState({ groups: JSON.parse(b) });
-
             }
             else {
                 if (global.token == 'undefined') {
@@ -228,7 +234,12 @@ export default class PopTag extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                return responseJson
+                if (responseJson.length > 0) {
+                    return responseJson
+                }
+                else {
+                    return false
+                }
             })
             .catch((error) => {
                 console.error(error);
@@ -256,30 +267,32 @@ export default class PopTag extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                return responseJson[0].challenges
+                if (responseJson.length > 0) {
+                    return responseJson[0].challenges
+                }
+                else {
+                    return false
+                }
             })
             .catch((error) => {
                 console.error(error);
             });
     }
 
-    // updateChallenges(custom) {
-
-    //     this.getChallenges(custom).then((challenges) => {
-    //         AsyncStorage.setItem('challenges', JSON.stringify(challenges));
-    //         this.setState({ challenges: challenges });
-    //     })
-    //         .then(() => console.log('Challenges fetched and loaded.'))
-    // }
 
     updateChallenges(custom) {
         return new Promise(async (resolve, reject) => {
             try {
                 this.getChallenges(custom).then((challenges) => {
-                    AsyncStorage.setItem('challenges', JSON.stringify(challenges));
-                    this.setState({ challenges: challenges });
-                    console.log('Challenges fetched and loaded.')
-                    resolve(true);
+                    if (challenges) {
+                        AsyncStorage.setItem('challenges', JSON.stringify(challenges));
+                        this.setState({ challenges: challenges });
+                        console.log('Challenges fetched and loaded.')
+                        resolve(true);
+                    }
+                    else {
+                        reject();
+                    }
                 })
             } catch (ex) {
                 reject();
@@ -289,18 +302,31 @@ export default class PopTag extends Component {
 
     update() {
         this.getGroups().then((groups) => {
-            AsyncStorage.setItem('groups', JSON.stringify(groups));
-            this.setState({ groups: groups });
+            if (groups == false) {
+                this.refs.toast.show('Failed to update groups.');
+            }
+            if (typeof groups.find(item => item.id === this.state.custom) == 'undefined') {
+                this.refs.toast.show('This pack has been removed. Please switch to another.');
+            }
+            else {
+                AsyncStorage.setItem('groups', JSON.stringify(groups));
+                this.setState({ groups: groups });
+                console.log('Groups re-retrieved from DB and saved.')
+            }
         })
-            .then(() => console.log('Groups re-retrieved from DB and saved.'))
 
         this.getChallenges(this.state.custom).then((challenges) => {
-            AsyncStorage.setItem('challenges', JSON.stringify(challenges));
-            this.setState({ challenges: challenges });
+            if (challenges) {
+                AsyncStorage.setItem('challenges', JSON.stringify(challenges));
+                this.setState({ challenges: challenges });
+                console.log('Challenges fetched and loaded.')
+                this.refs.toast.show('Latest content successfully retrieved! ✅');
+            }
+            else {
+                this.refs.toast.show('Failed to retrieve challenges.');
+            }
         })
-            .then(() => console.log('Challenges fetched and loaded.'))
 
-        this.refs.toast.show('Latest content successfully retrieved! ✅');
     }
 
     handlePressIn() {
@@ -377,10 +403,8 @@ export default class PopTag extends Component {
                 this.toggleDialogue();
                 this.save();
             }
-            else {
-                alert('Failed to retrieve new content. Please check your network settings and try again.')
-            }
         })
+            .catch(() => this.refs.toast.show('❌ Content or Network Connection unavailable'))
     }
 
     changeFilter(filter) {
@@ -496,6 +520,30 @@ export default class PopTag extends Component {
         }
     }
 
+    screenCapWithoutSave() {
+        if (Platform.OS === 'android') {
+            Keyboard.dismiss();
+
+            setTimeout(() =>
+                captureScreen({
+                    format: "jpg",
+                    quality: 1
+                })
+                    .then(uri => {
+                        global.screenshot = uri;
+                    }));
+        }
+        else {
+            captureScreen({
+                format: "jpg",
+                quality: 1
+            })
+                .then(uri => {
+                    global.screenshot = uri;
+                })
+        }
+    }
+
 
     endQuestion() {
         this.setState({ displayQuestion: false, displayChallenge: false, displayAB: false, displayScavenger: false })
@@ -595,7 +643,7 @@ export default class PopTag extends Component {
     }
 
     renderQuestion() {
-        return <Question submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
+        return <Question submit={this.screenCapWithoutSave.bind(this)} endQuestion={() => this.endQuestion()}
             toggleLoading={() => this.toggleLoading()} successTweet={() => this.successTweet()}
             groups={this.state.groups} challenges={this.state.challenges} />
     }
@@ -608,7 +656,7 @@ export default class PopTag extends Component {
     }
 
     renderAB() {
-        return <AB submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
+        return <AB submitWithoutSave={this.screenCapWithoutSave.bind(this)} endQuestion={() => this.endQuestion()}
             toggleLoading={() => this.toggleLoading()} successTweet={() => this.successTweet()}
             successCameraRoll={() => this.successCameraRoll()} groups={this.state.groups}
             camera={() => this.setState({ camera: !this.state.camera })} challenges={this.state.challenges} />
@@ -668,7 +716,7 @@ export default class PopTag extends Component {
 
                         {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() :
                             this.state.displayChallenge ? this.renderChallenge() : this.state.displayAB ? this.renderAB() :
-                            this.state.displayGif ? this.renderGif() : this.renderBalloons()}
+                                this.state.displayGif ? this.renderGif() : this.renderBalloons()}
 
                         {/* {this.state.dialogue == false ?
                         <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>

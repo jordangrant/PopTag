@@ -103,7 +103,7 @@ export default class Question extends Component {
                         offset: { x: 0, y: 0 },
                         size: { width: 1080, height: 1920 },
                         //displaySize: { width: 1920, height: 1080 },
-                        resizeMode: 'cover',
+                        resizeMode: 'contain',
                     },
                     (uri) => resolve(uri),
                     () => reject(),

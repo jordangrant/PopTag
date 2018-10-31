@@ -51,7 +51,7 @@ export default class Scavenger extends Component {
     handlePressIn() {
         if (Platform.OS === 'ios') {
             Animated.spring(this.animatedValue, {
-                toValue: 1.3
+                toValue: 1.2
             }).start()
         }
         else {
@@ -432,7 +432,7 @@ export default class Scavenger extends Component {
     }
 
     goToLayout() {
-        Linking.canOpenURL('layout://app').then(supported => {
+        Linking.canOpenURL('instagram-layout://app').then(supported => {
                 if (!supported) {
                     if(Platform.OS === 'android'){
                         Linking.openURL('https://play.google.com/store/apps/details?id=com.instagram.layout');
@@ -441,7 +441,7 @@ export default class Scavenger extends Component {
                         Linking.openURL('itms-apps://itunes.apple.com/us/app/layout-from-instagram/id967351793?mt=8');
                     }
                 } else {
-                    return Linking.openURL('layout://app');
+                    return Linking.openURL('instagram-layout://app');
                 }
             }).catch(err => console.error('An error occurred', err));
     }
@@ -487,7 +487,7 @@ export default class Scavenger extends Component {
 
                 {this.renderBubbles()}
 
-                <TouchableOpacity style={styles.nextButton} onPress={() => this.togglePreview()}>
+                <TouchableOpacity activeOpacity={1} style={styles.nextButton} onPress={() => this.togglePreview()}>
                     <Text style={styles.nextText}>Next</Text>
                 </TouchableOpacity>
 
@@ -509,11 +509,11 @@ export default class Scavenger extends Component {
                 <Image source={{ uri: 'layout' }} style={styles.layouticon} />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.nextButton} onPress={() => this.goToLayout()}>
+                <TouchableOpacity activeOpacity={1} style={styles.nextButton} onPress={() => this.goToLayout()}>
                     <Text style={styles.nextText}>Create Layout</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.nextButton, { backgroundColor: '#4A4A4A' }]} onPress={() => this.togglePreview()}>
+                <TouchableOpacity activeOpacity={1} style={[styles.nextButton, { backgroundColor: '#4A4A4A' }]} onPress={() => this.togglePreview()}>
                     <Text style={styles.nextText}>Go Back</Text>
                 </TouchableOpacity>
 

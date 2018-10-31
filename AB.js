@@ -98,7 +98,7 @@ export default class AB extends Component {
                         offset: { x: 0, y: 0 },
                         size: { width: 1080, height: 1920 },
                         //displaySize: { width: 1920, height: 1080 },
-                        resizeMode: 'cover',
+                        resizeMode: 'contain',
                     },
                     (uri) => resolve(uri),
                     () => reject(),
@@ -133,12 +133,12 @@ export default class AB extends Component {
         }
     }
 
-    tweet() {
+    tweet(crown1) {
         if (Platform.OS == 'android') {
             global.screenshot = global.screenshot.replace("file://", "")
         }
         shareOnTwitter({
-            'text': "A or B? @poptagtv #poptag 🎈",
+            'text': this.props.challenges[crown1 ? this.state.rand : this.state.rand2].description + "👑 @poptagtv #poptag 🎈",
             //'link': 'https://artboost.com/',
             //'imagelink': global.screenshot,
             //or use image
@@ -198,7 +198,7 @@ export default class AB extends Component {
             else {
                 this.setState({ crown2: true });
             }
-            //setTimeout(() => this.props.submit(), 100);
+            setTimeout(() => this.props.submitWithoutSave(), 100);
             setTimeout(() => this.setState({ preview: true }), 500);
         }
 
@@ -339,7 +339,7 @@ export default class AB extends Component {
                 }
 
                 <View style={styles.blue2}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.tweet(this.state.crown1)}>
                         <Image source={{ uri: 'blank' }} style={styles.instablock} />
                     </TouchableOpacity>
 
@@ -349,14 +349,14 @@ export default class AB extends Component {
 
                     <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
                         title: "PopTag",
-                        message: this.props.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
+                        message: this.props.challenges[this.state.crown1 ? this.state.rand : this.state.rand2].description + "👑 @poptagtv #poptag 🎈",
                         url: global.screenshot,
                         subject: "PopTag 🎈"
                     })}>
                         <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => this.tweet()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                    <TouchableOpacity onPress={() => this.tweet(this.state.crown1)} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
                         <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                     </TouchableOpacity>
 
@@ -366,7 +366,7 @@ export default class AB extends Component {
 
                     <TouchableOpacity onPress={() => Share.open({
                         title: "PopTag",
-                        message: this.props.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
+                        message: this.props.challenges[this.state.crown1 ? this.state.rand : this.state.rand2].description + "👑 @poptagtv #poptag 🎈",
                         url: global.screenshot,
                         subject: "PopTag 🎈"
                     })} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
@@ -550,13 +550,13 @@ const styles = StyleSheet.create({
     linearGradient: {
         height: Dimensions.get('window').height * 0.5742,
         paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
-        paddingBottom: 0,
+        paddingBottom: Dimensions.get('window').width * 0.43733 * 0.08,
         justifyContent: 'flex-end',
     },
     linearGradient2: {
         height: Dimensions.get('window').height * 0.5742,
         paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
-        paddingBottom: Dimensions.get('window').width * 0.43733 * 0.085,
+        paddingBottom: Dimensions.get('window').width * 0.43733 * 0.2,
         justifyContent: 'flex-end',
     },
     aligner: {

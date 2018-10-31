@@ -17,13 +17,25 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>8.8</string>
+	<string>8.9</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>org.reactjs.native.example.PopTag</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>poptag</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>instagram-layout</string>
 		<string>kakaotalk</string>
 		<string>viber</string>
 		<string>gplus</string>
