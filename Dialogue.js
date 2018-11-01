@@ -48,13 +48,14 @@ class MyListItem extends Component {
     }
 }
 
-export default class Dialogue2 extends Component {
+export default class Dialogue extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             text: '',
             query: '',
+            paginator: 0.4
         };
 
     }
@@ -88,6 +89,12 @@ export default class Dialogue2 extends Component {
         }).start()
     }
 
+    expand() {
+        if(this.state.paginator < 0.81){
+            this.setState({ paginator: this.state.paginator + 0.2})
+        }  
+    }
+
     _renderFooter = ({ item }) => (
         <View style={{ height: 20 }} />
     );
@@ -110,6 +117,9 @@ export default class Dialogue2 extends Component {
         var search = companies.filter(x => x.name.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1).sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase());
         if (global.filter == "questions" || global.filter == "challenges" || global.filter == "verified" || global.filter == "ab" || global.filter == "scavenger") {
             search = search.filter(x => JSON.parse(x.description)[0].indexOf(global.filter) > -1)
+        }
+        else {
+            search = search.slice(0, Math.floor(search.length*this.state.paginator))
         }
 
         return (
@@ -166,6 +176,8 @@ export default class Dialogue2 extends Component {
                     showsHorizontalScrollIndicator={false}
                     numColumns={2}
                     extraData={this.state}
+                    onEndReachedThreshold={1}
+                    onEndReached={this.expand.bind(this)}
                 />
             </View>
 
@@ -178,10 +190,12 @@ const styles = StyleSheet.create({
         borderRadius: 13,
         width: Dimensions.get('window').width * 0.904,
         height: Dimensions.get('window').width * 0.904 * 0.12684,
+        maxHeight: 70,
         backgroundColor: 'white',
         alignItems: 'center',
         //alignContent: 'center',
         alignSelf: 'center',
+        marginTop: (Dimensions.get('window').height > 1020) ? 15 : 0,
         marginBottom: 10,
         marginHorizontal: 6,
         paddingLeft: 16,
@@ -244,7 +258,7 @@ const styles = StyleSheet.create({
     },
     subtext: {
         color: '#4A4A4A',
-        fontSize: Dimensions.get('window').width * 0.043,
+        fontSize: (Dimensions.get('window').height > 1020) ? 22 : Dimensions.get('window').width * 0.043,
         paddingTop: 1,
         flex: 1
     },
@@ -262,27 +276,27 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     trophy: {
-        width: 20,
-        height: 20,
+        width: (Dimensions.get('window').height > 1020) ? 30 : 20,
+        height: (Dimensions.get('window').height > 1020) ? 30 : 20,
         tintColor: '#FFD700'
     },
     chatbubble: {
-        width: 20,
-        height: 20,
+        width: (Dimensions.get('window').height > 1020) ? 30 : 20,
+        height: (Dimensions.get('window').height > 1020) ? 30 : 20,
         tintColor: 'white'
     },
     ab: {
-        width: 26,
-        height: 26,
+        width: (Dimensions.get('window').height > 1020) ? 39 : 26,
+        height: (Dimensions.get('window').height > 1020) ? 39 : 26,
     },
     scavenger: {
-        width: 26,
-        height: 26,
+        width: (Dimensions.get('window').height > 1020) ? 39 : 26,
+        height: (Dimensions.get('window').height > 1020) ? 39 : 26,
         tintColor: 'white'
     },
     verified: {
-        width: 22.25,
-        height: 22,
+        width: (Dimensions.get('window').height > 1020) ? 33.375 : 22.25,
+        height: (Dimensions.get('window').height > 1020) ? 33 : 22,
     },
     aligner: {
         flexDirection: 'row',

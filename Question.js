@@ -12,6 +12,8 @@ import ImageResizer from 'react-native-image-resizer';
 import DEFAULT from './groups.json';
 import Share from 'react-native-share';
 
+const ipad = (Dimensions.get('window').height > 1020);
+
 export default class Question extends Component {
     constructor(props) {
         super(props);
@@ -218,12 +220,12 @@ export default class Question extends Component {
                     <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => this.tweet()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                    <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                <TouchableOpacity onPress={() => this.tweet()} style={styles.left} activeOpacity={1}>
+                    <Image source={{ uri: 'twitter' }} style={styles.icon} />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => this.insta()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                    <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                <TouchableOpacity onPress={() => this.insta()} style={styles.middle} activeOpacity={1}>
+                    <Image source={{ uri: 'instagramicon' }} style={styles.icon} />
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => Share.open({
@@ -231,8 +233,8 @@ export default class Question extends Component {
                     message: this.state.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
                     url: global.screenshot,
                     subject: "PopTag 🎈" })}
-                    style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                    <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                    style={styles.right} activeOpacity={1}>
+                    <Image source={{ uri: 'share' }} style={styles.icon} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -335,6 +337,29 @@ export default class Question extends Component {
 
 
 const styles = StyleSheet.create({
+    icon: {
+        height: (ipad) ? 38 : 28,
+        width: (ipad) ? 38 : 28,
+        tintColor: 'white'
+    },
+    left: {
+        position: 'absolute',
+        left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14,
+        height: (ipad) ? 38 : 28,
+        width: (ipad) ? 38 : 28,
+    },
+    middle: {
+        position: 'absolute',
+        left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14,
+        height: (ipad) ? 38 : 28,
+        width: (ipad) ? 38 : 28,
+    },
+    right: {
+        position: 'absolute',
+        left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14,
+        height: (ipad) ? 38 : 28,
+        width: (ipad) ? 38 : 28,
+    },
     summaryquestion: {
         borderRadius: 13,
         width: Dimensions.get('window').width * 0.8,

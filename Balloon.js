@@ -64,8 +64,7 @@ export default class Balloon extends Component {
                 //onPress={() => this.pop()}
                 onPressOut={this.handlePressOut.bind(this)}>
 
-                <Animated.View style={[animatedStyle, { height: 125, width: 125, 
-                    alignContent: 'center', justifyContent: 'center' }]}>
+                <Animated.View style={[animatedStyle, styles.ballooncontainer]}>
                     {!this.props.popped ?
                         <Image style={styles.balloon}
                             source={{ uri: companysettings[3] == 'null' ? 'balloon' : companysettings[3] }} />
@@ -81,6 +80,12 @@ export default class Balloon extends Component {
 }
 
 const styles = StyleSheet.create({
+    ballooncontainer: {
+        height: Dimensions.get('window').height > 1020 ? 187.5 : 125,
+        width: Dimensions.get('window').height > 1020 ? 187.5 : 125,
+        alignContent: 'center',
+        justifyContent: 'center'
+    },
     balloon: {
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },

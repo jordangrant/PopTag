@@ -15,6 +15,7 @@ import ImageResizer from 'react-native-image-resizer';
 import Share from 'react-native-share';
 
 var ReadImageData = NativeModules.ReadImageData;
+const ipad = (Dimensions.get('window').height > 1020);
 
 export default class AB extends Component {
     constructor(props) {
@@ -340,11 +341,11 @@ export default class AB extends Component {
 
                 <View style={styles.blue2}>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.tweet(this.state.crown1)}>
-                        <Image source={{ uri: 'blank' }} style={styles.instablock} />
+                        <Image source={{ uri: 'blank' }} style={ipad ? styles.instablockIpad : styles.instablock} />
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => this.insta()}>
-                        <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
+                        <Image source={{ uri: 'instagramgradient' }} style={ipad ? styles.instablockIpad : styles.instablock} />
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
@@ -353,15 +354,15 @@ export default class AB extends Component {
                         url: global.screenshot,
                         subject: "PopTag 🎈"
                     })}>
-                        <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
+                        <View style={[ipad ? styles.instablockIpad : styles.instablock, { backgroundColor: '#3B5998' }]} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => this.tweet(this.state.crown1)} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                        <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                    <TouchableOpacity onPress={() => this.tweet(this.state.crown1)} style={styles.left} activeOpacity={1}>
+                        <Image source={{ uri: 'twitter' }} style={styles.icon} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => this.insta()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                        <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                    <TouchableOpacity onPress={() => this.insta()} style={styles.middle} activeOpacity={1}>
+                        <Image source={{ uri: 'instagramicon' }} style={styles.icon} />
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => Share.open({
@@ -369,8 +370,8 @@ export default class AB extends Component {
                         message: this.props.challenges[this.state.crown1 ? this.state.rand : this.state.rand2].description + "👑 @poptagtv #poptag 🎈",
                         url: global.screenshot,
                         subject: "PopTag 🎈"
-                    })} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                        <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                    })} style={styles.right} activeOpacity={1}>
+                        <Image source={{ uri: 'share' }} style={styles.icon} />
                     </TouchableOpacity>
                 </View>
 
@@ -392,6 +393,29 @@ export default class AB extends Component {
 
 
 const styles = StyleSheet.create({
+    icon: {
+        height: (ipad) ? 34 : 28,
+        width: (ipad) ? 34 : 28,
+        tintColor: 'white'
+    },
+    left: {
+        position: 'absolute',
+        left: (ipad) ? Dimensions.get('window').width * 0.5 * (1 / 6) - 14 : Dimensions.get('window').width * 0.8 * (1 / 6) - 14,
+        height: (ipad) ? 34 : 28,
+        width: (ipad) ? 34 : 28,
+    },
+    middle: {
+        position: 'absolute',
+        left: (ipad) ? Dimensions.get('window').width * 0.5 * (3 / 6) - 14 : Dimensions.get('window').width * 0.8 * (3 / 6) - 14,
+        height: (ipad) ? 34 : 28,
+        width: (ipad) ? 34 : 28,
+    },
+    right: {
+        position: 'absolute',
+        left: (ipad) ? Dimensions.get('window').width * 0.5 * (5 / 6) - 14 : Dimensions.get('window').width * 0.8 * (5 / 6) - 14,
+        height: (ipad) ? 34 : 28,
+        width: (ipad) ? 34 : 28,
+    },
     summaryquestion: {
         borderRadius: 13,
         width: Dimensions.get('window').width * 0.8,
@@ -443,11 +467,13 @@ const styles = StyleSheet.create({
     },
     containerWide: {
         borderRadius: 13,
-        width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').height * 0.5742,
+        marginTop: 0,
+        width: (ipad) ? Dimensions.get('window').width * 0.5 : Dimensions.get('window').width * 0.8,
+        height: (ipad) ? Dimensions.get('window').height * 0.51 : Dimensions.get('window').height * 0.5742,
         backgroundColor: 'white',
         margin: 4,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        resizeMode: 'stretch'
     },
     blue: {
         position: 'absolute',
@@ -467,11 +493,11 @@ const styles = StyleSheet.create({
     },
     blue2: {
         position: 'absolute',
-        top: Dimensions.get('window').height * 0.55,
+        top: (ipad) ? Dimensions.get('window').height*0.49 - 40 : Dimensions.get('window').height * 0.55,
         borderBottomLeftRadius: 13,
         borderBottomRightRadius: 13,
-        width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').width * 0.88 * 0.15,
+        width: (ipad) ? Dimensions.get('window').width * 0.5 : Dimensions.get('window').width * 0.8,
+        height: (ipad) ? Dimensions.get('window').width * 0.88 * 0.1 : Dimensions.get('window').width * 0.88 * 0.15,
         backgroundColor: '#4A90E2',
         alignItems: 'center',
         alignContent: 'center',
@@ -556,7 +582,7 @@ const styles = StyleSheet.create({
     linearGradient2: {
         height: Dimensions.get('window').height * 0.5742,
         paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
-        paddingBottom: Dimensions.get('window').width * 0.43733 * 0.2,
+        paddingBottom: (ipad) ? Dimensions.get('window').width * 0.43733 * 0.42 : Dimensions.get('window').width * 0.43733 * 0.2,
         justifyContent: 'flex-end',
     },
     aligner: {
@@ -573,6 +599,10 @@ const styles = StyleSheet.create({
     instablock: {
         width: Dimensions.get('window').width * 0.8 / 3,
         height: Dimensions.get('window').width * 0.88 * 0.15,
+    },
+    instablockIpad: {
+        width: Dimensions.get('window').width * 0.5 / 3,
+        height: Dimensions.get('window').width * 0.88 * 0.1,
     },
     adjacent: {
         flexDirection: 'row'

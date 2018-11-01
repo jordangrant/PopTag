@@ -25,16 +25,17 @@ import Scavenger from './Scavenger';
 const width = Dimensions.get('window').width * 0.43733;
 //const height = width * 0.5656;
 const height = width * 0.34146;
+const ipad = (Dimensions.get('window').height > 1020);
 
-const logoHeight = (Platform.OS === 'ios' && Dimensions.get('window').height > 800) ? 50 : 40;
-const topR1 = (Platform.OS === 'ios' && Dimensions.get('window').height > 800) ? Dimensions.get('window').height * 0.25 : Dimensions.get('window').height * 0.211;
-const topR2 = topR1 + 62;
-const topR3 = topR1 + 138;
-const topR4 = topR1 + 206;
-const topR5 = topR1 + 277;
+const logoHeight = (Platform.OS === 'ios' && Dimensions.get('window').height > 800 && Dimensions.get('window').height < 1020) ? 50 : 40;
+const topR1 = (Platform.OS === 'ios' && Dimensions.get('window').height > 800 && Dimensions.get('window').height < 1020) ? Dimensions.get('window').height * 0.25 : Dimensions.get('window').height * 0.211;
+const topR2 = (ipad) ? topR1 + 93 : topR1 + 62;
+const topR3 = (ipad) ? topR1 + 207 : topR1 + 138;
+const topR4 = (ipad) ? topR1 + 309 : topR1 + 206;
+const topR5 = (ipad) ? topR1 + 415.5 : topR1 + 277;
 const leftC1 = 0;
-const leftC2 = Dimensions.get('window').width / 2 - 62.5;
-const leftC3 = Dimensions.get('window').width - 125;
+const leftC2 = (ipad) ? Dimensions.get('window').width / 2 - 93.75 : Dimensions.get('window').width / 2 - 62.5;
+const leftC3 = (ipad) ? Dimensions.get('window').width - 187.5 : Dimensions.get('window').width - 125;
 
 console.disableYellowBox = true;
 
@@ -397,6 +398,7 @@ export default class PopTag extends Component {
         this.refs.toast.show('Loading...')
         this.updateChallenges(custom).then((res) => {
             if (res == true) {
+                this.resetBalloons(false);
                 global.custom = custom;
                 this.setState({ custom: custom });
                 console.log('Custom successfully changed.');
@@ -430,7 +432,7 @@ export default class PopTag extends Component {
         this.setState({ balloons: tempBalloons });
 
         if (tempBalloons.filter(b => b.popped).length === tempBalloons.length) {
-            this.resetBalloons();
+            this.resetBalloons(true);
         }
 
         var companysettings = this.state.groups.find(item => item.id === this.state.custom).description;
@@ -455,12 +457,14 @@ export default class PopTag extends Component {
         this.save();
     }
 
-    resetBalloons() {
+    resetBalloons(gif) {
         var balloons = this.state.balloons.map(b => {
             b.popped = false;
             return b;
         });
-        this.setState({ displayGif: true });
+        if(gif) {
+            this.setState({ displayGif: true });
+        }
         this.setState({ balloons: balloons });
     }
 
@@ -839,13 +843,13 @@ const styles = StyleSheet.create({
         tintColor: 'white'
     },
     instagrambutton: {
-        width: 36,
-        height: 36,
+        width: (ipad) ? 54 : 36,
+        height: (ipad) ? 54 : 36,
         tintColor: 'white'
     },
     ibutton: {
-        width: 36,
-        height: 36,
+        width: (ipad) ? 54 : 36,
+        height: (ipad) ? 54 : 36,
         tintColor: 'white'
     },
     woman: {
