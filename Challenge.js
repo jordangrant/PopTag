@@ -258,7 +258,7 @@ export default class Challenge extends Component {
 
     SOT(uri) {
         shareOnTwitter({
-            'text': this.props.challenges[this.state.rand].description + " @poptagtv #PopTagChallenge #poptag 🎈",
+            'text': this.props.challenges[this.state.rand].description + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
             'image': uri,
         },
             (results) => {
@@ -372,7 +372,7 @@ export default class Challenge extends Component {
         if (Platform.OS === 'ios') {
             Share.open({
                 title: "PopTag",
-                message: question + " @poptagtv #poptag 🎈",
+                message: question + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
                 url: this.state.uri,
                 subject: "PopTag 🎈"
             })
@@ -385,7 +385,7 @@ export default class Challenge extends Component {
                     ReadImageData.readImage(uri, (imageBase64) => {
                         Share.open({
                             title: "PopTag",
-                            message: question + " @poptagtv #poptag 🎈",
+                            message: question + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
                             url: `data:image/png;base64,${imageBase64}`,
                             subject: "PopTag 🎈"
                         })
@@ -398,7 +398,7 @@ export default class Challenge extends Component {
                             RNFS.readFile(success.path, 'base64').then((imageBase64) => {
                                 Share.open({
                                     title: "PopTag",
-                                    message: question + " @poptagtv #poptag 🎈",
+                                    message: question + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
                                     url: `data:image/png;base64,${imageBase64}`,
                                     subject: "PopTag 🎈"
                                 })
@@ -530,7 +530,7 @@ export default class Challenge extends Component {
 
                         <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
                             title: "PopTag",
-                            message: question + " @poptagtv #poptag 🎈",
+                            message: question + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
                             url: this.state.uri,
                             subject: "PopTag 🎈"
                         })}>
@@ -547,7 +547,7 @@ export default class Challenge extends Component {
 
                         <TouchableOpacity onPress={() => Share.open({
                             title: "PopTag",
-                            message: question + " @poptagtv #poptag 🎈",
+                            message: question + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
                             url: this.state.uri,
                             subject: "PopTag 🎈"
                         })} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 4) - 14, height: 28, width: 28 }} activeOpacity={1}>

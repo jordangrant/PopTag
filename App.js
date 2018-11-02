@@ -647,7 +647,7 @@ export default class PopTag extends Component {
     }
 
     renderQuestion() {
-        return <Question submit={this.screenCapWithoutSave.bind(this)} endQuestion={() => this.endQuestion()}
+        return <Question submit={this.submitAnswer.bind(this)} endQuestion={() => this.endQuestion()}
             toggleLoading={() => this.toggleLoading()} successTweet={() => this.successTweet()}
             groups={this.state.groups} challenges={this.state.challenges} />
     }

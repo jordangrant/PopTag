@@ -139,7 +139,7 @@ export default class AB extends Component {
             global.screenshot = global.screenshot.replace("file://", "")
         }
         shareOnTwitter({
-            'text': this.props.challenges[crown1 ? this.state.rand : this.state.rand2].description + "👑 @poptagtv #poptag 🎈",
+            'text': this.props.challenges[crown1 ? this.state.rand : this.state.rand2].description + "👑 #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
             //'link': 'https://artboost.com/',
             //'imagelink': global.screenshot,
             //or use image
@@ -350,7 +350,7 @@ export default class AB extends Component {
 
                     <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
                         title: "PopTag",
-                        message: this.props.challenges[this.state.crown1 ? this.state.rand : this.state.rand2].description + "👑 @poptagtv #poptag 🎈",
+                        message: this.props.challenges[this.state.crown1 ? this.state.rand : this.state.rand2].description + "👑 #poptag 🎈",
                         url: global.screenshot,
                         subject: "PopTag 🎈"
                     })}>
@@ -367,7 +367,7 @@ export default class AB extends Component {
 
                     <TouchableOpacity onPress={() => Share.open({
                         title: "PopTag",
-                        message: this.props.challenges[this.state.crown1 ? this.state.rand : this.state.rand2].description + "👑 @poptagtv #poptag 🎈",
+                        message: this.props.challenges[this.state.crown1 ? this.state.rand : this.state.rand2].description + "👑 #poptag 🎈",
                         url: global.screenshot,
                         subject: "PopTag 🎈"
                     })} style={styles.right} activeOpacity={1}>

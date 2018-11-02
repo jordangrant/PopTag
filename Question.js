@@ -145,7 +145,7 @@ export default class Question extends Component {
             global.screenshot = global.screenshot.replace("file://", "")
         }
         shareOnTwitter({
-            'text': this.state.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
+            'text': this.state.challenges[this.state.rand].description + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
             //'link': 'https://artboost.com/',
             //'imagelink': global.screenshot,
             //or use image
@@ -173,7 +173,7 @@ export default class Question extends Component {
             global.screenshot = global.screenshot.replace("file://", "")
         }
         shareOnFacebook({
-            'text': "#poptag",
+            'text': "#poptag 🎈",
             //'link':'https://artboost.com/',
             //'imagelink':'https://artboost.com/apple-touch-icon-144x144.png',
             //or use image
@@ -214,7 +214,7 @@ export default class Question extends Component {
 
                 <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
                     title: "PopTag",
-                    message: this.state.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
+                    message: this.state.challenges[this.state.rand].description + " #poptag 🎈",
                     url: global.screenshot,
                     subject: "PopTag 🎈" })}>
                     <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
@@ -230,7 +230,7 @@ export default class Question extends Component {
 
                 <TouchableOpacity onPress={() => Share.open({
                     title: "PopTag",
-                    message: this.state.challenges[this.state.rand].description + " @poptagtv #poptag 🎈",
+                    message: this.state.challenges[this.state.rand].description + " #poptag 🎈",
                     url: global.screenshot,
                     subject: "PopTag 🎈" })}
                     style={styles.right} activeOpacity={1}>
