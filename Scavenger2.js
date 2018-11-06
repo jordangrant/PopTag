@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet, View, Image, Dimensions, TouchableOpacity,
-    Animated, AsyncStorage, Text, TextInput, Keyboard, Platform, FlatList,
+    StyleSheet, View, Image, Dimensions, TouchableOpacity, ScrollView,
+    Animated, AsyncStorage, Text, Platform, FlatList, Vibration,
     Linking, CameraRoll, ImageBackground, NativeModules, PermissionsAndroid
 } from 'react-native';
 import { shareOnFacebook, shareOnTwitter } from 'react-native-social-share';
@@ -15,21 +15,129 @@ import RNFS from 'react-native-fs';
 import ImageRotate from 'react-native-image-rotate';
 import ImageResizer from 'react-native-image-resizer';
 import Share from 'react-native-share';
+import Bubble from './Bubble';
+import RNThumbnail from 'react-native-thumbnail';
 
-var ReadImageData = NativeModules.ReadImageData;
+class MyListItem extends Component {
+    constructor(props) {
+        super(props);
 
-export default class Challenge extends Component {
+        this.state = {
+            uri: 'null'
+        };
+
+    }
+
+    componentWillMount() {
+        this.animatedValue = new Animated.Value(1);
+    }
+
+    componentDidUpdate() {
+        if (this.state.uri == 'null') {
+            const uri = this.props.bubble.media;
+
+            if (uri.indexOf('mov') !== -1 || uri.indexOf('MOV') !== -1) {
+                RNThumbnail.get(uri).then((result) => {
+                    this.setState({ uri: result.path });
+                    this.props.updateBubble(this.props.index, result.path);
+                })
+            }
+        }
+    }
+
+    handlePressIn() {
+        if (Platform.OS === 'ios') {
+            Animated.spring(this.animatedValue, {
+                toValue: 1.05
+            }).start()
+        }
+        else {
+            Animated.spring(this.animatedValue, {
+                toValue: 1.1
+            }).start()
+        }
+    }
+
+    handlePressOut() {
+        Animated.spring(this.animatedValue, {
+            toValue: 1,
+            friction: 5,
+            tension: 5
+        }).start()
+    }
+
+    render() {
+        const animatedStyle = {
+            transform: [{ scale: this.animatedValue }]
+        }
+
+        const uri = this.props.bubble.media;
+        const video = (uri.indexOf('mov') !== -1 || uri.indexOf('MOV') !== -1);
+        // var rotate = (Platform.OS === 'android' && uri.indexOf('mp4') == -1 && uri.indexOf('MP4') == -1 && uri.indexOf('assets-library') == -1);
+        // imageStyle={{ transform: [{ rotate: rotate ? '90deg' : '0deg' }, { scale: rotate ? 1.5 : 1 }] }}
+
+        return (
+            <TouchableOpacity activeOpacity={1}
+                onPressIn={this.handlePressIn.bind(this)}
+                onPress={() => this.props.press(this.props.index)}
+                onPressOut={this.handlePressOut.bind(this)}
+                onLongPress={() => this.props.longPress(this.props.index)}
+            >
+                <Animated.View style={[animatedStyle, this.props.bubble.state == 'default' ? styles.summarycontainerbottom : styles.scbblue]}>
+                    <ImageBackground source={{ uri: !this.props.bubble.state == 'completed' ? 'null' : video ? this.state.uri : this.props.bubble.media }}
+                        style={styles.cell}>
+
+                        {this.props.bubble.state == 'completed' ?
+                            <LinearGradient
+                                colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0)']}
+                                locations={[0, 0.5, 0.85, 1]}
+                                style={styles.linearGradient}>
+                            </LinearGradient>
+                            : null}
+
+                        <View style={styles.aligner}>
+                            <Text style={this.props.bubble.state == 'default' ? styles.cellText : styles.cellTextAlt}>
+                                {this.props.data.description}
+                            </Text>
+                        </View>
+
+                        {this.props.bubble.state !== 'default' ?
+                            <Image source={{ uri: 'check' }} style={styles.check} />
+                            : null}
+
+                    </ImageBackground>
+                </Animated.View>
+            </TouchableOpacity>
+        );
+    }
+}
+
+export default class Scavenger extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            bubbles: [
+                { id: 0, state: 'default', media: 'null' },
+                { id: 1, state: 'default', media: 'null' },
+                { id: 2, state: 'default', media: 'null' },
+                { id: 3, state: 'default', media: 'null' },
+                { id: 4, state: 'default', media: 'null' },
+                { id: 5, state: 'default', media: 'null' },
+                { id: 6, state: 'default', media: 'null' },
+                { id: 7, state: 'default', media: 'null' },
+                { id: 8, state: 'default', media: 'null' },
+            ],
             text: '',
             rand: 0,
             preview: false,
             spinner: false,
             camera: false,
-            uri: ''
+            dialogue: true,
+            uri: '',
+            cameraId: 0
         };
     }
+
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
@@ -39,7 +147,7 @@ export default class Challenge extends Component {
     handlePressIn() {
         if (Platform.OS === 'ios') {
             Animated.spring(this.animatedValue, {
-                toValue: 1.3
+                toValue: 1.2
             }).start()
         }
         else {
@@ -57,40 +165,23 @@ export default class Challenge extends Component {
         }).start();
     }
 
-    shuffle(array) {
-
-        var currentIndex = array.length, temporaryValue, randomIndex;
-
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
-            // And swap it with the current element.
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
-
-    }
-
     toggleCamera() {
         this.props.camera();
         this.setState({ camera: !this.state.camera });
+    }
+
+    toggleCamera(id) {
+        this.props.camera();
+        this.setState({ cameraId: id, camera: !this.state.camera });
     }
 
     togglePreview() {
         this.setState({ preview: !this.state.preview });
     }
 
-    previewTime(uri) {
+    previewTime(uri, cameraId) {
         this.setState({ uri: uri });
-        this.toggleCamera();
-        this.togglePreview();
+        this.toggleCamera(cameraId);
         if (uri.indexOf('mov') !== -1 || uri.indexOf('MOV') !== -1 || uri.indexOf('mp4') !== -1) {
             if (Platform.OS == 'ios') {
                 this.downloadVideo();
@@ -107,6 +198,50 @@ export default class Challenge extends Component {
                 this.requestExternalStoragePermission('photo');
             }
         }
+
+        const tempBubbles = this.state.bubbles;
+        const bubble = tempBubbles.filter(b => b.id === cameraId)[0];
+        const index = tempBubbles.indexOf(bubble);
+
+        bubble.media = uri;
+        bubble.state = 'completed';
+
+        tempBubbles[index] = bubble;
+        this.setState({ bubbles: tempBubbles });
+    }
+
+    press(id) {
+        this.toggleCamera(id);
+    }
+
+    longPress(id) {
+        const tempBubbles = this.state.bubbles;
+        const bubble = tempBubbles.filter(b => b.id === id)[0];
+        const index = tempBubbles.indexOf(bubble);
+
+        if (bubble.state == 'default') {
+            bubble.state = 'active';
+        }
+        else if (bubble.state == 'active') {
+            bubble.state = 'default';
+        }
+        else if (bubble.state == 'completed') {
+            alert("Already completed, long press to update media :)");
+        }
+
+        tempBubbles[index] = bubble;
+        this.setState({ bubbles: tempBubbles });
+    }
+
+    updateBubble(id, media) {
+        const tempBubbles = this.state.bubbles;
+        const bubble = tempBubbles.filter(b => b.id === id)[0];
+        const index = tempBubbles.indexOf(bubble);
+
+        bubble.media = media;
+
+        tempBubbles[index] = bubble;
+        this.setState({ bubbles: tempBubbles });
     }
 
     async requestExternalStoragePermission(type) {
@@ -155,7 +290,7 @@ export default class Challenge extends Component {
             }
             else {
                 ImageResizer.createResizedImage(uri, 1920, 1080, 'JPEG', 100,
-                    0, `${RNFS.DocumentDirectoryPath}`)
+                    90, `${RNFS.DocumentDirectoryPath}`)
                     .then((success) => {
                         RNFS.readFile(success.path, 'base64').then((imageBase64) => {
                             RNInstagramStoryShare.share({
@@ -258,7 +393,7 @@ export default class Challenge extends Component {
 
     SOT(uri) {
         shareOnTwitter({
-            'text': this.props.challenges[this.state.rand].description + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
+            'text': this.props.challenges[this.state.rand].description + " @poptagtv #PopTagChallenge #poptag 🎈",
             'image': uri,
         },
             (results) => {
@@ -323,27 +458,12 @@ export default class Challenge extends Component {
         }
         else if (uri.indexOf('file') !== -1) {
             uri = uri.replace("file://", "");
-
-            // SIMULATOR WAS RENDERING THINGS SIDEWAYS
-            // if (Platform.OS === 'android') {
-            //     ImageResizer.createResizedImage(uri, 1920, 1080, 'JPEG', 100,
-            //         90, `${RNFS.DocumentDirectoryPath}`)
-            //         .then((success) => {
-            //             CameraRoll.saveToCameraRoll(success.path)
-            //                 .then((newUri) => {
-            //                     if (typeof newUri !== 'undefined') {
-            //                         this.props.successCameraRoll();
-            //                     }
-            //                 })
-            //         })
-            // } else {
-                CameraRoll.saveToCameraRoll(uri)
-                    .then((newUri) => {
-                        if (typeof newUri !== 'undefined') {
-                            this.props.successCameraRoll();
-                        }
-                    })
-            //}
+            CameraRoll.saveToCameraRoll(uri)
+                .then((newUri) => {
+                    if (typeof newUri !== 'undefined') {
+                        this.props.successCameraRoll();
+                    }
+                })
         }
     }
 
@@ -387,7 +507,7 @@ export default class Challenge extends Component {
         if (Platform.OS === 'ios') {
             Share.open({
                 title: "PopTag",
-                message: question + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
+                message: question + " @poptagtv #poptag 🎈",
                 url: this.state.uri,
                 subject: "PopTag 🎈"
             })
@@ -400,7 +520,7 @@ export default class Challenge extends Component {
                     ReadImageData.readImage(uri, (imageBase64) => {
                         Share.open({
                             title: "PopTag",
-                            message: question + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
+                            message: question + " @poptagtv #poptag 🎈",
                             url: `data:image/png;base64,${imageBase64}`,
                             subject: "PopTag 🎈"
                         })
@@ -408,12 +528,12 @@ export default class Challenge extends Component {
                 }
                 else {
                     ImageResizer.createResizedImage(uri, 1920, 1080, 'JPEG', 100,
-                        0, `${RNFS.DocumentDirectoryPath}`)
+                        90, `${RNFS.DocumentDirectoryPath}`)
                         .then((success) => {
                             RNFS.readFile(success.path, 'base64').then((imageBase64) => {
                                 Share.open({
                                     title: "PopTag",
-                                    message: question + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
+                                    message: question + " @poptagtv #poptag 🎈",
                                     url: `data:image/png;base64,${imageBase64}`,
                                     subject: "PopTag 🎈"
                                 })
@@ -424,8 +544,27 @@ export default class Challenge extends Component {
         }
     }
 
-    renderChallenge(animatedStyle) {
-        var question = this.props.challenges[this.state.rand].description;
+    start() {
+        this.props.toggleDeepScavenger();
+    }
+
+    _renderFooter = ({ item }) => (
+        <View style={{ height: 20 }} />
+    );
+
+    _renderItem = ({ item, index }) => (
+        <MyListItem
+            data={item}
+            index={index}
+            bubble={this.state.bubbles[index]}
+            press={this.press.bind(this)}
+            longPress={this.longPress.bind(this)}
+            updateBubble={(id, media) => this.updateBubble(id, media)}
+        />
+    );
+
+    renderDialogue(animatedStyle) {
+        var name = this.props.groups.find(item => item.id === global.custom).name;
 
         return (
             <TouchableOpacity activeOpacity={1}
@@ -434,12 +573,11 @@ export default class Challenge extends Component {
                 onPressOut={this.handlePressOut.bind(this)}>
                 <Animated.View style={animatedStyle}>
                     <View style={styles.container}>
-                        <Image source={{ uri: 'trophy' }} style={styles.trophy} />
-                        <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.031 : question.length > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042 }]}
-                            numberOfLines={4}>{question}</Text>
+                        <Text style={[styles.mainText]}>
+                            Welcome to the {name} scavenger hunt! Tap an item to take a picture or video. Long press to simply mark as completed.</Text>
                     </View>
 
-                    <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.toggleCamera()}>
+                    <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.start()}>
                         <Text style={styles.send}>Let's do it!</Text>
                     </TouchableOpacity>
 
@@ -448,132 +586,50 @@ export default class Challenge extends Component {
         )
     }
 
+
+    renderChallenge(animatedStyle) {
+        return (
+            <View style={styles.boundingBubbleBox}>
+
+                <FlatList
+                    data={this.props.challenges.slice(0, 9)}
+                    renderItem={this._renderItem}
+                    scrollEnabled
+                    showsVerticalScrollIndicator={false}
+                    ListFooterComponent={this._renderFooter}
+                    showsHorizontalScrollIndicator={false}
+                    numColumns={2}
+                    extraData={this.state}
+                />
+
+            </View>
+        )
+    }
+
     renderCamera() {
         return (
-            <Camera toggleCamera={() => this.toggleCamera()} previewTime={(b) => this.previewTime(b)} />
+            <Camera cameraId={this.state.cameraId} toggleCamera={() => this.toggleCamera()}
+                previewTime={(b, a) => this.previewTime(b, a)} />
         )
     }
 
     renderPreview(animatedStyle) {
 
-        var twee = this.state.uri.indexOf('mov') == -1 && this.state.uri.indexOf('MOV') == -1 && this.state.uri.indexOf('mp4') == -1;
-        var question = this.props.challenges[this.state.rand].description;
-        var rotate = (Platform.OS === 'android') && twee && this.state.uri.indexOf('assets-library') == -1; //simulator only: imageStyle={{ transform: [{ rotate: rotate ? '90deg' : '0deg' }] }}
-
         return (
-            twee ?
-                <TouchableOpacity activeOpacity={1}
-                    onPressIn={this.handlePressIn.bind(this)}
-                    onPressOut={this.handlePressOut.bind(this)}>
-                    <Animated.View style={[animatedStyle, {
-                        width: Dimensions.get('window').width,
-                        height: Dimensions.get('window').height * 0.7, paddingTop: Dimensions.get('window').height * 0.1
-                    }]}>
-
-                        <View style={styles.summarycontainertop}>
-                            <ImageBackground source={{ uri: this.state.uri }} style={[styles.cell]}>
-                                <LinearGradient
-                                    colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.6)']}
-                                    locations={[0, 0.5, 0.7, 1]}
-                                    style={styles.linearGradient}>
-                                    <View style={styles.aligner}>
-                                        <Text style={styles.summaryText} numberOfLines={2}>{question}</Text>
-                                    </View>
-                                </LinearGradient>
-                            </ImageBackground>
-                        </View>
-
-                        <View style={styles.blue2}>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
-                                <Image source={{ uri: 'blank' }} style={styles.instablock} />
-                            </TouchableOpacity>
-
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.insta()}>
-                                <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
-                            </TouchableOpacity>
-
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.shareOpenController(twee)}>
-                                <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => this.tweet()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                                <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => this.insta()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                                <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => this.shareOpenController(twee)} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                                <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                            </TouchableOpacity>
-                        </View>
-
-                    </Animated.View>
+            <View>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.goToLayout()}>
+                    <Image source={{ uri: 'layout' }} style={styles.layouticon} />
                 </TouchableOpacity>
-                :
-                <View style={{
-                    width: Dimensions.get('window').width,
-                    height: Dimensions.get('window').height * 0.7, paddingTop: Dimensions.get('window').height * 0.1
-                }}>
 
-                    <View style={styles.summarycontainertop}>
-                        <Video source={{ uri: this.state.uri }}
-                            style={[styles.backgroundVideo]}
-                            useTextureView={true}
-                            repeat
-                            resizeMode={'cover'}
-                            ignoreSilentSwitch={"obey"}
-                            controls={false}
-                        >
-                            <LinearGradient
-                                colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.7)']}
-                                locations={[0, 0.5, 0.7, 1]}
-                                style={styles.linearGradient}>
-                                <View style={styles.aligner}>
-                                    <Text style={styles.summaryText} numberOfLines={2}>{question}</Text>
-                                </View>
-                            </LinearGradient>
-                        </Video>
-                    </View>
+                <TouchableOpacity activeOpacity={1} style={styles.nextButton} onPress={() => this.goToLayout()}>
+                    <Text style={styles.nextText}>Create Layout</Text>
+                </TouchableOpacity>
 
-                    <View style={styles.blue2}>
-                        {/* <TouchableOpacity activeOpacity={1} onPress={() => this.shareVideoController('twitter')}>
-                            <Image source={{ uri: 'blank' }} style={styles.instablock} />
-                        </TouchableOpacity> */}
+                <TouchableOpacity activeOpacity={1} style={[styles.nextButton, { backgroundColor: '#4A4A4A' }]} onPress={() => this.togglePreview()}>
+                    <Text style={styles.nextText}>Go Back</Text>
+                </TouchableOpacity>
 
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.shareVideoController('instagram')}>
-                            <Image source={{ uri: 'instagramgradient' }} style={styles.instablock2} />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
-                            title: "PopTag",
-                            message: question + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
-                            url: this.state.uri,
-                            subject: "PopTag 🎈"
-                        })}>
-                            <View style={[styles.instablock2, { backgroundColor: '#3B5998' }]} />
-                        </TouchableOpacity>
-
-                        {/* <TouchableOpacity onPress={() => this.shareVideoController('twitter')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                            <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                        </TouchableOpacity> */}
-
-                        <TouchableOpacity onPress={() => this.shareVideoController('instagram')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 4) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                            <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={() => Share.open({
-                            title: "PopTag",
-                            message: question + " #poptag #" + this.props.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " 🎈",
-                            url: this.state.uri,
-                            subject: "PopTag 🎈"
-                        })} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 4) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                            <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                        </TouchableOpacity>
-                    </View>
-
-                </View>
+            </View>
 
         )
     }
@@ -585,7 +641,8 @@ export default class Challenge extends Component {
         };
 
         return (
-            this.state.camera ? this.renderCamera() : !this.state.preview ? this.renderChallenge(animatedStyle) : this.renderPreview(animatedStyle)
+            this.state.camera ? this.renderCamera() : !this.props.deepScavenger ? this.renderDialogue() :
+                this.state.preview ? this.renderPreview(animatedStyle) : this.renderChallenge(animatedStyle)
         );
     }
 }
@@ -621,28 +678,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         overflow: 'hidden'
     },
-    summarycontainerbottom: {
-        borderRadius: 13,
-        width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').width * 0.25,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        alignContent: 'center',
-        alignSelf: 'center',
-        justifyContent: 'center',
-        padding: 20,
-        marginRight: Dimensions.get('window').width * 0.05,
-    },
     container: {
         borderTopLeftRadius: 13,
         borderTopRightRadius: 13,
         width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').width * 0.88 * 0.47,
+        height: Dimensions.get('window').width * 0.88 * 0.4,
         backgroundColor: 'white',
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
-        padding: 20,
+        paddingHorizontal: 20,
         marginBottom: Dimensions.get('window').height * 0.13,
         // shadowColor: 'black',
         // shadowOffset: { width: 0, height: 2 },
@@ -651,7 +696,7 @@ const styles = StyleSheet.create({
     },
     blue: {
         position: 'absolute',
-        top: Dimensions.get('window').width * 0.88 * 0.47 - (Dimensions.get('window').width * 0.88 * 0.15 * 0.13),
+        top: Dimensions.get('window').width * 0.88 * 0.4 - (Dimensions.get('window').width * 0.88 * 0.15 * 0.13),
         borderBottomLeftRadius: 13,
         borderBottomRightRadius: 13,
         width: Dimensions.get('window').width * 0.8,
@@ -713,13 +758,6 @@ const styles = StyleSheet.create({
         fontSize: Dimensions.get('window').width * 0.04,
         textAlign: 'center',
     },
-    summaryText: {
-        color: 'white',
-        backgroundColor: 'transparent',
-        fontWeight: '600',
-        fontSize: Dimensions.get('window').width * 0.042,
-        marginVertical: Platform.OS === 'android' ? 20 : 10,
-    },
     summarySectionTitle: {
         color: 'black',
         fontWeight: '600',
@@ -742,36 +780,106 @@ const styles = StyleSheet.create({
         width: 31,
         tintColor: '#FFD700'
     },
-    cell: {
-        width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').width * 0.8 * 1.15,
-        resizeMode: 'cover',
-        justifyContent: 'flex-end'
-    },
-    linearGradient: {
-        height: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 : Dimensions.get('window').width * 0.8 * 1.15,
-        paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
-        paddingBottom: Dimensions.get('window').width * 0.43733 * 0.08,
-        justifyContent: 'flex-end',
-    },
-    aligner: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        alignContent: 'center'
-    },
     backgroundVideo: {
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.8 * 1.15,
         justifyContent: 'flex-start',
-        //transform: [{ rotate: Platform.OS === 'android' ? '90deg' : '0deg' }] - SIMULATOR ONLY
     },
     instablock: {
         width: Dimensions.get('window').width * 0.8 / 3,
         height: Dimensions.get('window').width * 0.88 * 0.15,
     },
-    instablock2: {
-        width: Dimensions.get('window').width * 0.8 / 2,
-        height: Dimensions.get('window').width * 0.88 * 0.15,
+    nextButton: {
+        borderRadius: 13,
+        width: Dimensions.get('window').width * 0.872,
+        height: Dimensions.get('window').width * 0.872 * 0.15,
+        marginTop: 20,
+        backgroundColor: '#4A90E2',
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center'
+    },
+    nextText: {
+        color: 'white',
+        fontWeight: '600',
+        fontSize: Dimensions.get('window').width * 0.049,
+    },
+    boundingBubbleBox: {
+        width: Dimensions.get('window').width,
+        alignItems: 'center',
+        marginTop: Dimensions.get('window').height * 0.17,
+        marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height * 0.11 : Dimensions.get('window').height * 0.14,
+    },
+    layouticon: {
+        alignSelf: 'center',
+        height: Dimensions.get('window').height * 0.2,
+        width: Dimensions.get('window').height * 0.2,
+    },
+    linearGradient: {
+        position: 'absolute',
+        height: Dimensions.get('window').width * 0.43733 * 0.829268,
+        justifyContent: 'flex-end',
+        width: Dimensions.get('window').width * 0.43733,
+        paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
+        paddingBottom: Dimensions.get('window').width * 0.43733 * 0.08,
+    },
+    summarycontainerbottom: {
+        borderRadius: 13,
+        //borderWidth: 0.25,
+        //borderColor: 'black',
+        width: Dimensions.get('window').width * 0.43733,
+        height: Dimensions.get('window').width * 0.43733 * 0.86585,
+        marginVertical: 6,
+        marginHorizontal: 6,
+        backgroundColor: 'rgba(255,255,255,0.54)',
+        overflow: 'hidden'
+    },
+    scbblue: {
+        borderRadius: 13,
+        //borderWidth: 0.25,
+        //borderColor: 'black',
+        width: Dimensions.get('window').width * 0.43733,
+        height: Dimensions.get('window').width * 0.43733 * 0.86585,
+        marginVertical: 6,
+        marginHorizontal: 6,
+        backgroundColor: '#4A90E2',
+        overflow: 'hidden'
+    },
+    cellText: {
+        flex: 1,
+        flexWrap: 'wrap',
+        color: 'black',
+        fontWeight: '600',
+        fontSize: Dimensions.get('window').width * 0.04,
+        backgroundColor: 'transparent'
+    },
+    cellTextAlt: {
+        flex: 1,
+        flexWrap: 'wrap',
+        color: 'white',
+        fontWeight: '600',
+        fontSize: Dimensions.get('window').width * 0.04,
+        backgroundColor: 'transparent'
+    },
+    cell: {
+        width: Dimensions.get('window').width * 0.43733,
+        height: Dimensions.get('window').width * 0.43733 * 0.86585,
+        resizeMode: 'cover',
+    },
+    aligner: {
+        paddingLeft: Dimensions.get('window').width * 0.43733 * 0.0915,
+        paddingVertical: Dimensions.get('window').width * 0.43733 * 0.0915,
+        paddingRight: Dimensions.get('window').width * 0.43733 * 0.15,
+        width: Dimensions.get('window').width * 0.43733,
+        height: Dimensions.get('window').width * 0.43733 * 0.86585,
+    },
+    check: {
+        height: Dimensions.get('window').width * 0.43733 * 0.2,
+        width: Dimensions.get('window').width * 0.43733 * 0.2,
+        tintColor: '#FFD700',
+        position: 'absolute',
+        right: 8,
+        bottom: 8,
     }
 });

@@ -3,6 +3,7 @@ package com.poptag;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import me.hauvo.thumbnail.RNThumbnailPackage;
 import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
@@ -39,6 +40,7 @@ public class MainApplication extends Application implements ShareApplication, Re
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNThumbnailPackage(),
             new RNSharePackage(),
             new ImageResizerPackage(),
             new ImageRotatePackage(),

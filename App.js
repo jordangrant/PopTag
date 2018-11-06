@@ -19,10 +19,12 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 import { colors } from './colors';
 import AB from './AB';
 import Spinner from 'react-native-loading-spinner-overlay';
-import Scavenger from './Scavenger';
+import Scavenger from './Scavenger2';
+import Share from 'react-native-share';
 
 //const width = Dimensions.get('window').width * 0.264;
 const width = Dimensions.get('window').width * 0.43733;
+const widthScavenger = Dimensions.get('window').width * 0.35467;
 //const height = width * 0.5656;
 const height = width * 0.34146;
 const ipad = (Dimensions.get('window').height > 1020);
@@ -394,6 +396,21 @@ export default class PopTag extends Component {
         }
     }
 
+    goToLayout() {
+        Linking.canOpenURL('instagram-layout://app').then(supported => {
+            if (!supported) {
+                if (Platform.OS === 'android') {
+                    Linking.openURL('https://play.google.com/store/apps/details?id=com.instagram.layout');
+                }
+                else {
+                    Linking.openURL('itms-apps://itunes.apple.com/us/app/layout-from-instagram/id967351793?mt=8');
+                }
+            } else {
+                return Linking.openURL('instagram-layout://app');
+            }
+        }).catch(err => console.error('An error occurred', err));
+    }
+
     changeCustom(custom) {
         this.refs.toast.show('Loading...')
         this.updateChallenges(custom).then((res) => {
@@ -462,7 +479,7 @@ export default class PopTag extends Component {
             b.popped = false;
             return b;
         });
-        if(gif) {
+        if (gif) {
             this.setState({ displayGif: true });
         }
         this.setState({ balloons: balloons });
@@ -548,6 +565,38 @@ export default class PopTag extends Component {
         }
     }
 
+    screenCapAndShare() {
+        if (Platform.OS === 'android') {
+
+            setTimeout(() =>
+                captureScreen({
+                    format: "jpg",
+                    quality: 1
+                })
+                    .then(uri => {
+                        Share.open({
+                            title: "PopTag",
+                            message: this.state.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " Scavenger Hunt #poptag🎈",
+                            url: uri,
+                            subject: "PopTag 🎈"
+                        })
+                    }));
+        }
+        else {
+            captureScreen({
+                format: "jpg",
+                quality: 1
+            })
+                .then(uri => {
+                    Share.open({
+                        title: "PopTag",
+                        message: this.state.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " Scavenger Hunt #poptag🎈",
+                        url: uri,
+                        subject: "PopTag 🎈"
+                    })
+                })
+        }
+    }
 
     endQuestion() {
         this.setState({ displayQuestion: false, displayChallenge: false, displayAB: false, displayScavenger: false })
@@ -729,7 +778,11 @@ export default class PopTag extends Component {
                         : null} */}
 
                         {!this.state.dialogue && !this.state.camera ?
-                            <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.toggleDialogue()}>
+                            <TouchableOpacity activeOpacity={1} style={[styles.button1, {
+                                bottom: this.state.bottomHeight,
+                                width: this.state.displayScavenger ? widthScavenger : width
+                            }]}
+                                onPress={() => this.toggleDialogue()}>
                                 <Image style={styles.ibutton} source={{
                                     uri: this.state.displayQuestion || this.state.displayGif || this.state.displayScavenger ||
                                         this.state.displayChallenge || this.state.displayAB ? 'home' : 'palette'
@@ -737,11 +790,32 @@ export default class PopTag extends Component {
                             </TouchableOpacity>
                             : null}
 
-                        {!this.state.dialogue && !this.state.camera ?
-                            <TouchableOpacity activeOpacity={1} style={[styles.button3, { bottom: this.state.bottomHeight }]} onPress={() => this.navigateToInstagram()}>
+                        {!this.state.dialogue && !this.state.camera && !this.state.displayScavenger ?
+                            <TouchableOpacity activeOpacity={1} style={[styles.button3, {
+                                bottom: this.state.bottomHeight,
+                                width: this.state.displayScavenger ? widthScavenger : width
+                            }]}
+                                onPress={() => this.navigateToInstagram()}>
                                 <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
                             </TouchableOpacity>
                             : null}
+
+                        {!this.state.dialogue && !this.state.camera && this.state.displayScavenger ?
+                            <TouchableOpacity activeOpacity={1} style={[styles.button3, {
+                                bottom: this.state.bottomHeight,
+                                width: this.state.displayScavenger ? widthScavenger : width
+                            }]}
+                                onPress={() => this.screenCapAndShare()}>
+                                <Image style={styles.instagrambutton} source={{ uri: 'share' }} />
+                            </TouchableOpacity>
+                            : null}
+
+                        {this.state.displayScavenger && !this.state.dialogue && !this.state.camera ?
+                            <TouchableOpacity activeOpacity={1} style={[styles.layoutbutton, { bottom: this.state.bottomHeight }]} onPress={() => this.goToLayout()}>
+                                <Image style={styles.layouticon} source={{ uri: 'layout' }} />
+                            </TouchableOpacity>
+                            :
+                            null}
 
                     </View>
                 }
@@ -858,6 +932,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height
+    },
+    layoutbutton: {
+        position: 'absolute',
+        alignSelf: 'center',
+        bottom: 20,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+    },
+    layouticon: {
+        height: height,
+        width: height,
     }
 });
 

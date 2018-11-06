@@ -101,8 +101,8 @@ android {
         applicationId "com.poptag"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 14
-        versionName "8.9"
+        versionCode 18
+        versionName "9.1"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
         ndk {
@@ -153,6 +153,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-thumbnail')
     compile project(':react-native-share')
     compile project(':react-native-image-resizer')
     compile project(':react-native-image-rotate')

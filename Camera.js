@@ -167,7 +167,7 @@ export default class Camera extends Component {
       const options = Platform.OS === 'ios' ? { quality: 1, base64: true, forceUpOrientation: true }
                                               : { quality: 1, base64: true, fixOrientation: true }
       const data = await this.camera.takePictureAsync(options)
-      this.props.previewTime(data.uri);
+      this.props.previewTime(data.uri, this.props.cameraId);
     }
   };
 
@@ -182,7 +182,7 @@ export default class Camera extends Component {
           this.setState({ isRecording: true });
           const data = await promise;
           this.setState({ isRecording: false });
-          this.props.previewTime(data.uri);
+          this.props.previewTime(data.uri, this.props.cameraId);
         }
       } catch (e) {
         console.warn(e);
