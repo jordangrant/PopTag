@@ -861,6 +861,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: width,
         height: height,
+        maxHeight: 100
     },
     button2: {
         position: 'absolute',
@@ -876,6 +877,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: width,
         height: height,
+        maxHeight: 100
     },
     button3: {
         position: 'absolute',
@@ -891,6 +893,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: width,
         height: height,
+        maxHeight: 100
     },
     header: {
         //width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462

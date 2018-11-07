@@ -18,6 +18,8 @@ import Share from 'react-native-share';
 import Bubble from './Bubble';
 import RNThumbnail from 'react-native-thumbnail';
 
+const ipad = (Dimensions.get('window').height > 1020);
+
 class MyListItem extends Component {
     constructor(props) {
         super(props);
@@ -96,7 +98,8 @@ class MyListItem extends Component {
                             : null}
 
                         <View style={styles.aligner}>
-                            <Text style={this.props.bubble.state == 'default' ? styles.cellText : styles.cellTextAlt}>
+                            <Text style={[this.props.bubble.state == 'default' ? styles.cellText : styles.cellTextAlt,
+                        {fontSize: this.props.data.description.length > 90 ? Dimensions.get('window').width * 0.035 : Dimensions.get('window').width * 0.04}]}>
                                 {this.props.data.description}
                             </Text>
                         </View>
@@ -809,7 +812,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         alignItems: 'center',
         marginTop: Dimensions.get('window').height * 0.17,
-        marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height * 0.11 : Dimensions.get('window').height * 0.14,
+        marginBottom: (Platform.OS === 'android' || ipad) ? Dimensions.get('window').height * 0.145 : Dimensions.get('window').height * 0.11,
     },
     layouticon: {
         alignSelf: 'center',
@@ -851,7 +854,6 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         color: 'black',
         fontWeight: '600',
-        fontSize: Dimensions.get('window').width * 0.04,
         backgroundColor: 'transparent'
     },
     cellTextAlt: {
@@ -859,7 +861,6 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         color: 'white',
         fontWeight: '600',
-        fontSize: Dimensions.get('window').width * 0.04,
         backgroundColor: 'transparent'
     },
     cell: {
