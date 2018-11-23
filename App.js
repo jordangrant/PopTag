@@ -98,7 +98,7 @@ export default class PopTag extends Component {
             filter: 'none',
             token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDIyMzE4MDYsImV4cCI6MTU0NDgyMzgwNiwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.Xd-kotJx2H8WRKlUiDhCf8wMlv_cEFXYhqXrPE6gNdQc97HQDSPEVZLI9iJGjPUdhxd0knBCHyPo63j9DBQRUApOeVVIqhR3BVB-rOLXnn4kFCnAlI_cWx-Fw7KlFmtUMfIrLLYeN0k9qS1waqOAFptCyBMvMcYJhObFQdo_4OaQMvjmhJKiAjvK69vSYgNOMDEhS-vPkVDk-fGmjmieaaaJqxKBvC664L5zwqwuF-V94LXZ0ZIe_S1pcvWRHvOeMSbM9aT4Blxm3pxm3TxUcooLVdf5EMyc_oQtbHbjMut_FoSXcsgExeUAZEr9aIwMcxGV-wfcUJBOTHxcj15QJw',
             groups: [
-                { id: 68, name: 'PopTag', description: "[\"questions\", \"blue\", \"null\", \"null\", \"null\", \"null\"]", image: {} },
+                { id: 68, name: 'PopTag', description: "[\"questions\", \"#F4FA58\", \"null\", \"null\", \"null\", \"null\"]", image: {} },
             ],
             challenges: []
         };
@@ -184,8 +184,10 @@ export default class PopTag extends Component {
                     global.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDIyMzE4MDYsImV4cCI6MTU0NDgyMzgwNiwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.Xd-kotJx2H8WRKlUiDhCf8wMlv_cEFXYhqXrPE6gNdQc97HQDSPEVZLI9iJGjPUdhxd0knBCHyPo63j9DBQRUApOeVVIqhR3BVB-rOLXnn4kFCnAlI_cWx-Fw7KlFmtUMfIrLLYeN0k9qS1waqOAFptCyBMvMcYJhObFQdo_4OaQMvjmhJKiAjvK69vSYgNOMDEhS-vPkVDk-fGmjmieaaaJqxKBvC664L5zwqwuF-V94LXZ0ZIe_S1pcvWRHvOeMSbM9aT4Blxm3pxm3TxUcooLVdf5EMyc_oQtbHbjMut_FoSXcsgExeUAZEr9aIwMcxGV-wfcUJBOTHxcj15QJw';
                 }
                 this.getGroups().then((groups) => {
-                    AsyncStorage.setItem('groups', JSON.stringify(groups));
-                    this.setState({ groups: groups });
+                    if (groups !== false) {
+                        AsyncStorage.setItem('groups', JSON.stringify(groups));
+                        this.setState({ groups: groups });
+                    }
                 })
             }
         })
@@ -288,7 +290,7 @@ export default class PopTag extends Component {
         return new Promise(async (resolve, reject) => {
             try {
                 this.getChallenges(custom).then((challenges) => {
-                    if (challenges) {
+                    if (challenges !== false) {
                         AsyncStorage.setItem('challenges', JSON.stringify(challenges));
                         this.setState({ challenges: challenges });
                         console.log('Challenges fetched and loaded.')
@@ -388,24 +390,24 @@ export default class PopTag extends Component {
     }
 
     navigateToInstagram(page) {
-            if(page){
-                Linking.canOpenURL(`instagram://user?username=${page}`).then(supported => {
-                    if (!supported) {
+        if (page) {
+            Linking.canOpenURL(`instagram://user?username=${page}`).then(supported => {
+                if (!supported) {
                     Linking.openURL(`https://www.instagram.com/${page}`)
-                    } else {
+                } else {
                     Linking.openURL(`instagram://user?username=${page}`)
-                    }
-                })
-            }
-            else {
-                Linking.canOpenURL('instagram://user?username=poptagtv').then(supported => {
-                    if (!supported) {
+                }
+            })
+        }
+        else {
+            Linking.canOpenURL('instagram://user?username=poptagtv').then(supported => {
+                if (!supported) {
                     Linking.openURL('https://www.instagram.com/poptagtv')
-                    } else {
+                } else {
                     Linking.openURL('instagram://user?username=poptagtv')
-                    }
-                })
-            }
+                }
+            })
+        }
     }
 
     goToLayout() {
