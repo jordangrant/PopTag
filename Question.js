@@ -13,6 +13,7 @@ import DEFAULT from './groups.json';
 import Share from 'react-native-share';
 
 const ipad = (Dimensions.get('window').height > 1020);
+const iphonex = (Platform.OS === 'ios' && Dimensions.get('window').height > 800 && Dimensions.get('window').height < 1020);
 
 export default class Question extends Component {
     constructor(props) {
@@ -246,6 +247,7 @@ export default class Question extends Component {
 
     renderQuestion(animatedStyle) {
         var question = this.state.challenges[this.state.rand].description;
+        var qlength = question.length;
 
         return (
             <TouchableOpacity activeOpacity={1}
@@ -255,7 +257,7 @@ export default class Question extends Component {
                 onPressOut={this.handlePressOut.bind(this)}>
                 <Animated.View style={animatedStyle}>
                     <View style={this.state.text !== '' ? styles.container2 : styles.container}>
-                        <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.031 : question.length > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042 }]}
+                        <Text style={[styles.mainText, { fontSize: qlength > 140 ? Dimensions.get('window').width * 0.031 : qlength > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042 }]}
                             numberOfLines={5}>{question}</Text>
 
                         <View style={styles.inputcontainer}>
@@ -338,30 +340,30 @@ export default class Question extends Component {
 
 const styles = StyleSheet.create({
     icon: {
-        height: (ipad) ? 38 : 28,
-        width: (ipad) ? 38 : 28,
+        height: (ipad) ? 52 : 28,
+        width: (ipad) ? 52 : 28,
         tintColor: 'white'
     },
     left: {
         position: 'absolute',
-        left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14,
-        height: (ipad) ? 38 : 28,
-        width: (ipad) ? 38 : 28,
+        left: (ipad) ? Dimensions.get('window').width * 0.8 * (1 / 6) - 26 : Dimensions.get('window').width * 0.8 * (1 / 6) - 14,
+        height: (ipad) ? 52 : 28,
+        width: (ipad) ? 52 : 28,
     },
     middle: {
         position: 'absolute',
-        left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14,
-        height: (ipad) ? 38 : 28,
-        width: (ipad) ? 38 : 28,
+        left: (ipad) ? Dimensions.get('window').width * 0.8 * (3 / 6) - 26 : Dimensions.get('window').width * 0.8 * (3 / 6) - 14,
+        height: (ipad) ? 52 : 28,
+        width: (ipad) ? 52 : 28,
     },
     right: {
         position: 'absolute',
-        left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14,
-        height: (ipad) ? 38 : 28,
-        width: (ipad) ? 38 : 28,
+        left: (ipad) ? Dimensions.get('window').width * 0.8 * (5 / 6) - 26 : Dimensions.get('window').width * 0.8 * (5 / 6) - 14,
+        height: (ipad) ? 52 : 28,
+        width: (ipad) ? 52 : 28,
     },
     summaryquestion: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.25,
         backgroundColor: 'white',
@@ -377,8 +379,8 @@ const styles = StyleSheet.create({
         // shadowRadius: 4,
     },
     summarycontainertop: {
-        borderTopLeftRadius: 13,
-        borderTopRightRadius: 13,
+        borderTopLeftRadius: (ipad) ? 26 : 13,
+        borderTopRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.38,
         // backgroundColor: '#4A90E2',
@@ -393,7 +395,7 @@ const styles = StyleSheet.create({
         marginRight: Dimensions.get('window').width * 0.05,
     },
     summarycontainerbottom: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.25,
         backgroundColor: 'white',
@@ -405,14 +407,14 @@ const styles = StyleSheet.create({
         marginRight: Dimensions.get('window').width * 0.05,
     },
     container: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.52,
         backgroundColor: 'white',
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
-        padding: 20,
+        padding: (ipad) ? 40 : 20,
         marginBottom: Dimensions.get('window').height * 0.23,
         // shadowColor: 'black',
         // shadowOffset: { width: 0, height: 2 },
@@ -420,15 +422,15 @@ const styles = StyleSheet.create({
         // shadowRadius: 4,
     },
     container2: {
-        borderTopLeftRadius: 13,
-        borderTopRightRadius: 13,
+        borderTopLeftRadius: (ipad) ? 26 : 13,
+        borderTopRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.52,
         backgroundColor: 'white',
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
-        padding: 20,
+        padding: (ipad) ? 40 : 20,
         marginBottom: Dimensions.get('window').height * 0.23,
         // shadowColor: 'black',
         // shadowOffset: { width: 0, height: 2 },
@@ -438,8 +440,8 @@ const styles = StyleSheet.create({
     blue: {
         position: 'absolute',
         top: Dimensions.get('window').width * 0.88 * 0.52 - (Dimensions.get('window').width * 0.88 * 0.15 * 0.13),
-        borderBottomLeftRadius: 13,
-        borderBottomRightRadius: 13,
+        borderBottomLeftRadius: (ipad) ? 26 : 13,
+        borderBottomRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.15,
         backgroundColor: '#4A90E2',
@@ -454,8 +456,8 @@ const styles = StyleSheet.create({
     blue2: {
         position: 'absolute',
         top: Dimensions.get('window').width * 0.33,
-        borderBottomLeftRadius: 13,
-        borderBottomRightRadius: 13,
+        borderBottomLeftRadius: (ipad) ? 26 : 13,
+        borderBottomRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.15,
         backgroundColor: '#4A90E2',
@@ -466,7 +468,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     inputcontainer: {
-        borderRadius: 7,
+        borderRadius: (ipad) ? 14 : 7,
         backgroundColor: '#D8D8D8',
         width: Dimensions.get('window').width * 0.75 * 0.88888,
         height: Dimensions.get('window').width * 0.88 * 0.88888 * 0.19758,
@@ -479,7 +481,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontWeight: '600',
         textAlign: 'center',
-        marginVertical: 11
+        marginVertical: 11,
     },
     subtext: {
         color: '#4A4A4A',

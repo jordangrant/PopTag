@@ -4,6 +4,9 @@ import {
     Animated, Platform, Text
 } from 'react-native';
 
+const ipad = (Dimensions.get('window').height > 1020);
+const iphonex = (Platform.OS === 'ios' && Dimensions.get('window').height > 800 && Dimensions.get('window').height < 1020);
+
 export default class Bubble extends Component {
     constructor(props) {
         super(props);
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
         //maxWidth: Dimensions.get('window').width / 2 - 20,
         padding: 15,
         margin: 5,
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         backgroundColor: 'rgba(255,255,255,0.54)',
         alignContent: 'center',
         alignItems: 'center',
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
         //maxWidth: Dimensions.get('window').width / 2 - 2,
         padding: 15,
         margin: 5,
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         backgroundColor: '#4A90E2',
         alignContent: 'center',
         alignItems: 'center',

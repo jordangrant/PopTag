@@ -56,6 +56,7 @@
 		F22BA77FAB3E4D44A6911420 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49E31520ED6342BEBA343360 /* libRCTVideo.a */; };
 		F30ACE28218289480084B204 /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F30ACE27218289330084B204 /* libRNShare.a */; };
 		F30ACE2A218289710084B204 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30ACE29218289710084B204 /* MessageUI.framework */; };
+		F36FCE8E2198D346002725B6 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F36FCE8D2198D346002725B6 /* Launch Screen.storyboard */; };
 		F3728DA0216F17F600AB18DD /* libRCTImageResizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3728D76216F17EE00AB18DD /* libRCTImageResizer.a */; };
 		F393DEC5216EFCB600780486 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F393DEBF216EFC2B00780486 /* libRNFS.a */; };
 		F393DECC216F166000780486 /* libRNImageRotate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F393DECB216F164700780486 /* libRNImageRotate.a */; };
@@ -538,6 +539,7 @@
 		F360F7222174160A008D9B48 /* libRNImageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNImageCropPicker.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F360F76B217417DF008D9B48 /* libRNImageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNImageCropPicker.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F360F76D217417DF008D9B48 /* libRSKImageCropper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRSKImageCropper.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F36FCE8D2198D346002725B6 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		F3728D65216F17EE00AB18DD /* RCTImageResizer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImageResizer.xcodeproj; path = "../node_modules/react-native-image-resizer/ios/RCTImageResizer.xcodeproj"; sourceTree = "<group>"; };
 		F393DE8A216EFC2B00780486 /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		F393DEC6216F164700780486 /* RNImageRotate.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImageRotate.xcodeproj; path = "../node_modules/react-native-image-rotate/RNImageRotate.xcodeproj"; sourceTree = "<group>"; };
@@ -740,6 +742,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				F36FCE8D2198D346002725B6 /* Launch Screen.storyboard */,
 			);
 			name = PopTag;
 			sourceTree = "<group>";
@@ -1665,6 +1668,7 @@
 			files = (
 				96FFACE52141F7FC007B9A22 /* pop.m4a in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				F36FCE8E2198D346002725B6 /* Launch Screen.storyboard in Resources */,
 				96FFACE32141F7EE007B9A22 /* woosh.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1958,7 +1962,6 @@
 			baseConfigurationReference = 0E1D3F0782B8FF96030F85C8 /* Pods-PopTag.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2000,7 +2003,6 @@
 			baseConfigurationReference = 34BC27F70ACFDEF684076CF9 /* Pods-PopTag.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

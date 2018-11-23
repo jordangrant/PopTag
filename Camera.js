@@ -60,7 +60,7 @@ export default class Camera extends Component {
     });
 
     var uri = this.state.selected[0].uri;
-    setTimeout(() => this.props.previewTime(uri), 500);
+    setTimeout(() => this.props.previewTime(uri, this.props.cameraId), 500);
 
   }
 

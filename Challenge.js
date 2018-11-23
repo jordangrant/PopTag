@@ -16,6 +16,9 @@ import ImageRotate from 'react-native-image-rotate';
 import ImageResizer from 'react-native-image-resizer';
 import Share from 'react-native-share';
 
+const ipad = (Dimensions.get('window').height > 1020);
+const iphonex = (Platform.OS === 'ios' && Dimensions.get('window').height > 800 && Dimensions.get('window').height < 1020);
+
 var ReadImageData = NativeModules.ReadImageData;
 
 export default class Challenge extends Component {
@@ -593,7 +596,7 @@ export default class Challenge extends Component {
 
 const styles = StyleSheet.create({
     summaryquestion: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.25,
         backgroundColor: 'white',
@@ -609,8 +612,8 @@ const styles = StyleSheet.create({
         // shadowRadius: 4,
     },
     summarycontainertop: {
-        borderTopLeftRadius: 13,
-        borderTopRightRadius: 13,
+        borderTopLeftRadius: (ipad) ? 26 : 13,
+        borderTopRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 : Dimensions.get('window').width * 0.8 * 1.15,
         // backgroundColor: '#4A90E2',
@@ -622,7 +625,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     summarycontainerbottom: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.25,
         backgroundColor: 'white',
@@ -634,8 +637,8 @@ const styles = StyleSheet.create({
         marginRight: Dimensions.get('window').width * 0.05,
     },
     container: {
-        borderTopLeftRadius: 13,
-        borderTopRightRadius: 13,
+        borderTopLeftRadius: (ipad) ? 26 : 13,
+        borderTopRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.47,
         backgroundColor: 'white',
@@ -652,8 +655,8 @@ const styles = StyleSheet.create({
     blue: {
         position: 'absolute',
         top: Dimensions.get('window').width * 0.88 * 0.47 - (Dimensions.get('window').width * 0.88 * 0.15 * 0.13),
-        borderBottomLeftRadius: 13,
-        borderBottomRightRadius: 13,
+        borderBottomLeftRadius: (ipad) ? 26 : 13,
+        borderBottomRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.15,
         backgroundColor: '#4A90E2',
@@ -668,8 +671,8 @@ const styles = StyleSheet.create({
     blue2: {
         position: 'absolute',
         top: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 * 0.98 + Dimensions.get('window').height * 0.1 : Dimensions.get('window').width * 0.8 * 1.13 + Dimensions.get('window').height * 0.1,
-        borderBottomLeftRadius: 13,
-        borderBottomRightRadius: 13,
+        borderBottomLeftRadius: (ipad) ? 26 : 13,
+        borderBottomRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.15,
         backgroundColor: '#4A90E2',
@@ -686,7 +689,7 @@ const styles = StyleSheet.create({
         // shadowRadius: 4,
     },
     inputcontainer: {
-        borderRadius: 7,
+        borderRadius: (ipad) ? 14 : 7,
         backgroundColor: '#D8D8D8',
         width: Dimensions.get('window').width * 0.75 * 0.88888,
         height: Dimensions.get('window').width * 0.88 * 0.88888 * 0.19758,

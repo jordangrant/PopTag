@@ -6,6 +6,9 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
+const ipad = (Dimensions.get('window').height > 1020);
+const iphonex = (Platform.OS === 'ios' && Dimensions.get('window').height > 800 && Dimensions.get('window').height < 1020);
+
 class MyListItem extends Component {
     constructor(props) {
         super(props);
@@ -21,6 +24,8 @@ class MyListItem extends Component {
         var companysettings = this.props.data.description;
         companysettings = JSON.parse(companysettings);
         var type = companysettings[0];
+        var challenge = companysettings[0].indexOf('challenges') > -1;
+        var location = companysettings[0].indexOf('location') > -1;
         var active = this.props.data.id == global.custom;
 
         return (
@@ -34,8 +39,8 @@ class MyListItem extends Component {
                         <View style={styles.aligner}>
                             <Text style={styles.summaryText} numberOfLines={1}>{company.name}</Text>
                             { global.filter !== 'challenges' && global.filter !== 'questions' && global.filter !== 'verified' && global.filter !== 'ab' && global.filter !== 'scavenger' ?
-                            <Image style={type == 'challenges' ? styles.trophy : type == 'questions' ? styles.chatbubble : type == 'ab' ? styles.ab : type == 'scavenger' ? styles.scavenger :  styles.verified} 
-                            source={{ uri: type == 'challenges' ? 'trophy' : type == 'questions' ? 'chatbubble' : type == 'ab' ? 'abog' : type == 'scavenger' ? 'scavenger' : 'verified'}} />
+                            <Image style={challenge ? styles.trophy : type == 'questions' ? styles.chatbubble : type == 'ab' ? styles.ab : type == 'scavenger' ? styles.scavenger :  styles.verified} 
+                            source={{ uri: challenge ? 'trophy' : type == 'questions' ? 'chatbubble' : type == 'ab' ? 'abog' : type == 'scavenger' ? 'scavenger' : 'verified'}} />
                             :
                             null
                             }
@@ -118,9 +123,9 @@ export default class Dialogue extends Component {
         if (global.filter == "questions" || global.filter == "challenges" || global.filter == "verified" || global.filter == "ab" || global.filter == "scavenger") {
             search = search.filter(x => JSON.parse(x.description)[0].indexOf(global.filter) > -1)
         }
-        else {
-            search = search.slice(0, Math.floor(search.length*this.state.paginator))
-        }
+        // else {
+        //      search = search.slice(0, Math.floor(search.length*this.state.paginator))
+        //  }
 
         return (
             <View style={{ marginTop: Dimensions.get('window').height * 0.17 }}>
@@ -176,8 +181,8 @@ export default class Dialogue extends Component {
                     showsHorizontalScrollIndicator={false}
                     numColumns={2}
                     extraData={this.state}
-                    onEndReachedThreshold={1}
-                    onEndReached={this.expand.bind(this)}
+                    //onEndReachedThreshold={1}
+                    //onEndReached={this.expand.bind(this)}
                 />
             </View>
 
@@ -187,7 +192,7 @@ export default class Dialogue extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.904,
         height: Dimensions.get('window').width * 0.904 * 0.12684,
         maxHeight: 70,
@@ -195,7 +200,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         //alignContent: 'center',
         alignSelf: 'center',
-        marginTop: (Dimensions.get('window').height > 1020) ? 15 : 0,
+        marginTop: (ipad) ? 15 : 0,
         marginBottom: 10,
         marginHorizontal: 6,
         paddingLeft: 16,
@@ -209,11 +214,11 @@ const styles = StyleSheet.create({
         flex: 1,
         color: 'white',
         fontWeight: '600',
-        //fontSize: Dimensions.get('window').width * 0.042,
+        fontSize: ipad ? Dimensions.get('window').width * 0.035 : Dimensions.get('window').width * 0.042,
         backgroundColor: 'transparent'
     },
     summarycontainerbottom: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         borderWidth: 0.25,
         borderColor: 'black',
         width: Dimensions.get('window').width * 0.43733,
@@ -224,7 +229,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     activecontainer: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         borderWidth: 3,
         borderColor: '#FFD700',
         width: Dimensions.get('window').width * 0.43733,
@@ -235,7 +240,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     inputcontainer: {
-        borderRadius: 7,
+        borderRadius: (ipad) ? 14 : 7,
         backgroundColor: '#D8D8D8',
         width: Dimensions.get('window').width * 0.75 * 0.88888,
         height: Dimensions.get('window').width * 0.75 * 0.88888 * 0.19758,
@@ -258,7 +263,7 @@ const styles = StyleSheet.create({
     },
     subtext: {
         color: '#4A4A4A',
-        fontSize: (Dimensions.get('window').height > 1020) ? 22 : Dimensions.get('window').width * 0.043,
+        fontSize: (ipad) ? 22 : Dimensions.get('window').width * 0.043,
         paddingTop: 1,
         flex: 1
     },
@@ -276,27 +281,27 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     trophy: {
-        width: (Dimensions.get('window').height > 1020) ? 30 : 20,
-        height: (Dimensions.get('window').height > 1020) ? 30 : 20,
+        width: (ipad) ? 40 : 20,
+        height: (ipad) ? 40 : 20,
         tintColor: '#FFD700'
     },
     chatbubble: {
-        width: (Dimensions.get('window').height > 1020) ? 30 : 20,
-        height: (Dimensions.get('window').height > 1020) ? 30 : 20,
+        width: (ipad) ? 40 : 20,
+        height: (ipad) ? 40 : 20,
         tintColor: 'white'
     },
     ab: {
-        width: (Dimensions.get('window').height > 1020) ? 39 : 26,
-        height: (Dimensions.get('window').height > 1020) ? 39 : 26,
+        width: (ipad) ? 49 : 26,
+        height: (ipad) ? 49 : 26,
     },
     scavenger: {
-        width: (Dimensions.get('window').height > 1020) ? 39 : 26,
-        height: (Dimensions.get('window').height > 1020) ? 39 : 26,
+        width: (ipad) ? 49 : 26,
+        height: (ipad) ? 49 : 26,
         tintColor: 'white'
     },
     verified: {
-        width: (Dimensions.get('window').height > 1020) ? 33.375 : 22.25,
-        height: (Dimensions.get('window').height > 1020) ? 33 : 22,
+        width: (ipad) ? 43.375 : 22.25,
+        height: (ipad) ? 43 : 22,
     },
     aligner: {
         flexDirection: 'row',
@@ -319,7 +324,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 13
+        borderRadius: (ipad) ? 26 : 13,
     },
     buttonactive: {
         height: Dimensions.get('window').width * 0.904 * 0.12684,
@@ -328,7 +333,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         borderWidth: 3,
         borderColor: '#FFD700',
     }

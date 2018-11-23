@@ -193,43 +193,38 @@ export default class AB extends Component {
     }
 
     abSelection(selection) {
-        if (!this.state.crown1 && !this.state.crown2) {
+
             if (selection == 1) {
-                this.setState({ crown1: true });
+                this.setState({ crown1: true, crown2: false });
+                this.recycle(selection);
             }
             else {
-                this.setState({ crown2: true });
+                this.setState({ crown2: true, crown1: false });
+                this.recycle(selection);
             }
-            setTimeout(() => this.props.submitWithoutSave(), 100);
-            setTimeout(() => this.setState({ preview: true }), 500);
-        }
-
+            //setTimeout(() => this.props.submitWithoutSave(), 100);
     }
 
     recycle(selection) {
         var num = Math.floor(Math.random() * this.props.challenges.length);
 
         if (selection == 1) {
-            this.setState({
-                crown1: false,
-                preview: false,
-                rand2: num
-            });
+            this.setState({ preview: false, rand2: num });
 
             if (this.state.rand == num) {
                 this.setState({ rand2: Math.floor(Math.random() * this.props.challenges.length) });
             }
+
+            setTimeout(() => this.setState({ crown1: false }), 450);
         }
         else {
-            this.setState({
-                crown2: false,
-                preview: false,
-                rand: num
-            });
+            this.setState({ preview: false, rand: num });
 
             if (this.state.rand2 == num) {
                 this.setState({ rand: Math.floor(Math.random() * this.props.challenges.length) });
             }
+
+            setTimeout(() => this.setState({ crown2: false }), 450);
         }
     }
 
@@ -461,7 +456,7 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 13,
         width: Dimensions.get('window').width * 0.442,
-        height: (iphonex) ? Dimensions.get('window').height * 0.4 : Dimensions.get('window').height * 0.5742,
+        height: (iphonex) ? Dimensions.get('window').height * 0.5 : Dimensions.get('window').height * 0.5742,
         backgroundColor: 'white',
         margin: 4,
         overflow: 'hidden'

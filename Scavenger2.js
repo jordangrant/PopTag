@@ -19,6 +19,7 @@ import Bubble from './Bubble';
 import RNThumbnail from 'react-native-thumbnail';
 
 const ipad = (Dimensions.get('window').height > 1020);
+const iphonex = (Platform.OS === 'ios' && Dimensions.get('window').height > 800 && Dimensions.get('window').height < 1020);
 
 class MyListItem extends Component {
     constructor(props) {
@@ -183,8 +184,17 @@ export default class Scavenger extends Component {
     }
 
     previewTime(uri, cameraId) {
+        const dirs = RNFetchBlob.fs.dirs
         this.setState({ uri: uri });
         this.toggleCamera(cameraId);
+
+        if (uri.indexOf('assets-library') !== -1) {
+            RNFetchBlob.fs.cp(uri, `${dirs.DocumentDir}/helloworld.png`)
+            .then((success) => {
+                uri = `${dirs.DocumentDir}/helloworld.png`;
+            })
+        }
+
         if (uri.indexOf('mov') !== -1 || uri.indexOf('MOV') !== -1 || uri.indexOf('mp4') !== -1) {
             if (Platform.OS == 'ios') {
                 this.downloadVideo();
@@ -653,7 +663,7 @@ export default class Scavenger extends Component {
 
 const styles = StyleSheet.create({
     summaryquestion: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.25,
         backgroundColor: 'white',
@@ -669,8 +679,8 @@ const styles = StyleSheet.create({
         // shadowRadius: 4,
     },
     summarycontainertop: {
-        borderTopLeftRadius: 13,
-        borderTopRightRadius: 13,
+        borderTopLeftRadius: (ipad) ? 26 : 13,
+        borderTopRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 : Dimensions.get('window').width * 0.8 * 1.15,
         // backgroundColor: '#4A90E2',
@@ -682,8 +692,8 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     container: {
-        borderTopLeftRadius: 13,
-        borderTopRightRadius: 13,
+        borderTopLeftRadius: (ipad) ? 26 : 13,
+        borderTopRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.4,
         backgroundColor: 'white',
@@ -700,8 +710,8 @@ const styles = StyleSheet.create({
     blue: {
         position: 'absolute',
         top: Dimensions.get('window').width * 0.88 * 0.4 - (Dimensions.get('window').width * 0.88 * 0.15 * 0.13),
-        borderBottomLeftRadius: 13,
-        borderBottomRightRadius: 13,
+        borderBottomLeftRadius: (ipad) ? 26 : 13,
+        borderBottomRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.15,
         backgroundColor: '#4A90E2',
@@ -716,8 +726,8 @@ const styles = StyleSheet.create({
     blue2: {
         position: 'absolute',
         top: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 * 0.98 + Dimensions.get('window').height * 0.1 : Dimensions.get('window').width * 0.8 * 1.13 + Dimensions.get('window').height * 0.1,
-        borderBottomLeftRadius: 13,
-        borderBottomRightRadius: 13,
+        borderBottomLeftRadius: (ipad) ? 26 : 13,
+        borderBottomRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.15,
         backgroundColor: '#4A90E2',
@@ -734,7 +744,7 @@ const styles = StyleSheet.create({
         // shadowRadius: 4,
     },
     inputcontainer: {
-        borderRadius: 7,
+        borderRadius: (ipad) ? 14 : 7,
         backgroundColor: '#D8D8D8',
         width: Dimensions.get('window').width * 0.75 * 0.88888,
         height: Dimensions.get('window').width * 0.88 * 0.88888 * 0.19758,
@@ -793,7 +803,7 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').width * 0.88 * 0.15,
     },
     nextButton: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.872,
         height: Dimensions.get('window').width * 0.872 * 0.15,
         marginTop: 20,
@@ -812,7 +822,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         alignItems: 'center',
         marginTop: Dimensions.get('window').height * 0.17,
-        marginBottom: (Platform.OS === 'android' || ipad) ? Dimensions.get('window').height * 0.145 : Dimensions.get('window').height * 0.11,
+        marginBottom: (iphonex) ? Dimensions.get('window').height * 0.11 : Dimensions.get('window').height * 0.145,
     },
     layouticon: {
         alignSelf: 'center',
@@ -828,7 +838,7 @@ const styles = StyleSheet.create({
         paddingBottom: Dimensions.get('window').width * 0.43733 * 0.08,
     },
     summarycontainerbottom: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         //borderWidth: 0.25,
         //borderColor: 'black',
         width: Dimensions.get('window').width * 0.43733,
@@ -839,7 +849,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     scbblue: {
-        borderRadius: 13,
+        borderRadius: (ipad) ? 26 : 13,
         //borderWidth: 0.25,
         //borderColor: 'black',
         width: Dimensions.get('window').width * 0.43733,

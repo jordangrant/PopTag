@@ -17,7 +17,7 @@ import Contacts from 'react-native-contacts';
 import Sound from 'react-native-sound';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { colors } from './colors';
-import AB from './AB';
+import AB from './ABnew';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Scavenger from './Scavenger2';
 import Share from 'react-native-share';
@@ -28,13 +28,14 @@ const widthScavenger = Dimensions.get('window').width * 0.35467;
 //const height = width * 0.5656;
 const height = width * 0.34146;
 const ipad = (Dimensions.get('window').height > 1020);
+const iphonex = (Platform.OS === 'ios' && Dimensions.get('window').height > 800 && Dimensions.get('window').height < 1020);
 
-const logoHeight = (Platform.OS === 'ios' && Dimensions.get('window').height > 800 && Dimensions.get('window').height < 1020) ? 50 : 40;
-const topR1 = (Platform.OS === 'ios' && Dimensions.get('window').height > 800 && Dimensions.get('window').height < 1020) ? Dimensions.get('window').height * 0.25 : Dimensions.get('window').height * 0.211;
-const topR2 = (ipad) ? topR1 + 93 : topR1 + 62;
-const topR3 = (ipad) ? topR1 + 207 : topR1 + 138;
-const topR4 = (ipad) ? topR1 + 309 : topR1 + 206;
-const topR5 = (ipad) ? topR1 + 415.5 : topR1 + 277;
+const logoHeight = (iphonex) ? 50 : 40;
+const topR1 = (iphonex) ? Dimensions.get('window').height * 0.255 : Dimensions.get('window').height * 0.211;
+const topR2 = (ipad) ? topR1 + 113 : topR1 + 62;
+const topR3 = (ipad) ? topR1 + 247 : topR1 + 138;
+const topR4 = (ipad) ? topR1 + 369 : topR1 + 206;
+const topR5 = (ipad) ? topR1 + 495.5 : topR1 + 277;
 const leftC1 = 0;
 const leftC2 = (ipad) ? Dimensions.get('window').width / 2 - 93.75 : Dimensions.get('window').width / 2 - 62.5;
 const leftC3 = (ipad) ? Dimensions.get('window').width - 187.5 : Dimensions.get('window').width - 125;
@@ -95,9 +96,9 @@ export default class PopTag extends Component {
             loading: true,
             camera: false,
             filter: 'none',
-            token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDAyNTUwODUsImV4cCI6MTU0Mjg0NzA4NSwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.nwsWFHin4HC_SsvNN3wtK9vgd3Z-QCeRjcE_G_dm47Y_sFKx4HiHVOnfl-2mUHTHv2Z1oZrhVvbmxuezwNjdyqZhjc1nnChNd2eXgWrtps8fq8tJ4C7_XNFhfyzBXTAVib3Y5skJaLw-7i7gFDbs8oBap-bpW1btvx539Cqm5vrPEp2JWHb6nMwgC1UKfsGOK0NLaQDeb8W8b-qln0v8kq7v2pDO7gYIt1KN4H16oTFSbbcaduAdMtF2aP0UCjzWRsuk-F6NxRhMnWDPyAEivWbNkqdSmcehiNsgl7juzpb8RN-1cvo-emEjkLDUlmYO6jRLM-u-Qai7eMYrUADANA',
+            token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDIyMzE4MDYsImV4cCI6MTU0NDgyMzgwNiwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.Xd-kotJx2H8WRKlUiDhCf8wMlv_cEFXYhqXrPE6gNdQc97HQDSPEVZLI9iJGjPUdhxd0knBCHyPo63j9DBQRUApOeVVIqhR3BVB-rOLXnn4kFCnAlI_cWx-Fw7KlFmtUMfIrLLYeN0k9qS1waqOAFptCyBMvMcYJhObFQdo_4OaQMvjmhJKiAjvK69vSYgNOMDEhS-vPkVDk-fGmjmieaaaJqxKBvC664L5zwqwuF-V94LXZ0ZIe_S1pcvWRHvOeMSbM9aT4Blxm3pxm3TxUcooLVdf5EMyc_oQtbHbjMut_FoSXcsgExeUAZEr9aIwMcxGV-wfcUJBOTHxcj15QJw',
             groups: [
-                { id: 68, name: 'PopTag', description: "[\"questions\", \"blue\", \"null\", \"null\", \"null\"]", image: {}, challenges: [] },
+                { id: 68, name: 'PopTag', description: "[\"questions\", \"blue\", \"null\", \"null\", \"null\", \"null\"]", image: {} },
             ],
             challenges: []
         };
@@ -148,7 +149,7 @@ export default class PopTag extends Component {
                 this.setState({ token: b });
             }
             else {
-                global.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDAyNTUwODUsImV4cCI6MTU0Mjg0NzA4NSwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.nwsWFHin4HC_SsvNN3wtK9vgd3Z-QCeRjcE_G_dm47Y_sFKx4HiHVOnfl-2mUHTHv2Z1oZrhVvbmxuezwNjdyqZhjc1nnChNd2eXgWrtps8fq8tJ4C7_XNFhfyzBXTAVib3Y5skJaLw-7i7gFDbs8oBap-bpW1btvx539Cqm5vrPEp2JWHb6nMwgC1UKfsGOK0NLaQDeb8W8b-qln0v8kq7v2pDO7gYIt1KN4H16oTFSbbcaduAdMtF2aP0UCjzWRsuk-F6NxRhMnWDPyAEivWbNkqdSmcehiNsgl7juzpb8RN-1cvo-emEjkLDUlmYO6jRLM-u-Qai7eMYrUADANA';
+                global.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDIyMzE4MDYsImV4cCI6MTU0NDgyMzgwNiwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.Xd-kotJx2H8WRKlUiDhCf8wMlv_cEFXYhqXrPE6gNdQc97HQDSPEVZLI9iJGjPUdhxd0knBCHyPo63j9DBQRUApOeVVIqhR3BVB-rOLXnn4kFCnAlI_cWx-Fw7KlFmtUMfIrLLYeN0k9qS1waqOAFptCyBMvMcYJhObFQdo_4OaQMvjmhJKiAjvK69vSYgNOMDEhS-vPkVDk-fGmjmieaaaJqxKBvC664L5zwqwuF-V94LXZ0ZIe_S1pcvWRHvOeMSbM9aT4Blxm3pxm3TxUcooLVdf5EMyc_oQtbHbjMut_FoSXcsgExeUAZEr9aIwMcxGV-wfcUJBOTHxcj15QJw';
             }
         })
 
@@ -180,7 +181,7 @@ export default class PopTag extends Component {
             }
             else {
                 if (global.token == 'undefined') {
-                    global.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDAyNTUwODUsImV4cCI6MTU0Mjg0NzA4NSwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.nwsWFHin4HC_SsvNN3wtK9vgd3Z-QCeRjcE_G_dm47Y_sFKx4HiHVOnfl-2mUHTHv2Z1oZrhVvbmxuezwNjdyqZhjc1nnChNd2eXgWrtps8fq8tJ4C7_XNFhfyzBXTAVib3Y5skJaLw-7i7gFDbs8oBap-bpW1btvx539Cqm5vrPEp2JWHb6nMwgC1UKfsGOK0NLaQDeb8W8b-qln0v8kq7v2pDO7gYIt1KN4H16oTFSbbcaduAdMtF2aP0UCjzWRsuk-F6NxRhMnWDPyAEivWbNkqdSmcehiNsgl7juzpb8RN-1cvo-emEjkLDUlmYO6jRLM-u-Qai7eMYrUADANA';
+                    global.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDIyMzE4MDYsImV4cCI6MTU0NDgyMzgwNiwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.Xd-kotJx2H8WRKlUiDhCf8wMlv_cEFXYhqXrPE6gNdQc97HQDSPEVZLI9iJGjPUdhxd0knBCHyPo63j9DBQRUApOeVVIqhR3BVB-rOLXnn4kFCnAlI_cWx-Fw7KlFmtUMfIrLLYeN0k9qS1waqOAFptCyBMvMcYJhObFQdo_4OaQMvjmhJKiAjvK69vSYgNOMDEhS-vPkVDk-fGmjmieaaaJqxKBvC664L5zwqwuF-V94LXZ0ZIe_S1pcvWRHvOeMSbM9aT4Blxm3pxm3TxUcooLVdf5EMyc_oQtbHbjMut_FoSXcsgExeUAZEr9aIwMcxGV-wfcUJBOTHxcj15QJw';
                 }
                 this.getGroups().then((groups) => {
                     AsyncStorage.setItem('groups', JSON.stringify(groups));
@@ -386,14 +387,25 @@ export default class PopTag extends Component {
         this.setState({ displayGif: false })
     }
 
-    navigateToInstagram() {
-        if (Platform.OS === 'ios') {
-            Linking.openURL('instagram://user?username=poptagtv');
-            setTimeout(() => Linking.openURL('https://www.instagram.com/poptagtv'), 10);
-        }
-        else {
-            Linking.openURL('https://www.instagram.com/poptagtv')
-        }
+    navigateToInstagram(page) {
+            if(page){
+                Linking.canOpenURL(`instagram://user?username=${page}`).then(supported => {
+                    if (!supported) {
+                    Linking.openURL(`https://www.instagram.com/${page}`)
+                    } else {
+                    Linking.openURL(`instagram://user?username=${page}`)
+                    }
+                })
+            }
+            else {
+                Linking.canOpenURL('instagram://user?username=poptagtv').then(supported => {
+                    if (!supported) {
+                    Linking.openURL('https://www.instagram.com/poptagtv')
+                    } else {
+                    Linking.openURL('instagram://user?username=poptagtv')
+                    }
+                })
+            }
     }
 
     goToLayout() {
@@ -458,7 +470,7 @@ export default class PopTag extends Component {
         if (companysettings[0].replace('verified', '').toLowerCase() == 'questions') {
             this.setState({ displayQuestion: true });
         }
-        else if (companysettings[0].replace('verified', '').toLowerCase() == 'challenges') {
+        else if (companysettings[0].indexOf('challenges') > -1) {
             this.setState({ displayChallenge: true });
         }
         else if (companysettings[0].replace('verified', '').toLowerCase() == 'ab') {
@@ -576,7 +588,7 @@ export default class PopTag extends Component {
                     .then(uri => {
                         Share.open({
                             title: "PopTag",
-                            message: this.state.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " Scavenger Hunt #poptag🎈",
+                            message: this.state.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " #poptag🎈",
                             url: uri,
                             subject: "PopTag 🎈"
                         })
@@ -590,7 +602,7 @@ export default class PopTag extends Component {
                 .then(uri => {
                     Share.open({
                         title: "PopTag",
-                        message: this.state.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " Scavenger Hunt #poptag🎈",
+                        message: this.state.groups.find(item => item.id === global.custom).name.replace(/\s+/g, '') + " #poptag🎈",
                         url: uri,
                         subject: "PopTag 🎈"
                     })
@@ -747,7 +759,7 @@ export default class PopTag extends Component {
             companysettings = JSON.parse(companysettings.description)
         }
 
-        // questions, bgcolor, wordmark, primaryicon, secondaryicon
+        // questions, bgcolor, wordmark, primaryicon, secondaryicon, IG page
 
         return (
             <View style={styles.base}>
@@ -761,12 +773,11 @@ export default class PopTag extends Component {
                             onPress={this.state.displayQuestion || this.state.displayChallenge || this.state.displayAB || this.state.displayScavenger ? () => this.endQuestion() :
                                 this.state.dialogue ? () => this.toggleDialogue() : this.state.displayGif ? () => this.dismissGif() : () => this.update()}
                             onPressOut={this.handlePressOut.bind(this)}>
-                            <Animated.View style={[animatedStyle, { width: Dimensions.get('window').width * 0.7, height: Dimensions.get('window').width * 0.7 * 0.2461538462 }]}>
+                            <Animated.View style={[animatedStyle, { width: Dimensions.get('window').width * 0.7, height: (ipad) ? Dimensions.get('window').width * 0.7 * 0.23 : Dimensions.get('window').width * 0.7 * 0.2461538462 }]}>
                                 <Image style={styles.header} resizeMode={'contain'}
                                     source={{ uri: companysettings[2] == 'null' ? 'ptlogored' : companysettings[2] }} />
                             </Animated.View>
                         </TouchableOpacity>
-
                         {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() :
                             this.state.displayChallenge ? this.renderChallenge() : this.state.displayAB ? this.renderAB() :
                                 this.state.displayGif ? this.renderGif() : this.renderBalloons()}
@@ -790,17 +801,17 @@ export default class PopTag extends Component {
                             </TouchableOpacity>
                             : null}
 
-                        {!this.state.dialogue && !this.state.camera && !this.state.displayScavenger ?
+                        {!this.state.dialogue && !this.state.camera && (!this.state.displayScavenger || !this.state.displayAB) ?
                             <TouchableOpacity activeOpacity={1} style={[styles.button3, {
                                 bottom: this.state.bottomHeight,
                                 width: this.state.displayScavenger ? widthScavenger : width
                             }]}
-                                onPress={() => this.navigateToInstagram()}>
+                                onPress={() => this.navigateToInstagram(typeof companysettings[5] !== undefined ? companysettings[5] : null)}>
                                 <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
                             </TouchableOpacity>
                             : null}
 
-                        {!this.state.dialogue && !this.state.camera && this.state.displayScavenger ?
+                        {!this.state.dialogue && !this.state.camera && (this.state.displayScavenger || this.state.displayAB) ?
                             <TouchableOpacity activeOpacity={1} style={[styles.button3, {
                                 bottom: this.state.bottomHeight,
                                 width: this.state.displayScavenger ? widthScavenger : width
