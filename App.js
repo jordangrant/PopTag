@@ -212,7 +212,7 @@ export default class PopTag extends Component {
 
     componentDidMount() {
         this.refreshToken().then((response) => {
-            if(response){
+            if (response) {
                 global.token = response.token;
                 this.setState({ token: response.token });
             }
@@ -440,12 +440,13 @@ export default class PopTag extends Component {
     }
 
     changeFilter(filter) {
-        if (global.filter !== filter) {
-            global.filter = filter;
-            this.setState({ filter: filter });
-            this.save();
-            //console.log('Filter changed to ' + filter);
+        if (global.filter == filter) {
+            filter = 'none';
         }
+        global.filter = filter;
+        this.setState({ filter: filter });
+        this.save();
+        //console.log('Filter changed to ' + filter);
     }
 
     popBalloon(id) {
@@ -797,7 +798,7 @@ export default class PopTag extends Component {
                             </TouchableOpacity>
                             : null}
 
-                        {!this.state.dialogue && !this.state.camera && (!this.state.displayScavenger || !this.state.displayAB) ?
+                        {!this.state.dialogue && !this.state.camera && !this.state.displayScavenger ?
                             <TouchableOpacity activeOpacity={1} style={[styles.button3, {
                                 bottom: this.state.bottomHeight,
                                 width: this.state.displayScavenger ? widthScavenger : width
@@ -807,7 +808,7 @@ export default class PopTag extends Component {
                             </TouchableOpacity>
                             : null}
 
-                        {!this.state.dialogue && !this.state.camera && (this.state.displayScavenger || this.state.displayAB) ?
+                        {!this.state.dialogue && !this.state.camera && this.state.displayScavenger ?
                             <TouchableOpacity activeOpacity={1} style={[styles.button3, {
                                 bottom: this.state.bottomHeight,
                                 width: this.state.displayScavenger ? widthScavenger : width
@@ -857,12 +858,13 @@ const styles = StyleSheet.create({
     button1: {
         position: 'absolute',
         left: 16,
-        borderRadius: 8,
+        borderRadius: (ipad) ? 26 : 20,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
-        backgroundColor: '#FD3B00',
+        backgroundColor: '#4A90E2',
+        //backgroundColor: '#FD3B00',
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
@@ -872,12 +874,13 @@ const styles = StyleSheet.create({
     },
     button2: {
         position: 'absolute',
-        borderRadius: 8,
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 4,
-        backgroundColor: '#4CAF50',
+        borderRadius: (ipad) ? 26 : 20,
+        // shadowColor: 'black',
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.2,
+        // shadowRadius: 4,
+        //backgroundColor: '#4CAF50',
+        backgroundColor: 'rgba(255,255,255,0.54)',
         alignSelf: 'center',
         alignItems: 'center',
         alignContent: 'center',
@@ -889,12 +892,12 @@ const styles = StyleSheet.create({
     button3: {
         position: 'absolute',
         right: 16,
-        borderRadius: 8,
+        borderRadius: (ipad) ? 26 : 20,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
-        backgroundColor: '#4A90E2',
+        backgroundColor: '#FD3B00',
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',

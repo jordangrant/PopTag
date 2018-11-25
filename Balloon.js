@@ -66,7 +66,7 @@ export default class Balloon extends Component {
 
                 <Animated.View style={[animatedStyle, styles.ballooncontainer]}>
                     {!this.props.popped ?
-                        <Image style={styles.balloon}
+                        <Image style={companysettings[3].toLowerCase().indexOf('/u') > -1 ? styles.balloonshrunk : styles.balloon}
                             source={{ uri: (companysettings[3] == 'null' ? 'balloon' : companysettings[3]), cache: 'force-cache' }} />
                         :
                         <Image resizeMode={'contain'} style={styles.poppedshrunk}
@@ -87,19 +87,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     balloon: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
+        // shadowColor: 'black',
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 4,
         flex: 1, width: undefined, height: undefined,
     },
     balloonshrunk: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
+        // shadowColor: 'black',
+        // shadowOffset: { width: 0, height: 1 },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 4,
         flex: 1, width: undefined, height: undefined,
-        margin: 20
+        margin: 18
     },
     popped: {
         // shadowColor: 'black',
