@@ -486,8 +486,8 @@ export default class Challenge extends Component {
                             </ImageBackground>
                         </View>
 
-                        <View style={styles.blue2}>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
+                        <TouchableOpacity onPress={() => this.shareOpenController(twee)} style={styles.blue2}>
+                            {/* <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
                                 <Image source={{ uri: 'blank' }} style={styles.instablock} />
                             </TouchableOpacity>
 
@@ -497,20 +497,20 @@ export default class Challenge extends Component {
 
                             <TouchableOpacity activeOpacity={1} onPress={() => this.shareOpenController(twee)}>
                                 <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
 
-                            <TouchableOpacity onPress={() => this.tweet()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                            {/* <TouchableOpacity onPress={() => this.tweet()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
                                 <Image source={{ uri: 'twitter' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={() => this.insta()} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
                                 <Image source={{ uri: 'instagramicon' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
 
-                            <TouchableOpacity onPress={() => this.shareOpenController(twee)} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (5 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
+                            <TouchableOpacity onPress={() => this.shareOpenController(twee)} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
                                 <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
                             </TouchableOpacity>
-                        </View>
+                        </TouchableOpacity>
 
                     </Animated.View>
                 </TouchableOpacity>
@@ -555,7 +555,7 @@ export default class Challenge extends Component {
                             url: this.state.uri,
                             subject: "PopTag 🎈"
                         })}>
-                            <View style={[styles.instablock2, { backgroundColor: '#3B5998' }]} />
+                            <View style={[styles.instablock2, { backgroundColor: 'transparent' }]} />
                         </TouchableOpacity>
 
                         {/* <TouchableOpacity onPress={() => this.shareVideoController('twitter')} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (1 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
@@ -675,7 +675,8 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.15,
-        backgroundColor: '#4A90E2',
+        //backgroundColor: '#4A90E2',
+        backgroundColor: '#3B5998',
         alignItems: 'center',
         alignContent: 'center',
         alignSelf: 'center',

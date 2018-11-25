@@ -101,8 +101,8 @@ android {
         applicationId "com.poptag"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 21
-        versionName "9.3"
+        versionCode 22
+        versionName "9.4"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
         ndk {

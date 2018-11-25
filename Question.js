@@ -204,40 +204,47 @@ export default class Question extends Component {
                 <Text style={[styles.summaryText]} numberOfLines={5}>{this.state.text}</Text>
             </TouchableOpacity>
 
-            <View style={styles.blue2}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
+
+            <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
+                title: "PopTag",
+                message: this.state.challenges[this.state.rand].description + " #poptag 🎈",
+                url: global.screenshot,
+                subject: "PopTag 🎈"
+            })} style={styles.blue2} activeOpacity={1}>
+                {/* <TouchableOpacity activeOpacity={1} onPress={() => this.tweet()}>
                     <Image source={{ uri: 'blank' }} style={styles.instablock} />
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => this.insta()}>
                     <Image source={{ uri: 'instagramgradient' }} style={styles.instablock} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
-                <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
+                {/* <TouchableOpacity activeOpacity={1} onPress={() => Share.open({
                     title: "PopTag",
                     message: this.state.challenges[this.state.rand].description + " #poptag 🎈",
                     url: global.screenshot,
                     subject: "PopTag 🎈" })}>
                     <View style={[styles.instablock, { backgroundColor: '#3B5998' }]} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
-                <TouchableOpacity onPress={() => this.tweet()} style={styles.left} activeOpacity={1}>
+                {/* <TouchableOpacity onPress={() => this.tweet()} style={styles.left} activeOpacity={1}>
                     <Image source={{ uri: 'twitter' }} style={styles.icon} />
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => this.insta()} style={styles.middle} activeOpacity={1}>
                     <Image source={{ uri: 'instagramicon' }} style={styles.icon} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <TouchableOpacity onPress={() => Share.open({
                     title: "PopTag",
                     message: this.state.challenges[this.state.rand].description + " #poptag 🎈",
                     url: global.screenshot,
-                    subject: "PopTag 🎈" })}
-                    style={styles.right} activeOpacity={1}>
+                    subject: "PopTag 🎈"
+                })}
+                    style={styles.middle} activeOpacity={1}>
                     <Image source={{ uri: 'share' }} style={styles.icon} />
                 </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
         </View>
     );
 
@@ -460,7 +467,8 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').width * 0.88 * 0.15,
-        backgroundColor: '#4A90E2',
+        //backgroundColor: '#4A90E2',
+        backgroundColor: '#3B5998',
         alignItems: 'center',
         justifyContent: 'space-between',
         marginLeft: Dimensions.get('window').width * 0.1,
