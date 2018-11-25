@@ -25,6 +25,7 @@ class MyListItem extends Component {
         companysettings = JSON.parse(companysettings);
         var type = companysettings[0];
         var challenge = companysettings[0].indexOf('challenges') > -1;
+        var verified = companysettings[0].indexOf('verified') > -1;
         var location = companysettings[0].indexOf('location') > -1;
         var active = this.props.data.id == global.custom;
 
@@ -38,12 +39,8 @@ class MyListItem extends Component {
                         style={styles.linearGradient}>
                         <View style={styles.aligner}>
                             <Text style={styles.summaryText} numberOfLines={1}>{company.name}</Text>
-                            { global.filter !== 'challenges' && global.filter !== 'questions' && global.filter !== 'verified' && global.filter !== 'ab' && global.filter !== 'scavenger' ?
-                            <Image style={challenge ? styles.trophy : type == 'questions' ? styles.chatbubble : type == 'ab' ? styles.ab : type == 'scavenger' ? styles.scavenger :  styles.verified} 
-                            source={{ uri: challenge ? 'trophy' : type == 'questions' ? 'chatbubble' : type == 'ab' ? 'abog' : type == 'scavenger' ? 'scavenger' : 'verified'}} />
-                            :
-                            null
-                            }
+                            <Image style={verified ? styles.verified : 'null'} 
+                            source={{ uri: verified ? 'verified' : 'null'}} />
                         </View>
                     </LinearGradient>
 
@@ -166,10 +163,6 @@ export default class Dialogue extends Component {
                         <Image style={styles.scavenger} source={{ uri: 'scavenger' }} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={global.filter == 'verified' ? styles.buttonactive : styles.button} activeOpacity={1}
-                        onPress={() => this.props.changeFilter('verified')}>
-                        <Image style={styles.verified} source={{ uri: 'verified' }} />
-                    </TouchableOpacity>
                 </View>
 
                 <FlatList
@@ -319,7 +312,7 @@ const styles = StyleSheet.create({
     },
     button: {
         height: Dimensions.get('window').width * 0.904 * 0.12684,
-        width: Dimensions.get('window').width * 0.904 * 0.12684 * 1.45,
+        width: Dimensions.get('window').width * 0.904 * 0.12684 * 1.8,
         backgroundColor: 'rgba(0,0,0,0.54)',
         alignContent: 'center',
         alignItems: 'center',
@@ -328,7 +321,7 @@ const styles = StyleSheet.create({
     },
     buttonactive: {
         height: Dimensions.get('window').width * 0.904 * 0.12684,
-        width: Dimensions.get('window').width * 0.904 * 0.12684 * 1.45,
+        width: Dimensions.get('window').width * 0.904 * 0.12684 * 1.8,
         backgroundColor: 'rgba(0,0,0,0.54)',
         alignContent: 'center',
         alignItems: 'center',

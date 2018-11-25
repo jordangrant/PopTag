@@ -570,7 +570,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     linearGradient: {
-        height: Dimensions.get('window').height * 0.5742,
+        height: (iphonex) ? Dimensions.get('window').height * 0.5 : Dimensions.get('window').height * 0.5742,
         paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
         paddingBottom: Dimensions.get('window').width * 0.43733 * 0.08,
         justifyContent: 'flex-end',

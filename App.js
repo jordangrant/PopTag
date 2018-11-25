@@ -17,7 +17,7 @@ import Contacts from 'react-native-contacts';
 import Sound from 'react-native-sound';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { colors } from './colors';
-import AB from './ABnew';
+import AB from './AB';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Scavenger from './Scavenger2';
 import Share from 'react-native-share';
@@ -95,7 +95,7 @@ export default class PopTag extends Component {
             custom: 68,
             loading: true,
             camera: false,
-            filter: 'none',
+            filter: 'questions',
             token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDIyMzE4MDYsImV4cCI6MTU0NDgyMzgwNiwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.Xd-kotJx2H8WRKlUiDhCf8wMlv_cEFXYhqXrPE6gNdQc97HQDSPEVZLI9iJGjPUdhxd0knBCHyPo63j9DBQRUApOeVVIqhR3BVB-rOLXnn4kFCnAlI_cWx-Fw7KlFmtUMfIrLLYeN0k9qS1waqOAFptCyBMvMcYJhObFQdo_4OaQMvjmhJKiAjvK69vSYgNOMDEhS-vPkVDk-fGmjmieaaaJqxKBvC664L5zwqwuF-V94LXZ0ZIe_S1pcvWRHvOeMSbM9aT4Blxm3pxm3TxUcooLVdf5EMyc_oQtbHbjMut_FoSXcsgExeUAZEr9aIwMcxGV-wfcUJBOTHxcj15QJw',
             groups: [
                 { id: 68, name: 'PopTag', description: "[\"questions\", \"#F4FA58\", \"null\", \"null\", \"null\", \"null\"]", image: {} },
@@ -171,7 +171,7 @@ export default class PopTag extends Component {
                 this.setState({ filter: b });
             }
             else {
-                global.filter = 'none'
+                global.filter = 'questions'
             }
         })
 
@@ -212,8 +212,10 @@ export default class PopTag extends Component {
 
     componentDidMount() {
         this.refreshToken().then((response) => {
-            global.token = response.token;
-            this.setState({ token: response.token });
+            if(response){
+                global.token = response.token;
+                this.setState({ token: response.token });
+            }
         })
     }
 
@@ -226,9 +228,9 @@ export default class PopTag extends Component {
         await AsyncStorage.setItem('gif', JSON.stringify(this.state.gif));
         await AsyncStorage.setItem('custom', JSON.stringify(this.state.custom));
         await AsyncStorage.setItem('groups', JSON.stringify(this.state.groups));
-        await AsyncStorage.setItem('filter', JSON.stringify(this.state.filter));
-        await AsyncStorage.setItem('token', JSON.stringify(this.state.token));
-        console.log('balloons:' + JSON.stringify(this.state.balloons));
+        await AsyncStorage.setItem('filter', this.state.filter);
+        await AsyncStorage.setItem('token', this.state.token);
+        //console.log('balloons:' + JSON.stringify(this.state.balloons));
     }
 
     async getGroups() {
@@ -256,7 +258,7 @@ export default class PopTag extends Component {
         return fetch('https://s3.us-east-2.amazonaws.com/chalet2/poptag/token.json')
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log('Latest token fetched.')
+                //console.log('Latest token fetched.')
                 return responseJson
             })
             .catch((error) => {
@@ -276,9 +278,6 @@ export default class PopTag extends Component {
                 if (responseJson.length > 0) {
                     return responseJson[0].challenges
                 }
-                else {
-                    return false
-                }
             })
             .catch((error) => {
                 console.error(error);
@@ -290,10 +289,10 @@ export default class PopTag extends Component {
         return new Promise(async (resolve, reject) => {
             try {
                 this.getChallenges(custom).then((challenges) => {
-                    if (challenges !== false) {
+                    if (challenges) {
                         AsyncStorage.setItem('challenges', JSON.stringify(challenges));
                         this.setState({ challenges: challenges });
-                        console.log('Challenges fetched and loaded.')
+                        //console.log('Challenges fetched and loaded.')
                         resolve(true);
                     }
                     else {
@@ -308,7 +307,7 @@ export default class PopTag extends Component {
 
     update() {
         this.getGroups().then((groups) => {
-            if (groups == false) {
+            if (groups) {
                 this.refs.toast.show('Failed to update groups.');
             }
             if (typeof groups.find(item => item.id === this.state.custom) == 'undefined') {
@@ -317,7 +316,7 @@ export default class PopTag extends Component {
             else {
                 AsyncStorage.setItem('groups', JSON.stringify(groups));
                 this.setState({ groups: groups });
-                console.log('Groups re-retrieved from DB and saved.')
+                //console.log('Groups re-retrieved from DB and saved.')
             }
         })
 
@@ -325,7 +324,7 @@ export default class PopTag extends Component {
             if (challenges) {
                 AsyncStorage.setItem('challenges', JSON.stringify(challenges));
                 this.setState({ challenges: challenges });
-                console.log('Challenges fetched and loaded.')
+                //console.log('Challenges fetched and loaded.')
                 this.refs.toast.show('Latest content successfully retrieved! ✅');
             }
             else {
@@ -359,9 +358,9 @@ export default class PopTag extends Component {
     playWoosh() {
         woosh.play((success) => {
             if (success) {
-                console.log('successfully finished playing');
+                //console.log('successfully finished playing');
             } else {
-                console.log('playback failed due to audio decoding errors');
+                //console.log('playback failed due to audio decoding errors');
             }
         });
     }
@@ -369,9 +368,9 @@ export default class PopTag extends Component {
     playPop() {
         pop.play((success) => {
             if (success) {
-                console.log('successfully finished playing');
+                //console.log('successfully finished playing');
             } else {
-                console.log('playback failed due to audio decoding errors');
+                //console.log('playback failed due to audio decoding errors');
             }
         });
     }
@@ -432,7 +431,7 @@ export default class PopTag extends Component {
                 this.resetBalloons(false);
                 global.custom = custom;
                 this.setState({ custom: custom });
-                console.log('Custom successfully changed.');
+                //console.log('Custom successfully changed.');
                 this.toggleDialogue();
                 this.save();
             }
@@ -445,13 +444,8 @@ export default class PopTag extends Component {
             global.filter = filter;
             this.setState({ filter: filter });
             this.save();
+            //console.log('Filter changed to ' + filter);
         }
-        else {
-            global.filter = 'none';
-            this.setState({ filter: 'none' });
-            this.save();
-        }
-        console.log('Filter changed to ' + filter);
     }
 
     popBalloon(id) {
@@ -516,7 +510,7 @@ export default class PopTag extends Component {
                         }
                     });
             } else {
-                console.log("Camera Roll permission denied")
+                //console.log("Camera Roll permission denied")
             }
         } catch (err) {
             console.error('Failed to request permission ', err);
@@ -838,7 +832,7 @@ export default class PopTag extends Component {
                     style={{ backgroundColor: 'black' }}
                     position='bottom'
                     positionValue={Dimensions.get('window').height / 4.5}
-                    fadeInDuration={200}
+                    fadeInDuration={400}
                     fadeOutDuration={1600}
                     opacity={0.4}
                     textStyle={{ color: 'white' }}

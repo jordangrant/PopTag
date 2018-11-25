@@ -461,7 +461,7 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 13,
         width: Dimensions.get('window').width * 0.442,
-        height: (iphonex) ? Dimensions.get('window').height * 0.4 : Dimensions.get('window').height * 0.5742,
+        height: (iphonex) ? Dimensions.get('window').height * 0.52 : Dimensions.get('window').height * 0.5742,
         backgroundColor: 'white',
         margin: 4,
         overflow: 'hidden'
@@ -575,7 +575,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     linearGradient: {
-        height: Dimensions.get('window').height * 0.5742,
+        height: (iphonex) ? Dimensions.get('window').height * 0.52 : Dimensions.get('window').height * 0.5742,
         paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
         paddingBottom: Dimensions.get('window').width * 0.43733 * 0.08,
         justifyContent: 'flex-end',

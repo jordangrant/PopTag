@@ -67,10 +67,10 @@ export default class Balloon extends Component {
                 <Animated.View style={[animatedStyle, styles.ballooncontainer]}>
                     {!this.props.popped ?
                         <Image style={styles.balloon}
-                            source={{ uri: companysettings[3] == 'null' ? 'balloon' : companysettings[3] }} />
+                            source={{ uri: (companysettings[3] == 'null' ? 'balloon' : companysettings[3]), cache: 'force-cache' }} />
                         :
                         <Image resizeMode={'contain'} style={styles.poppedshrunk}
-                            source={{ uri: companysettings[4] == 'null' ? 'pop' : companysettings[4] }} />
+                            source={{ uri: (companysettings[4] == 'null' ? 'pop' : companysettings[4]), cache: 'force-cache' }} />
                     }
                 </Animated.View>
             </TouchableOpacity>
