@@ -437,13 +437,13 @@ export default class Challenge extends Component {
                 onPressOut={this.handlePressOut.bind(this)}>
                 <Animated.View style={animatedStyle}>
                     <View style={styles.container}>
-                        <Image source={{ uri: 'trophy' }} style={styles.trophy} />
-                        <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.031 : question.length > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042 }]}
+                        {/* <Image source={{ uri: 'trophy' }} style={styles.trophy} /> */}
+                        <Text style={[styles.mainText, { fontSize: question.length > 140 ? Dimensions.get('window').width * 0.035 : question.length > 110 ? Dimensions.get('window').width * 0.039 : Dimensions.get('window').width * 0.045 }]}
                             numberOfLines={4}>{question}</Text>
                     </View>
 
                     <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.toggleCamera()}>
-                        <Text style={styles.send}>Let's do it!</Text>
+                        <Image source={{ uri: 'camera' }} style={styles.camera} /> 
                     </TouchableOpacity>
 
                 </Animated.View>
@@ -508,7 +508,7 @@ export default class Challenge extends Component {
                             </TouchableOpacity> */}
 
                             <TouchableOpacity onPress={() => this.shareOpenController(twee)} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 6) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                                <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                                <Image source={{ uri: 'share' }} style={styles.share} />
                             </TouchableOpacity>
                         </TouchableOpacity>
 
@@ -572,7 +572,7 @@ export default class Challenge extends Component {
                             url: this.state.uri,
                             subject: "PopTag 🎈"
                         })} style={{ position: 'absolute', left: Dimensions.get('window').width * 0.8 * (3 / 4) - 14, height: 28, width: 28 }} activeOpacity={1}>
-                            <Image source={{ uri: 'share' }} style={{ height: 28, width: 28, tintColor: 'white' }} />
+                            <Image source={{ uri: 'share' }} style={styles.share} />
                         </TouchableOpacity>
                     </View>
 
@@ -615,7 +615,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: (ipad) ? 26 : 13,
         borderTopRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
-        height: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 : Dimensions.get('window').width * 0.8 * 1.15,
+        height: Platform.OS === 'android' || (ipad) ? Dimensions.get('window').width * 0.7 : Dimensions.get('window').width * 0.8 * 1.15,
         // backgroundColor: '#4A90E2',
         backgroundColor: 'white',
         alignItems: 'center',
@@ -670,7 +670,7 @@ const styles = StyleSheet.create({
     },
     blue2: {
         position: 'absolute',
-        top: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 * 0.98 + Dimensions.get('window').height * 0.1 : Dimensions.get('window').width * 0.8 * 1.13 + Dimensions.get('window').height * 0.1,
+        top: Platform.OS === 'android' || (ipad) ? Dimensions.get('window').width * 0.7 * 0.98 + Dimensions.get('window').height * 0.1 : Dimensions.get('window').width * 0.8 * 1.13 + Dimensions.get('window').height * 0.1,
         borderBottomLeftRadius: (ipad) ? 26 : 13,
         borderBottomRightRadius: (ipad) ? 26 : 13,
         width: Dimensions.get('window').width * 0.8,
@@ -722,7 +722,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         fontWeight: '600',
         fontSize: Dimensions.get('window').width * 0.042,
-        marginVertical: Platform.OS === 'android' ? 20 : 10,
+        marginVertical:  (ipad) || Platform.OS === 'android' ? Dimensions.get('window').width * 0.88 * 0.13 : 10,
     },
     summarySectionTitle: {
         color: 'black',
@@ -742,9 +742,19 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 0.1,
     },
     trophy: {
-        height: 31,
-        width: 31,
+        height: (ipad) ? 62 : 31,
+        width: (ipad) ? 62 : 31,
         tintColor: '#FFD700'
+    },
+    share: {
+        height: 28,
+        width: 28,
+        tintColor: 'white'
+    },
+    camera: {
+        height: (ipad) ? 56 : 28,
+        width: (ipad) ? 56 : 28,
+        tintColor: 'white'
     },
     cell: {
         width: Dimensions.get('window').width * 0.8,
@@ -753,7 +763,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     linearGradient: {
-        height: Platform.OS === 'android' ? Dimensions.get('window').width * 0.8 : Dimensions.get('window').width * 0.8 * 1.15,
+        height: Platform.OS === 'android' || (ipad) ? Dimensions.get('window').width * 0.7 : Dimensions.get('window').width * 0.8 * 1.15,
         paddingHorizontal: Dimensions.get('window').width * 0.43733 * 0.08,
         paddingBottom: Dimensions.get('window').width * 0.43733 * 0.08,
         justifyContent: 'flex-end',

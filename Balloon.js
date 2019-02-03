@@ -54,8 +54,8 @@ export default class Balloon extends Component {
             transform: [{ scale: this.animatedValue }]
         }
 
-        var companysettings = this.props.groups.find(item => item.id === this.props.custom).description;
-        companysettings = JSON.parse(companysettings)
+        // var companysettings = this.props.groups.find(item => item.id === this.props.custom).description;
+        // companysettings = JSON.parse(companysettings)
         // questions, bgcolor, wordmark, primaryicon, secondaryicon
 
         return (
@@ -66,11 +66,11 @@ export default class Balloon extends Component {
 
                 <Animated.View style={[animatedStyle, styles.ballooncontainer]}>
                     {!this.props.popped ?
-                        <Image style={companysettings[3].toLowerCase().indexOf('/u') > -1 ? styles.balloonshrunk : styles.balloon}
-                            source={{ uri: (companysettings[3] == 'null' ? 'balloon' : companysettings[3]), cache: 'force-cache' }} />
+                        <Image style={styles.balloon}
+                            source={{ uri: 'balloon', cache: 'force-cache' }} />
                         :
                         <Image resizeMode={'contain'} style={styles.poppedshrunk}
-                            source={{ uri: (companysettings[4] == 'null' ? 'pop' : companysettings[4]), cache: 'force-cache' }} />
+                            source={{ uri: 'pop', cache: 'force-cache' }} />
                     }
                 </Animated.View>
             </TouchableOpacity>
@@ -87,10 +87,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     balloon: {
-        // shadowColor: 'black',
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowOpacity: 0.25,
-        // shadowRadius: 4,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
         flex: 1, width: undefined, height: undefined,
     },
     balloonshrunk: {
@@ -110,10 +110,10 @@ const styles = StyleSheet.create({
         margin: 0
     },
     poppedshrunk: {
-        // shadowColor: 'black',
-        // shadowOffset: { width: 0, height: 1 },
-        // shadowOpacity: 0.25,
-        // shadowRadius: 4,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
         flex: 1, width: undefined, height: undefined,
         margin: 25
     }

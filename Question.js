@@ -264,7 +264,7 @@ export default class Question extends Component {
                 onPressOut={this.handlePressOut.bind(this)}>
                 <Animated.View style={animatedStyle}>
                     <View style={this.state.text !== '' ? styles.container2 : styles.container}>
-                        <Text style={[styles.mainText, { fontSize: qlength > 140 ? Dimensions.get('window').width * 0.031 : qlength > 110 ? Dimensions.get('window').width * 0.036 : Dimensions.get('window').width * 0.042 }]}
+                        <Text style={[styles.mainText, { fontSize: qlength > 140 ? Dimensions.get('window').width * 0.031 : qlength > 110 ? Dimensions.get('window').width * 0.036 : (ipad) ? Dimensions.get('window').width * 0.038 : Dimensions.get('window').width * 0.042 }]}
                             numberOfLines={5}>{question}</Text>
 
                         <View style={styles.inputcontainer}>

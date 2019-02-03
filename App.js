@@ -5,20 +5,25 @@
 import React, { Component } from 'react';
 import {
     AppRegistry, StyleSheet, Text, View, TouchableOpacity, Dimensions, Keyboard,
-    Image, Animated, AsyncStorage, CameraRoll, Platform, Linking, PermissionsAndroid
+    Image, Animated, AsyncStorage, CameraRoll, Platform, Linking, PermissionsAndroid,
+    Alert, StatusBar
 } from 'react-native';
 import { captureScreen } from "react-native-view-shot";
+import Sound from 'react-native-sound';
+import Spinner from 'react-native-loading-spinner-overlay';
+import Toast, { DURATION } from 'react-native-easy-toast';
 import RNShakeEvent from 'react-native-shake-event';
 import Balloon from './Balloon';
 import Question from './Question';
 import Challenge from './Challenge';
 import Dialogue from './Dialogue';
 import Contacts from 'react-native-contacts';
-import Sound from 'react-native-sound';
-import Toast, { DURATION } from 'react-native-easy-toast';
 import { colors } from './colors';
 import AB from './AB';
-import Spinner from 'react-native-loading-spinner-overlay';
+import DEFAULT from './groups.json';
+import { COLORS } from './colors';
+import * as StoreReview from 'react-native-store-review';
+
 import Scavenger from './Scavenger2';
 import Share from 'react-native-share';
 
@@ -88,6 +93,7 @@ export default class PopTag extends Component {
             displayScavenger: false,
             displayGif: false,
             background: '',
+            bgColor: 0,
             gif: 0,
             dialogue: false,
             bottomHeight: 25,
@@ -96,137 +102,189 @@ export default class PopTag extends Component {
             loading: true,
             camera: false,
             filter: 'questions',
-            token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDIyMzE4MDYsImV4cCI6MTU0NDgyMzgwNiwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.Xd-kotJx2H8WRKlUiDhCf8wMlv_cEFXYhqXrPE6gNdQc97HQDSPEVZLI9iJGjPUdhxd0knBCHyPo63j9DBQRUApOeVVIqhR3BVB-rOLXnn4kFCnAlI_cWx-Fw7KlFmtUMfIrLLYeN0k9qS1waqOAFptCyBMvMcYJhObFQdo_4OaQMvjmhJKiAjvK69vSYgNOMDEhS-vPkVDk-fGmjmieaaaJqxKBvC664L5zwqwuF-V94LXZ0ZIe_S1pcvWRHvOeMSbM9aT4Blxm3pxm3TxUcooLVdf5EMyc_oQtbHbjMut_FoSXcsgExeUAZEr9aIwMcxGV-wfcUJBOTHxcj15QJw',
+            token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDQzODg3MjksImV4cCI6MTU0Njk4MDcyOSwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.hTx4MfpDlh_srBm2BUFU7L6yA6Rzwoge6QC9UP6BBswOUcXcvclV7sg6TAodpq3y1IuVJSd5SO7NvjiVkpX3tW-S3K6MprZqOeN51kbnkG9P_vw42dF-s1ZTBGhHf8b2X50z0QpvBW9KJXU1vZqFVNNb3BnXJGsX9MxmWL5CQjfSklucjtzPAVZiR1Ryuq17qX29nmfqXQ_Wcz7PP70q_6YM-ec_cwDhAovDfk1DVeiZVkalB4ox7NEzH3DeWoaNwgaO3u84iv4qx6mRg9pM6zGqJLTvKPcaFIIkXVJq9wEOYxwR9jPDEWC1p1NOfsanV8djGfcI0_Up_sepm9T_dQ',
             groups: [
                 { id: 68, name: 'PopTag', description: "[\"questions\", \"#F4FA58\", \"null\", \"null\", \"null\", \"null\"]", image: {} },
             ],
-            challenges: []
+            challenges: DEFAULT[0].challenges,
         };
     }
+
+    // componentWillMount() {
+    //     AsyncStorage.getItem('custom').then(custom => {
+    //         if (custom !== null) {
+    //             global.custom = parseInt(custom);
+    //             this.setState({ custom: parseInt(custom) });
+
+    //             AsyncStorage.getItem('challenges').then(b => {
+    //                 if (b !== null) {
+    //                     this.setState({ challenges: JSON.parse(b), loading: false });
+    //                 }
+    //                 else {
+    //                     this.updateChallenges(parseInt(custom)).then((res) => {
+    //                         if (res == true) {
+    //                             this.setState({ loading: false })
+    //                         }
+    //                         else {
+    //                             global.custom = 68;
+    //                             this.setState({ custom: 68, loading: false })
+    //                         }
+    //                     })
+    //                 }
+    //             })
+    //         } else {
+    //             AsyncStorage.setItem('custom', '68');
+    //             global.custom = 68;
+    //             this.setState({ custom: 68 });
+
+    //             AsyncStorage.getItem('challenges').then(b => {
+    //                 if (b !== null) {
+    //                     this.setState({ challenges: JSON.parse(b), loading: false });
+    //                 }
+    //                 else {
+    //                     this.updateChallenges(68);
+    //                     this.setState({ loading: false })
+    //                 }
+    //             })
+    //         }
+    //     });
+
+    //     AsyncStorage.getItem('token').then(b => {
+    //         if (b !== null) {
+    //             global.token = b;
+    //             this.setState({ token: b });
+    //         }
+    //         else {
+    //             global.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDQzODg3MjksImV4cCI6MTU0Njk4MDcyOSwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.hTx4MfpDlh_srBm2BUFU7L6yA6Rzwoge6QC9UP6BBswOUcXcvclV7sg6TAodpq3y1IuVJSd5SO7NvjiVkpX3tW-S3K6MprZqOeN51kbnkG9P_vw42dF-s1ZTBGhHf8b2X50z0QpvBW9KJXU1vZqFVNNb3BnXJGsX9MxmWL5CQjfSklucjtzPAVZiR1Ryuq17qX29nmfqXQ_Wcz7PP70q_6YM-ec_cwDhAovDfk1DVeiZVkalB4ox7NEzH3DeWoaNwgaO3u84iv4qx6mRg9pM6zGqJLTvKPcaFIIkXVJq9wEOYxwR9jPDEWC1p1NOfsanV8djGfcI0_Up_sepm9T_dQ';
+    //         }
+    //     })
+
+    //     AsyncStorage.getItem('balloons').then(b => {
+    //         if (b !== null) {
+    //             this.setState({ balloons: JSON.parse(b) });
+    //         }
+    //     })
+
+    //     AsyncStorage.getItem('gif').then(b => {
+    //         if (b !== null) {
+    //             this.setState({ gif: parseInt(b) });
+    //         }
+    //     })
+
+    //     AsyncStorage.getItem('filter').then(b => {
+    //         if (b !== null) {
+    //             global.filter = b;
+    //             this.setState({ filter: b });
+    //         }
+    //         else {
+    //             global.filter = 'questions'
+    //         }
+    //     })
+
+    //     AsyncStorage.getItem('groups').then(b => {
+    //         if (b !== null) {
+    //             this.setState({ groups: JSON.parse(b) });
+    //         }
+    //         else {
+    //             if (global.token == 'undefined') {
+    //                 global.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDQzODg3MjksImV4cCI6MTU0Njk4MDcyOSwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.hTx4MfpDlh_srBm2BUFU7L6yA6Rzwoge6QC9UP6BBswOUcXcvclV7sg6TAodpq3y1IuVJSd5SO7NvjiVkpX3tW-S3K6MprZqOeN51kbnkG9P_vw42dF-s1ZTBGhHf8b2X50z0QpvBW9KJXU1vZqFVNNb3BnXJGsX9MxmWL5CQjfSklucjtzPAVZiR1Ryuq17qX29nmfqXQ_Wcz7PP70q_6YM-ec_cwDhAovDfk1DVeiZVkalB4ox7NEzH3DeWoaNwgaO3u84iv4qx6mRg9pM6zGqJLTvKPcaFIIkXVJq9wEOYxwR9jPDEWC1p1NOfsanV8djGfcI0_Up_sepm9T_dQ';
+    //             }
+    //             this.getGroups().then((groups) => {
+    //                 if (groups !== false) {
+    //                     AsyncStorage.setItem('groups', JSON.stringify(groups));
+    //                     this.setState({ groups: groups });
+    //                 }
+    //             })
+    //         }
+    //     })
+
+    //     this.animatedValue = new Animated.Value(1);
+
+    //     // RNShakeEvent.addEventListener('shake', () => {
+    //     //     if (this.state.bgColor < 4) {
+    //     //         this.setState({ bgColor: (this.state.bgColor + 1) });
+    //     //         this.save();
+    //     //         this.forceUpdate();
+    //     //     }
+    //     //     else {
+    //     //         this.setState({ bgColor: 0 });
+    //     //         this.save();
+    //     //         this.forceUpdate();
+    //     //     }
+    //     // });
+
+    //     this.forceUpdate();
+    // }
 
     componentWillMount() {
         AsyncStorage.getItem('custom').then(custom => {
             if (custom !== null) {
                 global.custom = parseInt(custom);
                 this.setState({ custom: parseInt(custom) });
-
-                AsyncStorage.getItem('challenges').then(b => {
-                    if (b !== null) {
-                        this.setState({ challenges: JSON.parse(b), loading: false });
-                    }
-                    else {
-                        this.updateChallenges(parseInt(custom)).then((res) => {
-                            if (res == true) {
-                                this.setState({ loading: false })
-                            }
-                            else {
-                                global.custom = 68;
-                                this.setState({ custom: 68, loading: false })
-                            }
-                        })
-                    }
-                })
-            } else {
+            }
+            else {
                 AsyncStorage.setItem('custom', '68');
                 global.custom = 68;
                 this.setState({ custom: 68 });
-
-                AsyncStorage.getItem('challenges').then(b => {
-                    if (b !== null) {
-                        this.setState({ challenges: JSON.parse(b), loading: false });
-                    }
-                    else {
-                        this.updateChallenges(68);
-                        this.setState({ loading: false })
-                    }
-                })
             }
         });
-
-        AsyncStorage.getItem('token').then(b => {
-            if (b !== null) {
-                global.token = b;
-                this.setState({ token: b });
-            }
-            else {
-                global.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDIyMzE4MDYsImV4cCI6MTU0NDgyMzgwNiwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.Xd-kotJx2H8WRKlUiDhCf8wMlv_cEFXYhqXrPE6gNdQc97HQDSPEVZLI9iJGjPUdhxd0knBCHyPo63j9DBQRUApOeVVIqhR3BVB-rOLXnn4kFCnAlI_cWx-Fw7KlFmtUMfIrLLYeN0k9qS1waqOAFptCyBMvMcYJhObFQdo_4OaQMvjmhJKiAjvK69vSYgNOMDEhS-vPkVDk-fGmjmieaaaJqxKBvC664L5zwqwuF-V94LXZ0ZIe_S1pcvWRHvOeMSbM9aT4Blxm3pxm3TxUcooLVdf5EMyc_oQtbHbjMut_FoSXcsgExeUAZEr9aIwMcxGV-wfcUJBOTHxcj15QJw';
-            }
-        })
 
         AsyncStorage.getItem('balloons').then(b => {
             if (b !== null) {
                 this.setState({ balloons: JSON.parse(b) });
             }
-        })
+        });
+
+        AsyncStorage.getItem('bgcolor').then(b => {
+            if (b !== null) {
+                this.setState({ bgColor: JSON.parse(b) });
+            }
+        });
 
         AsyncStorage.getItem('gif').then(b => {
             if (b !== null) {
                 this.setState({ gif: parseInt(b) });
             }
-        })
-
-        AsyncStorage.getItem('filter').then(b => {
-            if (b !== null) {
-                global.filter = b;
-                this.setState({ filter: b });
-            }
-            else {
-                global.filter = 'questions'
-            }
-        })
-
-        AsyncStorage.getItem('groups').then(b => {
-            if (b !== null) {
-                this.setState({ groups: JSON.parse(b) });
-            }
-            else {
-                if (global.token == 'undefined') {
-                    global.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik56UXdOa1U0UXpreU9VSTRPRVEyUkRNMFFUQXlNelZHUXpReE9FTXhOVE5ETVRBM05FTXdRdyJ9.eyJpc3MiOiJodHRwczovL3B4MS5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAyMDc5NjUzNTgzMzIzNjQiLCJhdWQiOlsiYXBpLmNoYWxldGFwcC5kZSIsImh0dHBzOi8vcHgxLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1NDIyMzE4MDYsImV4cCI6MTU0NDgyMzgwNiwiYXpwIjoiRVVzN0V4ekVPdzZLcjVjd1dmNUk2bkg2M1BwUlJ5OUgiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG9mZmxpbmVfYWNjZXNzIn0.Xd-kotJx2H8WRKlUiDhCf8wMlv_cEFXYhqXrPE6gNdQc97HQDSPEVZLI9iJGjPUdhxd0knBCHyPo63j9DBQRUApOeVVIqhR3BVB-rOLXnn4kFCnAlI_cWx-Fw7KlFmtUMfIrLLYeN0k9qS1waqOAFptCyBMvMcYJhObFQdo_4OaQMvjmhJKiAjvK69vSYgNOMDEhS-vPkVDk-fGmjmieaaaJqxKBvC664L5zwqwuF-V94LXZ0ZIe_S1pcvWRHvOeMSbM9aT4Blxm3pxm3TxUcooLVdf5EMyc_oQtbHbjMut_FoSXcsgExeUAZEr9aIwMcxGV-wfcUJBOTHxcj15QJw';
-                }
-                this.getGroups().then((groups) => {
-                    if (groups !== false) {
-                        AsyncStorage.setItem('groups', JSON.stringify(groups));
-                        this.setState({ groups: groups });
-                    }
-                })
-            }
-        })
+        });
 
         this.animatedValue = new Animated.Value(1);
 
-        // RNShakeEvent.addEventListener('shake', () => {
-        //     if (this.state.bgColor < 4) {
-        //         this.setState({ bgColor: (this.state.bgColor + 1) });
-        //         this.save();
-        //         this.forceUpdate();
-        //     }
-        //     else {
-        //         this.setState({ bgColor: 0 });
-        //         this.save();
-        //         this.forceUpdate();
-        //     }
-        // });
+        this.setState({ loading: false });
+
+        RNShakeEvent.addEventListener('shake', () => {
+            if (this.state.bgColor < COLORS.length-1) {
+                this.setState({ bgColor: (this.state.bgColor + 1) });
+                this.save();
+                this.forceUpdate();
+            }
+            else {
+                this.setState({ bgColor: 0 });
+                this.save();
+                this.forceUpdate();
+            }
+        });
 
         this.forceUpdate();
     }
 
     componentDidMount() {
-        this.refreshToken().then((response) => {
-            if (response) {
-                global.token = response.token;
-                this.setState({ token: response.token });
-            }
-        })
+        // this.refreshToken().then((response) => {
+        //     if (response) {
+        //         global.token = response.token;
+        //         this.setState({ token: response.token });
+        //     }
+        // })
     }
 
     componentWillUnmount() {
-        //RNShakeEvent.removeEventListener('shake');
+        RNShakeEvent.removeEventListener('shake');
     }
 
     async save() {
         await AsyncStorage.setItem('balloons', JSON.stringify(this.state.balloons));
         await AsyncStorage.setItem('gif', JSON.stringify(this.state.gif));
         await AsyncStorage.setItem('custom', JSON.stringify(this.state.custom));
+        await AsyncStorage.setItem('bgcolor', JSON.stringify(this.state.bgColor));
         await AsyncStorage.setItem('groups', JSON.stringify(this.state.groups));
         await AsyncStorage.setItem('filter', this.state.filter);
         await AsyncStorage.setItem('token', this.state.token);
@@ -262,7 +320,7 @@ export default class PopTag extends Component {
                 return responseJson
             })
             .catch((error) => {
-                console.error(error);
+                return false
             });
     }
 
@@ -386,6 +444,10 @@ export default class PopTag extends Component {
         }
 
         this.setState({ displayGif: false })
+
+        if (StoreReview.isAvailable) {
+            StoreReview.requestReview();
+          }
     }
 
     navigateToInstagram(page) {
@@ -461,24 +523,26 @@ export default class PopTag extends Component {
             this.resetBalloons(true);
         }
 
-        var companysettings = this.state.groups.find(item => item.id === this.state.custom).description;
-        companysettings = JSON.parse(companysettings)
+        this.setState({ displayQuestion: true });
 
-        if (companysettings[0].replace('verified', '').toLowerCase() == 'questions') {
-            this.setState({ displayQuestion: true });
-        }
-        else if (companysettings[0].indexOf('challenges') > -1) {
-            this.setState({ displayChallenge: true });
-        }
-        else if (companysettings[0].replace('verified', '').toLowerCase() == 'ab') {
-            this.setState({ displayAB: true });
-        }
-        else if (companysettings[0].replace('verified', '').toLowerCase() == 'scavenger') {
-            this.setState({ displayScavenger: true });
-        }
-        else {
+        // var companysettings = this.state.groups.find(item => item.id === this.state.custom).description;
+        // companysettings = JSON.parse(companysettings)
 
-        }
+        // if (companysettings[0].replace('verified', '').toLowerCase() == 'questions') {
+        //     this.setState({ displayQuestion: true });
+        // }
+        // else if (companysettings[0].indexOf('challenges') > -1) {
+        //     this.setState({ displayChallenge: true });
+        // }
+        // else if (companysettings[0].replace('verified', '').toLowerCase() == 'ab') {
+        //     this.setState({ displayAB: true });
+        // }
+        // else if (companysettings[0].replace('verified', '').toLowerCase() == 'scavenger') {
+        //     this.setState({ displayScavenger: true });
+        // }
+        // else {
+
+        // }
 
         this.save();
     }
@@ -666,11 +730,25 @@ export default class PopTag extends Component {
     }
 
     toggleDialogue() {
+        var companysettings = this.state.groups.find(item => item.id === this.state.custom).description;
+        companysettings = JSON.parse(companysettings);
+
         if (this.state.displayQuestion || this.state.displayChallenge || this.state.displayAB || this.state.displayScavenger) {
             this.endQuestion();
         }
         else if (this.state.displayGif) {
             this.dismissGif();
+        }
+        else if (Platform.OS === 'ios' && companysettings[0].replace('verified', '').toLowerCase() == 'scavenger' && this.state.dialogue == false) {
+            Alert.alert(
+                'Are you sure?',
+                'If you leave, your progress will not be saved.',
+                [
+                    { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                    { text: 'OK', onPress: () => this.setState({ dialogue: !this.state.dialogue }) },
+                ],
+                { cancelable: false }
+            )
         }
         else {
             this.setState({ dialogue: !this.state.dialogue })
@@ -686,13 +764,7 @@ export default class PopTag extends Component {
     }
 
     renderBalloons() {
-        var companysettings = this.state.groups.find(item => item.id === this.state.custom).description;
-        companysettings = JSON.parse(companysettings)
-
-        if (companysettings[0].replace('verified', '').toLowerCase() == 'scavenger') {
-            return this.renderScavenger()
-        }
-        else if (this.state.challenges.length > 0) {
+        if (this.state.challenges.length > 0) {
             return this.state.balloons.map(b =>
                 <Balloon key={b.id} top={b.top} left={b.left} id={b.id} popped={b.popped} pop={this.popBalloon.bind(this)}
                     playPop={() => this.playPop()} playWoosh={() => this.playWoosh()} custom={this.state.custom}
@@ -751,10 +823,10 @@ export default class PopTag extends Component {
             transform: [{ scale: this.animatedValue }]
         }
 
-        var companysettings = this.state.groups.find(item => item.id === this.state.custom);
-        if (typeof companysettings !== 'undefined') {
-            companysettings = JSON.parse(companysettings.description)
-        }
+        // var companysettings = this.state.groups.find(item => item.id === this.state.custom);
+        // if (typeof companysettings !== 'undefined') {
+        //     companysettings = JSON.parse(companysettings.description)
+        // }
 
         // questions, bgcolor, wordmark, primaryicon, secondaryicon, IG page
 
@@ -763,29 +835,34 @@ export default class PopTag extends Component {
                 {this.state.loading == true ?
                     <Spinner visible={this.state.loading} textContent={"Loading..."} textStyle={{ color: '#FFF' }} />
                     :
-                    <View style={[styles.container, { backgroundColor: companysettings[1] }]}>
+                    <View style={[styles.container, { backgroundColor: COLORS[this.state.bgColor] }]}>
 
                         <TouchableOpacity style={styles.headerBounding} activeOpacity={1}
                             onPressIn={this.handlePressIn.bind(this)}
                             onPress={this.state.displayQuestion || this.state.displayChallenge || this.state.displayAB || this.state.displayScavenger ? () => this.endQuestion() :
-                                this.state.dialogue ? () => this.toggleDialogue() : this.state.displayGif ? () => this.dismissGif() : () => this.update()}
+                                this.state.dialogue ? () => this.toggleDialogue() : this.state.displayGif ? () => this.dismissGif() : null}
                             onPressOut={this.handlePressOut.bind(this)}>
                             <Animated.View style={[animatedStyle, { width: Dimensions.get('window').width * 0.7, height: (ipad) ? Dimensions.get('window').width * 0.7 * 0.23 : Dimensions.get('window').width * 0.7 * 0.2461538462 }]}>
                                 <Image style={styles.header} resizeMode={'contain'}
-                                    source={{ uri: companysettings[2] == 'null' ? 'ptlogored' : companysettings[2] }} />
+                                    source={{ uri: 'ptlogored' }} />
                             </Animated.View>
                         </TouchableOpacity>
                         {this.state.dialogue ? this.renderDialogue() : this.state.displayQuestion ? this.renderQuestion() :
                             this.state.displayChallenge ? this.renderChallenge() : this.state.displayAB ? this.renderAB() :
                                 this.state.displayGif ? this.renderGif() : this.renderBalloons()}
 
-                        {/* {this.state.dialogue == false ?
-                        <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]} onPress={() => this.addContact()}>
-                            <Image style={styles.contacts} source={{ uri: 'addressbookicon' }} />
-                        </TouchableOpacity>
-                        : null} */}
+                        {this.state.dialogue == false ?
+                            <TouchableOpacity activeOpacity={1} style={[styles.button1, { bottom: this.state.bottomHeight }]}
+                                onPress={this.state.displayQuestion || this.state.displayGif || this.state.displayScavenger ||
+                                    this.state.displayChallenge || this.state.displayAB ? () => this.endQuestion() : () => this.addContact()}>
+                                <Image style={styles.contacts} source={{
+                                    uri: this.state.displayQuestion || this.state.displayGif || this.state.displayScavenger ||
+                                        this.state.displayChallenge || this.state.displayAB ? 'home' : 'addressbookicon'
+                                }} />
+                            </TouchableOpacity>
+                            : null}
 
-                        {!this.state.dialogue && !this.state.camera ?
+                        {/* {!this.state.dialogue && !this.state.camera ?
                             <TouchableOpacity activeOpacity={1} style={[styles.button1, {
                                 bottom: this.state.bottomHeight,
                                 width: this.state.displayScavenger ? widthScavenger : width
@@ -793,17 +870,17 @@ export default class PopTag extends Component {
                                 onPress={() => this.toggleDialogue()}>
                                 <Image style={styles.ibutton} source={{
                                     uri: this.state.displayQuestion || this.state.displayGif || this.state.displayScavenger ||
-                                        this.state.displayChallenge || this.state.displayAB ? 'home' : 'palette'
+                                        this.state.displayChallenge || this.state.displayAB ? 'home' : 'search'
                                 }} />
                             </TouchableOpacity>
-                            : null}
+                            : null} */}
 
                         {!this.state.dialogue && !this.state.camera && !this.state.displayScavenger ?
                             <TouchableOpacity activeOpacity={1} style={[styles.button3, {
                                 bottom: this.state.bottomHeight,
                                 width: this.state.displayScavenger ? widthScavenger : width
                             }]}
-                                onPress={() => this.navigateToInstagram(typeof companysettings[5] !== undefined ? companysettings[5] : null)}>
+                                onPress={() => this.navigateToInstagram('poptagtv')}>
                                 <Image style={styles.instagrambutton} source={{ uri: 'instagramicon' }} />
                             </TouchableOpacity>
                             : null}
@@ -925,18 +1002,18 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     contacts: {
-        width: width * 0.303,
-        height: width * 0.303 * 1.0778947368,
+        width: (ipad) ? 48 : 30,
+        height: (ipad) ? 48 * 1.0778947368 : 30 * 1.0778947368,
         tintColor: 'white'
     },
     instagrambutton: {
-        width: (ipad) ? 54 : 36,
-        height: (ipad) ? 54 : 36,
+        width: (ipad) ? 48 : 30,
+        height: (ipad) ? 48 : 30,
         tintColor: 'white'
     },
     ibutton: {
-        width: (ipad) ? 54 : 36,
-        height: (ipad) ? 54 : 36,
+        width: (ipad) ? 44 : 28,
+        height: (ipad) ? 44 : 28,
         tintColor: 'white'
     },
     woman: {

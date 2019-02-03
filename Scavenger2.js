@@ -587,11 +587,11 @@ export default class Scavenger extends Component {
                 <Animated.View style={animatedStyle}>
                     <View style={styles.container}>
                         <Text style={[styles.mainText]}>
-                            Welcome to the {name} scavenger hunt! Tap an item to take a picture or video. Long press to simply mark as completed.</Text>
+                            Welcome to the {name} scavenger hunt! Tap an item to take a picture or video. Long press to mark as completed.</Text>
                     </View>
 
                     <TouchableOpacity style={styles.blue} activeOpacity={1} onPress={() => this.start()}>
-                        <Text style={styles.send}>Let's do it!</Text>
+                        <Text style={styles.send}>Start</Text>
                     </TouchableOpacity>
 
                 </Animated.View>

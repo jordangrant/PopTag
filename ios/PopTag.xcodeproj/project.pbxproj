@@ -23,6 +23,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		14BB51FA7D6C4CA7A03C35C9 /* libRNStoreReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A52303B65BE6440F83982622 /* libRNStoreReview.a */; };
 		15C2F09BB204439FBA6E8A60 /* libRCTContacts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7346371FE5F54DD5AF15AB73 /* libRCTContacts.a */; };
 		19FB6F7CC40211F29BE42C8B /* libPods-PopTag.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D63D9201EA99F14A9BFA901B /* libPods-PopTag.a */; };
 		1DD9C308CAA3E59F860581A9 /* libPods-PopTag-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17382A742BDB8ADD37568FE0 /* libPods-PopTag-tvOS.a */; };
@@ -464,6 +465,13 @@
 			remoteGlobalIDString = A15C300E1CD25C330074CB35;
 			remoteInfo = RNFetchBlob;
 		};
+		F3EAFB2021FC4E8F0040D90B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4F4AC3ED2F7A4936B31F1CF5 /* RNStoreReview.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNStoreReview;
+		};
 		F3F4EBB6216D804F00F164C2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3BF960335C174195A60D8E15 /* RCTContacts.xcodeproj */;
@@ -507,6 +515,7 @@
 		3CA6CE6F6B9DADF28740F278 /* Pods-PopTag-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTag-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopTag-tvOSTests/Pods-PopTag-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		481188F0993E49A09B9CAE5E /* libRNCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCamera.a; sourceTree = "<group>"; };
 		49E31520ED6342BEBA343360 /* libRCTVideo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTVideo.a; sourceTree = "<group>"; };
+		4F4AC3ED2F7A4936B31F1CF5 /* RNStoreReview.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNStoreReview.xcodeproj; path = "../node_modules/react-native-store-review/ios/RNStoreReview.xcodeproj"; sourceTree = "<group>"; };
 		4FE5A1EA1751DF9E18121EC2 /* Pods-PopTag-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTag-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopTag-tvOS/Pods-PopTag-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		596B6E7004354CDA87FD5E54 /* RNSound.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
 		5D9D5E98B4BB46128241B8A0 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
@@ -527,6 +536,7 @@
 		96EE607B213B210400323758 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		96FFACE22141F7EE007B9A22 /* woosh.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = woosh.m4a; path = ../assets/woosh.m4a; sourceTree = "<group>"; };
 		96FFACE42141F7FC007B9A22 /* pop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = pop.m4a; path = ../assets/pop.m4a; sourceTree = "<group>"; };
+		A52303B65BE6440F83982622 /* libRNStoreReview.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNStoreReview.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B70D467DBA184982AC28E506 /* RNViewShot.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNViewShot.xcodeproj; path = "../node_modules/react-native-view-shot/ios/RNViewShot.xcodeproj"; sourceTree = "<group>"; };
 		CC0D0E423DC3477F85C7A8C6 /* libRNViewShot.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNViewShot.a; sourceTree = "<group>"; };
@@ -592,6 +602,7 @@
 				55B8427091A6419C898F3DF5 /* libRNFetchBlob.a in Frameworks */,
 				19FB6F7CC40211F29BE42C8B /* libPods-PopTag.a in Frameworks */,
 				C7B07CB470254A51835C1C00 /* libRNThumbnail.a in Frameworks */,
+				14BB51FA7D6C4CA7A03C35C9 /* libRNStoreReview.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +705,7 @@
 				49E31520ED6342BEBA343360 /* libRCTVideo.a */,
 				769E29BD38524D4C9006C75D /* libRNFetchBlob.a */,
 				EDC751C500874AF2BB572B4C /* libRNThumbnail.a */,
+				A52303B65BE6440F83982622 /* libRNStoreReview.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -829,6 +841,7 @@
 				7A485ECFA5F14DF38FE01BC2 /* RCTVideo.xcodeproj */,
 				3C99E4004FBF40DFB2218BED /* RNFetchBlob.xcodeproj */,
 				77979FFD29574495B70382E3 /* RNThumbnail.xcodeproj */,
+				4F4AC3ED2F7A4936B31F1CF5 /* RNStoreReview.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1009,6 +1022,14 @@
 			children = (
 				F3DB27A2216C532400CBEEB8 /* libRCTVideo.a */,
 				F3DB27A4216C532400CBEEB8 /* libRCTVideo.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F3EAFB1D21FC4E8F0040D90B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F3EAFB2121FC4E8F0040D90B /* libRNStoreReview.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1239,6 +1260,10 @@
 				{
 					ProductGroup = 96FFACBC2140E035007B9A22 /* Products */;
 					ProjectRef = 596B6E7004354CDA87FD5E54 /* RNSound.xcodeproj */;
+				},
+				{
+					ProductGroup = F3EAFB1D21FC4E8F0040D90B /* Products */;
+					ProjectRef = 4F4AC3ED2F7A4936B31F1CF5 /* RNStoreReview.xcodeproj */;
 				},
 				{
 					ProductGroup = F31AD74E21914FB1004A37C6 /* Products */;
@@ -1645,6 +1670,13 @@
 			remoteRef = F3DB27A6216C532400CBEEB8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		F3EAFB2121FC4E8F0040D90B /* libRNStoreReview.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNStoreReview.a;
+			remoteRef = F3EAFB2021FC4E8F0040D90B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		F3F4EBB7216D804F00F164C2 /* libRCTContacts.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1884,12 +1916,14 @@
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-instagram-share/RNInstagramShare",
 					"$(SRCROOT)/../node_modules/react-native-thumbnail/ios",
+					"$(SRCROOT)/../node_modules/react-native-store-review/ios",
 				);
 				INFOPLIST_FILE = PopTagTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1930,12 +1964,14 @@
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-instagram-share/RNInstagramShare",
 					"$(SRCROOT)/../node_modules/react-native-thumbnail/ios",
+					"$(SRCROOT)/../node_modules/react-native-store-review/ios",
 				);
 				INFOPLIST_FILE = PopTagTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1982,6 +2018,7 @@
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-instagram-share/RNInstagramShare",
 					"$(SRCROOT)/../node_modules/react-native-thumbnail/ios",
+					"$(SRCROOT)/../node_modules/react-native-store-review/ios",
 				);
 				INFOPLIST_FILE = PopTag/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2020,6 +2057,7 @@
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-instagram-share/RNInstagramShare",
 					"$(SRCROOT)/../node_modules/react-native-thumbnail/ios",
+					"$(SRCROOT)/../node_modules/react-native-store-review/ios",
 				);
 				INFOPLIST_FILE = PopTag/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2062,11 +2100,13 @@
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-instagram-share/RNInstagramShare",
 					"$(SRCROOT)/../node_modules/react-native-thumbnail/ios",
+					"$(SRCROOT)/../node_modules/react-native-store-review/ios",
 				);
 				INFOPLIST_FILE = "PopTag-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2117,11 +2157,13 @@
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-instagram-share/RNInstagramShare",
 					"$(SRCROOT)/../node_modules/react-native-thumbnail/ios",
+					"$(SRCROOT)/../node_modules/react-native-store-review/ios",
 				);
 				INFOPLIST_FILE = "PopTag-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2162,11 +2204,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-instagram-share/RNInstagramShare",
 					"$(SRCROOT)/../node_modules/react-native-thumbnail/ios",
+					"$(SRCROOT)/../node_modules/react-native-store-review/ios",
 				);
 				INFOPLIST_FILE = "PopTag-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2207,11 +2251,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-instagram-share/RNInstagramShare",
 					"$(SRCROOT)/../node_modules/react-native-thumbnail/ios",
+					"$(SRCROOT)/../node_modules/react-native-store-review/ios",
 				);
 				INFOPLIST_FILE = "PopTag-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

@@ -142,7 +142,7 @@ export default class Dialogue extends Component {
                         underlineColorAndroid={'transparent'} />
                 </View>
 
-                <View style={styles.buttonrow}>
+                {/* <View style={styles.buttonrow}>
                     <TouchableOpacity style={global.filter == 'questions' ? styles.buttonactive : styles.button} activeOpacity={1}
                         onPress={() => this.props.changeFilter('questions')}>
                         <Image style={styles.chatbubble} source={{ uri: 'chatbubble' }} />
@@ -163,7 +163,7 @@ export default class Dialogue extends Component {
                         <Image style={styles.scavenger} source={{ uri: 'scavenger' }} />
                     </TouchableOpacity>
 
-                </View>
+                </View> */}
 
                 <FlatList
                     data={search}
@@ -249,15 +249,15 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     search: {
-        height: 25,
-        width: 25,
+        height: 14,
+        width: 14,
         tintColor: 'black',
-        marginRight: 5
+        marginRight: 10
     },
     subtext: {
         color: '#4A4A4A',
         fontSize: (ipad) ? 22 : Dimensions.get('window').width * 0.043,
-        paddingTop: 1,
+        paddingTop: Platform.OS === 'android' ? 10 : 1,
         flex: 1
     },
     linearGradient: {
